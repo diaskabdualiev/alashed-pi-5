@@ -24,7 +24,7 @@
 
 Схема подключения
 -----------------
-.. figure:: images/lesson2.png
+.. figure:: images/image.png
    :width: 80%
    :align: center
 
