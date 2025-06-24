@@ -79,7 +79,7 @@
    app = Flask(__name__)
 
    # Инициализация PWM на GPIO 18
-   pwm = pwmio.PWMOut(board.D19, duty_cycle=2 ** 15, frequency=50)
+   pwm = pwmio.PWMOut(board.D18, duty_cycle=2 ** 15, frequency=50)
 
    # Создание объекта сервопривода
    my_servo = servo.Servo(pwm, min_pulse=750, max_pulse=2250)
