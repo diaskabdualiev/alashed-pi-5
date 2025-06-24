@@ -327,7 +327,7 @@
 <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 <span class="c1"># Инициализация PWM на GPIO 18</span>
-<span class="n">pwm</span> <span class="o">=</span> <span class="n">pwmio</span><span class="o">.</span><span class="n">PWMOut</span><span class="p">(</span><span class="n">board</span><span class="o">.</span><span class="n">D19</span><span class="p">,</span> <span class="n">duty_cycle</span><span class="o">=</span><span class="mi">2</span> <span class="o">**</span> <span class="mi">15</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">pwm</span> <span class="o">=</span> <span class="n">pwmio</span><span class="o">.</span><span class="n">PWMOut</span><span class="p">(</span><span class="n">board</span><span class="o">.</span><span class="n">D18</span><span class="p">,</span> <span class="n">duty_cycle</span><span class="o">=</span><span class="mi">2</span> <span class="o">**</span> <span class="mi">15</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 
 <span class="c1"># Создание объекта сервопривода</span>
 <span class="n">my_servo</span> <span class="o">=</span> <span class="n">servo</span><span class="o">.</span><span class="n">Servo</span><span class="p">(</span><span class="n">pwm</span><span class="p">,</span> <span class="n">min_pulse</span><span class="o">=</span><span class="mi">750</span><span class="p">,</span> <span class="n">max_pulse</span><span class="o">=</span><span class="mi">2250</span><span class="p">)</span>
