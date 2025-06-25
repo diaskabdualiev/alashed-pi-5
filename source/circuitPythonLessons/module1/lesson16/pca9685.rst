@@ -22,7 +22,7 @@ PCA9685 – это 16-канальный ШИМ (PWM) контроллер с I2
 
 Схема подключения
 -----------------
-.. figure:: images/pca9685.png
+.. figure:: images/image.png
    :width: 80%
    :align: center
 
