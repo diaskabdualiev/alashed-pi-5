@@ -281,13 +281,9 @@
 </section>
 <section id="id3">
 <h2>Схема подключения<a class="headerlink" href="#id3" title="Ссылка на этот заголовок"></a></h2>
-<figure class="align-center" id="id10">
+<figure class="align-center">
 <a class="reference internal image-reference" href="../../../_images/image.png"><img alt="../../../_images/image.png" src="../../../_images/image.png" style="width: 80%;" />
 </a>
-<figcaption>
-<p><span class="caption-text"><strong>Рис. 1.</strong> Подключение LCD к Raspberry Pi по I²C
-VCC → 5 V | GND → GND | SDA → GPIO 2 | SCL → GPIO 3</span><a class="headerlink" href="#id10" title="Ссылка на это изображение"></a></p>
-</figcaption>
 </figure>
 </section>
 <section id="id4">
@@ -367,6 +363,11 @@ VCC → 5 V | GND → GND | SDA → GPIO 2 | SCL → GPIO 3</span><a
 <li><p>На второй строке — «Raspberry Pi 5».</p></li>
 <li><p>Через 5 с экран очищается.</p></li>
 </ol>
+<div class="admonition note">
+<p class="admonition-title">Примечание</p>
+<p>Если символы выглядят бледно — покрутите потёнциометр контраста на плате адаптера.
+Для дисплея 20×4 измените <code class="docutils literal notranslate"><span class="pre">cols=20,</span> <span class="pre">rows=4</span></code> и скорректируйте выводимый текст.</p>
+</div>
 </section>
 <section id="id9">
 <h2>Завершение<a class="headerlink" href="#id9" title="Ссылка на этот заголовок"></a></h2>
