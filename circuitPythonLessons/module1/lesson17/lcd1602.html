@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Урок 17: LCD1602 дисплей &mdash; документация Alash Raspberry Pi 5 Kit </title>
+  <title>Урок 17: LCD-дисплей 1602 🖥️ &mdash; документация Alash Raspberry Pi 5 Kit </title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -132,7 +132,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../lesson14/joystick.html">Урок 14: Работа с джойстиком 🕹️</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lesson15/mpu6050.html">Урок 15: Работа с MPU6050 🧭</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lesson16/pca9685.html">Урок 16: Модуль PCA9685 для сервоприводов  🤖</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Урок 17: LCD1602 дисплей</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Урок 17: LCD-дисплей 1602  🖥️</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lesson18/mfrc522.html">Урок: Работа с RFID/NFC считывателем PN532 на Raspberry Pi</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lesson19/camera.html">Урок 19: Работа с камерой Raspberry Pi 📷</a></li>
 </ul>
@@ -245,7 +245,7 @@
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Уроки на основе CircuitPython</a></li>
           <li class="breadcrumb-item"><a href="../index.html">Модуль первый</a></li>
-      <li class="breadcrumb-item active">Урок 17: LCD1602 дисплей</li>
+      <li class="breadcrumb-item active">Урок 17: LCD-дисплей 1602  🖥️</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Навигация по соседним страницам">
@@ -257,32 +257,122 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="lcd1602">
-<h1>Урок 17: LCD1602 дисплей<a class="headerlink" href="#lcd1602" title="Ссылка на этот заголовок"></a></h1>
+  <section id="lcd-1602">
+<h1>Урок 17: LCD-дисплей 1602  🖥️<a class="headerlink" href="#lcd-1602" title="Ссылка на этот заголовок"></a></h1>
+<section id="id1">
+<h2>Теоретическая часть<a class="headerlink" href="#id1" title="Ссылка на этот заголовок"></a></h2>
+<p>LCD 16×2 с I²C-переходником на <strong>PCF8574</strong> подключается к Raspberry Pi всего по двум линиям (SDA и SCL).
+Дисплей выводит две строки по 16 символов, позволяет настраивать контраст и создавать до восьми пользовательских символов.</p>
+<p><strong>Плюсы I²C-варианта:</strong></p>
+<ul class="simple">
+<li><p>Экономит GPIO-пины (только SDA/SCL).</p></li>
+<li><p>Совместим с 3,3 В логикой Raspberry Pi.</p></li>
+<li><p>Простая адресация (0x27 или 0x3F).</p></li>
+</ul>
+</section>
+<section id="id2">
+<h2>Необходимые компоненты<a class="headerlink" href="#id2" title="Ссылка на этот заголовок"></a></h2>
+<ul class="simple">
+<li><p>Raspberry Pi (4 / 5 / Zero 2 W)</p></li>
+<li><p>LCD 16×2 с I²C-адаптером <strong>PCF8574</strong></p></li>
+<li><p>Соединительные провода «папа-папа»</p></li>
+<li><p>(Опция) Резистор 220 Ω для ограничения яркости подсветки</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2>Схема подключения<a class="headerlink" href="#id3" title="Ссылка на этот заголовок"></a></h2>
+<figure class="align-center" id="id10">
+<a class="reference internal image-reference" href="circuitPythonLessons/module1/lesson17/images/lcd_i2c_wiring.png"><img alt="circuitPythonLessons/module1/lesson17/images/lcd_i2c_wiring.png" src="circuitPythonLessons/module1/lesson17/images/lcd_i2c_wiring.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Рис. 1.</strong> Подключение LCD к Raspberry Pi по I²C
+VCC → 5 V | GND → GND | SDA → GPIO 2 | SCL → GPIO 3</span><a class="headerlink" href="#id10" title="Ссылка на это изображение"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id4">
+<h2>Установка библиотек<a class="headerlink" href="#id4" title="Ссылка на этот заголовок"></a></h2>
+<ol class="arabic">
+<li><p>Активируйте I²C:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>raspi-config<span class="w"> </span>nonint<span class="w"> </span>do_i2c<span class="w"> </span><span class="m">0</span>
+</pre></div>
+</div>
+</li>
+<li><p>Установите <strong>RPLCD</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>RPLCD
+</pre></div>
+</div>
+</li>
+<li><p>Узнайте адрес модуля:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>i2cdetect<span class="w"> </span>-y<span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
+<p>В таблице появится 0x27 или 0x3F — используйте его в коде.</p>
+</li>
+</ol>
+</section>
+<section id="id5">
+<h2>Запуск кода<a class="headerlink" href="#id5" title="Ссылка на этот заголовок"></a></h2>
+<ol class="arabic">
+<li><p>Создайте папку <code class="docutils literal notranslate"><span class="pre">lessons/lesson17/</span></code>.</p></li>
+<li><p>Сохраните скрипт ниже как <code class="docutils literal notranslate"><span class="pre">lcd1602.py</span></code>.</p></li>
+<li><p>Запустите:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>lessons/lesson17/lcd1602.py
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="id6">
+<h2>Код программы<a class="headerlink" href="#id6" title="Ссылка на этот заголовок"></a></h2>
+<p>Файл: <code class="docutils literal notranslate"><span class="pre">lessons/lesson17/lcd1602.py</span></code></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">RPLCD.i2c</span><span class="w"> </span><span class="kn">import</span> <span class="n">CharLCD</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 
-<span class="c1"># Создаем объект LCD</span>
-<span class="c1"># i2c_expander - тип I2C экспандера (обычно &#39;PCF8574&#39;)</span>
-<span class="c1"># address - I2C адрес (обычно 0x27 или 0x3F)</span>
-<span class="n">lcd</span> <span class="o">=</span> <span class="n">CharLCD</span><span class="p">(</span><span class="n">i2c_expander</span><span class="o">=</span><span class="s1">&#39;PCF8574&#39;</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="mh">0x27</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-            <span class="n">cols</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">rows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dotsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="c1"># Параметры вашего дисплея</span>
+<span class="n">lcd</span> <span class="o">=</span> <span class="n">CharLCD</span><span class="p">(</span>
+    <span class="n">i2c_expander</span><span class="o">=</span><span class="s1">&#39;PCF8574&#39;</span><span class="p">,</span>
+    <span class="n">address</span><span class="o">=</span><span class="mh">0x27</span><span class="p">,</span>    <span class="c1"># замените, если i2cdetect показал 0x3F</span>
+    <span class="n">port</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">cols</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">rows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">dotsize</span><span class="o">=</span><span class="mi">8</span>
+<span class="p">)</span>
 
-<span class="c1"># Очищаем дисплей</span>
-<span class="n">lcd</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-
-<span class="c1"># Выводим текст</span>
+<span class="n">lcd</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>                 <span class="c1"># Очистка экрана</span>
 <span class="n">lcd</span><span class="o">.</span><span class="n">write_string</span><span class="p">(</span><span class="s1">&#39;helloworld&#39;</span><span class="p">)</span>
-<span class="n">lcd</span><span class="o">.</span><span class="n">cursor_pos</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># Переходим на вторую строку</span>
+<span class="n">lcd</span><span class="o">.</span><span class="n">cursor_pos</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>     <span class="c1"># Вторая строка, первый столбец</span>
 <span class="n">lcd</span><span class="o">.</span><span class="n">write_string</span><span class="p">(</span><span class="s1">&#39;Raspberry Pi 5&#39;</span><span class="p">)</span>
 
-<span class="c1"># Ждем некоторое время</span>
-<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-
-<span class="c1"># Очищаем дисплей перед выходом</span>
-<span class="n">lcd</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>               <span class="c1"># Пауза 5 с</span>
+<span class="n">lcd</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>                 <span class="c1"># Очистка перед выходом</span>
 </pre></div>
 </div>
+</section>
+<section id="id7">
+<h2>Разбор кода<a class="headerlink" href="#id7" title="Ссылка на этот заголовок"></a></h2>
+<ul class="simple">
+<li><p><strong>CharLCD</strong> — создаёт объект LCD; главные аргументы — тип расширителя, адрес I²C и размеры экрана.</p></li>
+<li><p><strong>lcd.clear()</strong> — очищает весь дисплей.</p></li>
+<li><p><strong>lcd.write_string()</strong> — выводит строку на текущей позиции курсора.</p></li>
+<li><p><strong>lcd.cursor_pos = (row, col)</strong> — перемещает курсор (нумерация строк с 0).</p></li>
+<li><p><strong>time.sleep(5)</strong> удерживает сообщение 5 секунд.</p></li>
+</ul>
+</section>
+<section id="id8">
+<h2>Ожидаемый результат<a class="headerlink" href="#id8" title="Ссылка на этот заголовок"></a></h2>
+<ol class="arabic simple">
+<li><p>Подсветка дисплея загорается.</p></li>
+<li><p>На первой строке появляется «helloworld».</p></li>
+<li><p>На второй строке — «Raspberry Pi 5».</p></li>
+<li><p>Через 5 с экран очищается.</p></li>
+</ol>
+</section>
+<section id="id9">
+<h2>Завершение<a class="headerlink" href="#id9" title="Ссылка на этот заголовок"></a></h2>
+<p>Остановите скрипт <strong>Ctrl + C</strong> или дождитесь его завершения.
+Поздравляем — теперь вы умеете выводить текст на LCD 16×2 по I²C и можете добавлять визуальную индикацию в свои проекты!</p>
+</section>
 </section>
 
 
