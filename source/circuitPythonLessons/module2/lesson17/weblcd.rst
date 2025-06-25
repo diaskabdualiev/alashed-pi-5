@@ -35,20 +35,18 @@ LCD-дисплеи с модулем I2C широко используются �
 
 Установка необходимых библиотек
 --------------------------------------------------------------
-Перед запуском проекта необходимо установить требуемые библиотеки:
-
 .. code-block:: bash
 
-   # Установка I2C утилит
+   # 1. Утилиты для I²C
    sudo apt-get update
-   sudo apt-get install -y python-smbus i2c-tools
-   
-   # Включение I2C в Raspberry Pi, если ещё не включено
+   sudo apt-get install -y i2c-tools python3-smbus
+
+   # 2. Включаем I²C-шину (один раз)
    sudo raspi-config
-   # Выберите: Interfacing Options → I2C → Yes
-   
-   # Установка библиотек Python
-   pip install flask RPLCD
+   #  → Interfacing Options → I2C → Yes
+
+   # 3. Устанавливаем/обновляем Python-библиотеки
+   pip3 install --upgrade smbus2 flask RPLCD
 
 Проверка I2C-адреса дисплея:
 
