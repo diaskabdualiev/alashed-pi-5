@@ -331,9 +331,9 @@
 
 <span class="c1"># Функция для установки цвета RGB светодиода</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">set_color</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-    <span class="n">red_pin</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">r</span>
-    <span class="n">green_pin</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">g</span>
-    <span class="n">blue_pin</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">b</span>
+    <span class="n">red_pin</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">r</span>
+    <span class="n">green_pin</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">g</span>
+    <span class="n">blue_pin</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">b</span>
 
 <span class="c1"># Маршруты Flask</span>
 <span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
