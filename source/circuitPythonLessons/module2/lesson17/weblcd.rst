@@ -21,7 +21,7 @@ LCD-дисплеи с модулем I2C широко используются �
 
 Схема подключения
 ------------------------------------
-.. figure:: images/lcd_i2c_connection.png
+.. figure:: images/image.png
    :width: 80%
    :align: center
 
