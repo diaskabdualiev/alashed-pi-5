@@ -293,17 +293,16 @@
 </section>
 <section id="id4">
 <h2>Установка необходимых библиотек<a class="headerlink" href="#id4" title="Ссылка на этот заголовок"></a></h2>
-<p>Перед запуском проекта необходимо установить требуемые библиотеки:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Установка I2C утилит</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Утилиты для I²C</span>
 sudo<span class="w"> </span>apt-get<span class="w"> </span>update
-sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>python-smbus<span class="w"> </span>i2c-tools
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>i2c-tools<span class="w"> </span>python3-smbus
 
-<span class="c1"># Включение I2C в Raspberry Pi, если ещё не включено</span>
+<span class="c1"># 2. Включаем I²C-шину (один раз)</span>
 sudo<span class="w"> </span>raspi-config
-<span class="c1"># Выберите: Interfacing Options → I2C → Yes</span>
+<span class="c1">#  → Interfacing Options → I2C → Yes</span>
 
-<span class="c1"># Установка библиотек Python</span>
-pip<span class="w"> </span>install<span class="w"> </span>flask<span class="w"> </span>RPLCD
+<span class="c1"># 3. Устанавливаем/обновляем Python-библиотеки</span>
+pip3<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>smbus2<span class="w"> </span>flask<span class="w"> </span>RPLCD
 </pre></div>
 </div>
 <p>Проверка I2C-адреса дисплея:</p>
