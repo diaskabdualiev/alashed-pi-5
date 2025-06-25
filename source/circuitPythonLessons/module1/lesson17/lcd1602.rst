@@ -22,7 +22,7 @@ LCD 16×2 с I²C-переходником на **PCF8574** подключает
 
 Схема подключения
 -----------------
-.. figure:: images/lcd_i2c_wiring.png
+.. figure:: images/image.png
    :width: 80%
    :align: center
 
