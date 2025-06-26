@@ -332,9 +332,9 @@
 
 <span class="c1"># Функция для установки цвета RGB светодиода</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">set_color</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-    <span class="n">red_pin</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">r</span>
-    <span class="n">green_pin</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">g</span>
-    <span class="n">blue_pin</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">b</span>
+    <span class="n">red_pin</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">r</span>
+    <span class="n">green_pin</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">g</span>
+    <span class="n">blue_pin</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">b</span>
 
 <span class="c1"># Функция для вывода информации о текущем цвете</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">print_color</span><span class="p">(</span><span class="n">color_name</span><span class="p">):</span>
