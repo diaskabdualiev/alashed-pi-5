@@ -18,7 +18,7 @@ PCA9685 - это 16-канальный ШИМ-контроллер с I2C инт
 
 Схема подключения
 ------------------------------------
-.. figure:: images/pca9685_connection.png
+.. figure:: images/image.png
    :width: 80%
    :align: center
 
