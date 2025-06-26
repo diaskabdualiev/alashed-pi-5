@@ -74,9 +74,9 @@ RGB светодиод представляет собой три светоди
 
    # Функция для установки цвета RGB светодиода
    def set_color(r, g, b):
-       red_pin.value = r
-       green_pin.value = g
-       blue_pin.value = b
+       red_pin.value = not r
+       green_pin.value = not g
+       blue_pin.value = not b
        
    # Функция для вывода информации о текущем цвете
    def print_color(color_name):
