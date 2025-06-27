@@ -29,7 +29,7 @@ RGB-светодиод имеет четыре вывода: самый длин
 остальные — **Red**, **Green** и **Blue**. Ориентироваться удобно по выемке на корпусе:
 ближайший к ней вывод — **Red**, далее по часовой стрелке GND, Green, Blue.
 
-.. figure:: images/rgb_pin.jpg
+.. figure:: images/rgb_pin.png
    :width: 200px
    :align: center
 
@@ -37,5 +37,5 @@ RGB-светодиод имеет четыре вывода: самый длин
 Примеры проектов
 ----------------
 
-* `RGB-светодиод (Python) </circuitPythonLessons/module1/lesson3/rgb.rst>`_
-* `RGB-веб-светодиод (C) </circuitPythonLessons/module2/lesson3/webrgb.rst>`_
+* `RGB-светодиод  </circuitPythonLessons/module1/lesson3/rgb.rst>`_
+* `RGB-веб-светодиод  </circuitPythonLessons/module2/lesson3/webrgb.rst>`_
