@@ -8,3 +8,5 @@
    basic/breadboard
    basic/led
    basic/resistor
+   basic/wires
+   basic/rgb_led
