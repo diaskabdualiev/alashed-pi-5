@@ -10,3 +10,8 @@
    basic/resistor
    basic/wires
    basic/rgb_led
+   basic/keypad
+   basic/potentiometer
+   basic/button
+   basic/relay
+   basic/servo
