@@ -68,14 +68,12 @@
 Примеры проектов
 ----------------
 
-.. only:: html
+* `Мигающий светодиод <circuitPythonLessons/module1/lesson1/blink.rst>`_
+* `Веб-светодиод <circuitPythonLessons/module2/lesson2/weblink.rst>`_
 
-   * :doc:`Мигающий светодиод </circuitPythonLessons/module1/lesson1/blink>`
-   * :doc:`Веб-светодиод </circuitPythonLessons/module2/lesson2/weblink>`
 
-.. only:: not html
 
-   * `Мигающий светодиод <circuitPythonLessons/module1/lesson1/blink.rst>`_
-   * `Веб-светодиод <circuitPythonLessons/module2/lesson2/weblink.rst>`_
+
+
 
 
