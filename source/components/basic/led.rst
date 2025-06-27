@@ -68,9 +68,6 @@
 Примеры проектов
 ----------------
 
-* `Мигающий светодиод <circuitPythonLessons/module1/lesson1/blink.rst>`_
-* `Веб-светодиод <circuitPythonLessons/module2/lesson2/weblink.rst>`_
-
 .. toctree::
    :hidden:
    :maxdepth: 1
