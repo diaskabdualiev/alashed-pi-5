@@ -68,8 +68,6 @@
 Примеры проектов
 ----------------
 
-* :doc:`Мигающий светодиод </circuitPythonLessons/module1/lesson1/blink>`
-* :doc:`Веб-светодиод </circuitPythonLessons/module2/lesson2/weblink>`
 
 
 
