@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Светодиоды &mdash; документация Alash Raspberry Pi 5 Kit </title>
+  <title>Светодиод (LED) &mdash; документация Alash Raspberry Pi 5 Kit </title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -164,7 +164,13 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Узнайте больше о компонентах, входящих в Ваш комплект</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="breadboard.html">Breadboard</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Светодиоды</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Светодиод (LED)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Принцип работы и полярность</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Нужен ли токоограничивающий резистор?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Дополнительные материалы</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Примеры проектов</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="resistor.html">Резистор</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="resistor.html#id2">Обозначения на схемах</a></li>
 <li class="toctree-l3"><a class="reference internal" href="resistor.html#id3">Единицы измерения сопротивления</a></li>
@@ -252,7 +258,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Узнайте больше о компонентах, входящих в Ваш комплект</a></li>
-      <li class="breadcrumb-item active">Светодиоды</li>
+      <li class="breadcrumb-item active">Светодиод (LED)</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Навигация по соседним страницам">
@@ -264,8 +270,69 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="id1">
-<h1>Светодиоды<a class="headerlink" href="#id1" title="Ссылка на этот заголовок"></a></h1>
+  <section id="led">
+<h1>Светодиод (LED)<a class="headerlink" href="#led" title="Ссылка на этот заголовок"></a></h1>
+<a class="reference internal image-reference" href="components/basic/images/LED.png"><img alt="components/basic/images/LED.png" class="align-center" src="components/basic/images/LED.png" style="width: 400px;" />
+</a>
+<p><strong>Светодиод</strong> (Light-Emitting Diode) — это полупроводниковый прибор,
+который преобразует электрическую энергию в световую за счёт PN-перехода.
+По длине волны излучения различают:</p>
+<ul class="simple">
+<li><p><strong>лазерные диоды</strong>,</p></li>
+<li><p><strong>инфракрасные ИК-светодиоды</strong>,</p></li>
+<li><p><strong>видимые светодиоды</strong>, которые чаще всего и называют просто LED.</p></li>
+</ul>
+<section id="id1">
+<h2>Принцип работы и полярность<a class="headerlink" href="#id1" title="Ссылка на этот заголовок"></a></h2>
+<p>У диода <strong>односторонняя проводимость</strong>: ток протекает только от анода к катоду
+(см. направление стрелки на условном обозначении).</p>
+<img alt="components/basic/images/led_symbol.png" class="align-center" src="components/basic/images/led_symbol.png" />
+<p>У светодиода два вывода:</p>
+<ul class="simple">
+<li><p>длинный вывод — <strong>анод (+)</strong>,</p></li>
+<li><p>короткий вывод — <strong>катод (−)</strong>.</p></li>
+</ul>
+<p>Важно не перепутать полярность при подключении.</p>
+</section>
+<section id="id2">
+<h2>Нужен ли токоограничивающий резистор?<a class="headerlink" href="#id2" title="Ссылка на этот заголовок"></a></h2>
+<p>У каждого LED есть фиксированное <strong>падение напряжения</strong> (<code class="docutils literal notranslate"><span class="pre">V_D</span></code>):</p>
+<ul class="simple">
+<li><p>красный, жёлтый, зелёный — ≈ 1.8 В</p></li>
+<li><p>белый — ≈ 2.6 В</p></li>
+</ul>
+<p>Большинство светодиодов рассчитаны на <strong>I&lt;sub&gt;max&lt;/sub&gt; ≈ 20 мА</strong>.
+Если подать питание напрямую, источник может «перебороть» <code class="docutils literal notranslate"><span class="pre">V_D</span></code> и
+перепустить ток, что приведёт к перегоранию диода.
+Поэтому <strong>обязательно</strong> ставят последовательный резистор.</p>
+<p>Формула для расчёта сопротивления:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>R = (V_supply − V_D) / I
+</pre></div>
+</div>
+<p>где</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">R</span></code> — сопротивление резистора (Ом),</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">V_supply</span></code> — напряжение питания,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">V_D</span></code> — падение напряжения на LED,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">I</span></code> — рабочий ток светодиода.</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2>Дополнительные материалы<a class="headerlink" href="#id3" title="Ссылка на этот заголовок"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://ru.wikipedia.org/wiki/Светодиод">Светодиод — Википедия</a></p></li>
+</ul>
+</section>
+<section id="id5">
+<h2>Примеры проектов<a class="headerlink" href="#id5" title="Ссылка на этот заголовок"></a></h2>
+<ul class="simple">
+<li><p><span class="xref std std-ref">1.1.1_c</span> – проект на <strong>C</strong></p></li>
+<li><p><span class="xref std std-ref">3.1.6_c</span> – проект на <strong>C</strong></p></li>
+<li><p><span class="xref std std-ref">1.1.1_py</span> – проект на <strong>Python</strong></p></li>
+<li><p><span class="xref std std-ref">4.1.12_py</span> – проект на <strong>Python</strong></p></li>
+<li><p><span class="xref std std-ref">1.1_scratch</span> – проект на <strong>Scratch</strong></p></li>
+</ul>
+</section>
 </section>
 
 
