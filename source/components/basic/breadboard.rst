@@ -1,7 +1,7 @@
 Breadboard
 ==============
 
-.. image:: img/breadboard.png
+.. image:: images/breadboard.png
     :width: 600
 
 A breadboard is a construction base for prototyping of electronics. Originally the word referred to a literal bread board, a polished piece of wood used for slicing bread.[1] In the 1970s the solderless breadboard (a.k.a. plugboard, a terminal array board) became available and nowadays the term "breadboard" is commonly used to refer to these.
@@ -13,7 +13,7 @@ The breadboard allows you to plug in and remove components easily.
 The picture shows the internal structure of a breadboard. 
 Although these holes on the breadboard appear to be independent of each other, they are actually connected to each other through metal strips internally.
 
-.. image:: img/breadboard_internal.png
+.. image:: images/breadboard_internal.png
     :width: 600
 
 If you want to know more about breadboard, refer to: `How to Use a Breadboard - Science Buddies <https://www.sciencebuddies.org/science-fair-projects/references/how-to-use-a-breadboard#pth-smd>`_
