@@ -6,5 +6,5 @@
    :caption: Содержание:
 
    basic/breadboard
-   basic/jumper
+   basic/led
    basic/resistor
