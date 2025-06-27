@@ -66,6 +66,6 @@
 --------------------------------------------------------------------
 Примеры проектов
 --------------------------------------------------------------------
-* `Мигающий светодиод <../../circuitPythonLessons/module1/lesson1/blink>`_
-* `Веб светодиод <circuitPythonLessons/module2/lesson2/weblink.rst>`_
+* `Мигающий светодиод <../../circuitPythonLessons/module1/lesson1/blink.rst>`_
+* `Веб светодиод <../../circuitPythonLessons/module2/lesson2/weblink.rst>`_
 
