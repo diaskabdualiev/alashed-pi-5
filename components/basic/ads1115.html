@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>&lt;no title&gt; &mdash; документация Alash Raspberry Pi 5 Kit </title>
+  <title>ADS1115 (16-bit I²C ADC) &mdash; документация Alash Raspberry Pi 5 Kit </title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -272,7 +272,7 @@
           <div role="navigation" aria-label="Навигация по страницам">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">&lt;no title&gt;</li>
+      <li class="breadcrumb-item active">ADS1115 (16-bit I²C ADC)</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -281,7 +281,47 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  
+  <section id="ads1115-16-bit-i2c-adc">
+<h1>ADS1115 (16-bit I²C ADC)<a class="headerlink" href="#ads1115-16-bit-i2c-adc" title="Ссылка на этот заголовок"></a></h1>
+<a class="reference internal image-reference" href="components/basic/img/ads1115.png"><img alt="components/basic/img/ads1115.png" class="align-center" src="components/basic/img/ads1115.png" style="width: 240px;" />
+</a>
+<p><strong>Описание</strong></p>
+<p>ADS1115 — это четырёхканальный 16-битный АЦП с интерфейсом <strong>I²C</strong> и
+встроенным программируемым усилителем (PGA). Чип позволяет измерять как
+одноканальные (single-ended), так и дифференциальные сигналы в диапазоне
+от ±256 mV до ±6.144 V (на выбор).</p>
+<p>Благодаря дельта-сигма архитектуре, ADS1115 обеспечивает высокую
+точность и низкий уровень шума при частоте выборки до 860 SPS,
+сохраняя при этом простое 2-проводное подключение.</p>
+<p><strong>Выводы модуля</strong></p>
+<ul class="simple">
+<li><p><strong>VCC</strong> — питание 2.0 … 5.5 V</p></li>
+<li><p><strong>GND</strong> — общий провод</p></li>
+<li><p><strong>SCL</strong> — тактовая линия I²C</p></li>
+<li><p><strong>SDA</strong> — линия данных I²C</p></li>
+<li><p><strong>ADDR</strong> — задаёт I²C-адрес (по умолчанию 0x48; подтяжка к VCC / GND)</p></li>
+<li><p><strong>ALRT/RDY</strong> — прерывание готовности данных или компаратора</p></li>
+</ul>
+<p><strong>Принцип работы</strong></p>
+<p>ADS1115 использует ∆-Σ преобразование: входной аналоговый сигнал
+сравнивается с внутренним опорным, результаты интегрируются и
+усредняются, после чего цифровой фильтр выдаёт итоговое 16-битное
+значение. PGA позволяет оптимально масштабировать вход (±0.256 / ±0.512 / ±1.024 / ±2.048 / ±4.096 / ±6.144 V),
+чтобы раскрыть всю разрядность АЦП.</p>
+<div class="admonition note">
+<p class="admonition-title">Примечание</p>
+<p>Для точных измерений аналоговый вход нельзя превышать VCC ± 0.3 V.</p>
+</div>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.ti.com/lit/ds/symlink/ads1115.pdf">ADS1115 Datasheet</a></p></li>
+</ul>
+<p><strong>Примеры</strong></p>
+<ul class="simple">
+<li><p><span class="xref std std-ref">2.2.5_c</span> (C Project)</p></li>
+<li><p><span class="xref std std-ref">4.1.3_py</span> (Python Project)</p></li>
+</ul>
+</section>
+
 
            </div>
           </div>
