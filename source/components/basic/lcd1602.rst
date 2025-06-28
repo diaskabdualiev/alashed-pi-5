@@ -26,14 +26,14 @@ LCD1602
 Адрес можно изменить, замыкая перемычки **A0/A1/A2**:  
 в исходном состоянии они лог. 1; при замыкании — лог. 0.
 
-.. image:: images/i2c_address.jpg
+.. image:: images/i2c_address.png
    :width: 600
    :align: center
 
 Подсветка и контраст
 --------------------
 
-.. image:: images/back_lcd1602.jpg
+.. image:: images/back_lcd1602.png
    :align: center
 
 * **Перемычка (Jumper)** — включает подсветку; снимите перемычку,
