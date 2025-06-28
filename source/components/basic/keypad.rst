@@ -22,3 +22,6 @@ pull-down).
 Примеры проектов
 ----------------
 
+* :doc:`Матричная клавиатура </circuitPythonLessons/module1/lesson10/klav>`
+* :doc:`Веб клавиатура</circuitPythonLessons/module2/lesson10/webkeypad>`
+
