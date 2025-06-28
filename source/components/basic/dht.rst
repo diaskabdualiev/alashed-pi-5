@@ -52,5 +52,5 @@ DATA              Двухсторонний цифровой сигнал
 -------
 
 * :doc:`Датчик DHT11 </circuitPythonLessons/module1/lesson6>`
-* :doc:`Веб сайт для управления сервоприводом </circuitPythonLessons/module2/lesson8>`
+* :doc:`Мини веб метостанция </circuitPythonLessons/module2/lesson6>`
 
