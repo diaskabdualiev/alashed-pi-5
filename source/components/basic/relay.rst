@@ -59,8 +59,9 @@
 
 ---
 
-**Примеры**
+Примеры
+-------
 
-* :ref:`1.3.3_c` — проект на C  
-* :ref:`1.3.3_py` — проект на Python
+* :doc:`Управление реле </circuitPythonLessons/module1/lesson9/relay>`
+* :doc:`Веб реле </circuitPythonLessons/module2/lesson9/webrelay>`
 
