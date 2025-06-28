@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Breadboard &mdash; документация Alash Raspberry Pi 5 Kit </title>
+  <title>Сервопривод &mdash; документация Alash Raspberry Pi 5 Kit </title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -24,8 +24,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
     <link rel="search" title="Поиск" href="../../search.html" />
-    <link rel="next" title="Светодиод (LED)" href="led.html" />
-    <link rel="prev" title="Узнайте больше о компонентах, входящих в Ваш комплект" href="../index.html" /> 
+    <link rel="next" title="Дополнения" href="../../appendix/index.html" />
+    <link rel="prev" title="Кнопка" href="button.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -163,7 +163,7 @@
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Узнайте больше о компонентах, входящих в Ваш комплект</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Breadboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="breadboard.html">Breadboard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="led.html">Светодиод (LED)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="led.html#id1">Принцип работы и полярность</a></li>
 <li class="toctree-l3"><a class="reference internal" href="led.html#id2">Нужен ли токоограничивающий резистор?</a></li>
@@ -189,7 +189,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="button.html">Кнопка</a></li>
-<li class="toctree-l2"><a class="reference internal" href="servo.html">Сервопривод</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Сервопривод</a></li>
 </ul>
 </li>
 </ul>
@@ -268,40 +268,37 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Узнайте больше о компонентах, входящих в Ваш комплект</a></li>
-      <li class="breadcrumb-item active">Breadboard</li>
+      <li class="breadcrumb-item active">Сервопривод</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Навигация по соседним страницам">
-        <a href="../index.html" class="btn btn-neutral float-left" title="Узнайте больше о компонентах, входящих в Ваш комплект" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Предыдущая</a>
-        <a href="led.html" class="btn btn-neutral float-right" title="Светодиод (LED)" accesskey="n">Следующая <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="button.html" class="btn btn-neutral float-left" title="Кнопка" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Предыдущая</a>
+        <a href="../../appendix/index.html" class="btn btn-neutral float-right" title="Дополнения" accesskey="n">Следующая <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
   </div>
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="breadboard">
-<h1>Breadboard<a class="headerlink" href="#breadboard" title="Ссылка на этот заголовок"></a></h1>
-<a class="reference internal image-reference" href="../../_images/breadboard.png"><img alt="../../_images/breadboard.png" src="../../_images/breadboard.png" style="width: 600px;" />
+  <section id="id1">
+<h1>Сервопривод<a class="headerlink" href="#id1" title="Ссылка на этот заголовок"></a></h1>
+<img alt="components/basic/images/servo.png" class="align-center" src="components/basic/images/servo.png" />
+<p>Сервопривод обычно состоит из следующих частей: корпус, вал, редукторная система, потенциометр, двигатель постоянного тока и встроенная плата управления.</p>
+<p>Принцип его работы таков: микроконтроллер посылает на сервопривод ШИМ-сигналы, которые принимаются встроенной платой через сигнальный пин. Эта плата управляет двигателем, который, в свою очередь, приводит в движение редукторную систему, а та вращает вал после понижения оборотов. Вал сервопривода соединён с потенциометром. Когда вал вращается, он также поворачивает потенциометр, который передаёт сигнал напряжения на встроенную плату. Плата определяет направление и скорость вращения на основе текущей позиции, позволяя валу точно остановиться в заданной точке и удерживать её.</p>
+<img alt="components/basic/images/servo_internal.png" class="align-center" src="components/basic/images/servo_internal.png" />
+<p>Угол поворота задаётся длительностью импульса, подаваемого на сигнальный провод. Это называется широтно-импульсной модуляцией (ШИМ). Сервопривод ожидает импульс каждые 20 мс. Длина импульса определяет, насколько повернётся двигатель. Например, импульс длиной 1.5 мс установит вал в положение 90 градусов (нейтральное положение).
+Если длительность импульса меньше 1.5 мс, вал поворачивается против часовой стрелки от нейтральной точки. Если длительность больше 1.5 мс — по часовой стрелке. Минимальная и максимальная ширина импульса, при которых сервопривод реагирует, варьируется от модели к модели. Как правило, минимальное значение — около 0.5 мс, максимальное — около 2.5 мс.</p>
+<a class="reference internal image-reference" href="components/basic/images/servo_duty.png"><img alt="components/basic/images/servo_duty.png" class="align-center" src="components/basic/images/servo_duty.png" style="width: 600px;" />
 </a>
-<p>Макетная плата (breadboard) — это основа для прототипирования электронных схем.
-Изначально термин обозначал доску для нарезки хлеба, отшлифованный деревянный брусок.
-В 1970-х появились бессвинцовые макетные платы (также называемые solderless breadboard, plugboard или terminal array board), и сегодня слово «breadboard» обычно относится именно к ним.</p>
-<p>Макетная плата позволяет быстро собирать и проверять схемы до окончательной разводки печатной платы.
-В многочисленные отверстия можно вставлять компоненты — микросхемы, резисторы и т. д., а также соединительные провода (джамперы).
-Плата даёт возможность легко устанавливать и извлекать детали, не прибегая к пайке.</p>
-<p>На рисунке ниже показано внутреннее устройство макетной платы.
-Хотя отверстия кажутся независимыми, внутри они соединены между собой металлическими шинами.</p>
-<a class="reference internal image-reference" href="../../_images/breadboard_internal.png"><img alt="../../_images/breadboard_internal.png" src="../../_images/breadboard_internal.png" style="width: 600px;" />
-</a>
+<p><strong>Примеры</strong></p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Нижняя область">
-        <a href="../index.html" class="btn btn-neutral float-left" title="Узнайте больше о компонентах, входящих в Ваш комплект" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Предыдущая</a>
-        <a href="led.html" class="btn btn-neutral float-right" title="Светодиод (LED)" accesskey="n" rel="next">Следующая <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="button.html" class="btn btn-neutral float-left" title="Кнопка" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Предыдущая</a>
+        <a href="../../appendix/index.html" class="btn btn-neutral float-right" title="Дополнения" accesskey="n" rel="next">Следующая <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
