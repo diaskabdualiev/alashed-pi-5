@@ -24,5 +24,8 @@
     :width: 600
     :align: center
 
-**Примеры**
+Примеры
+-------
 
+* :doc:`Управление сервоприводом SG90 </circuitPythonLessons/module1/lesson8/servo>`
+* :doc:`Веб сайт для управления сервоприводом </circuitPythonLessons/module2/lesson8/webservo>`
