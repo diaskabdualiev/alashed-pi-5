@@ -2,7 +2,7 @@ LCD1602
 ==============
 
 .. image:: images/lcd1602.png
-   :width: 800
+   :width: 500
 
 * **GND** — земля  
 * **VCC** — питание **5 В**  
