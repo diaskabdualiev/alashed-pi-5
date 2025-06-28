@@ -70,3 +70,5 @@ GND               Общий провод
 Примеры
 -------
 
+* :doc:`Ультразвуковой датчик HC-SR04 </circuitPythonLessons/module1/lesson7/hsr04>`
+* :doc:`Веб ультразвуковая страница </circuitPythonLessons/module2/lesson7/hcsr04web>`
