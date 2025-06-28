@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Кнопка &mdash; документация Alash Raspberry Pi 5 Kit </title>
+  <title>&lt;no title&gt; &mdash; документация Alash Raspberry Pi 5 Kit </title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -24,8 +24,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
     <link rel="search" title="Поиск" href="../../search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="relay.html" />
-    <link rel="prev" title="Потенциометр" href="potentiometer.html" /> 
+    <link rel="next" title="Сервопривод" href="servo.html" />
+    <link rel="prev" title="Кнопка" href="button.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -161,8 +161,8 @@
 </ul>
 </li>
 </ul>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Узнайте больше о компонентах, входящих в Ваш комплект</a><ul class="current">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Узнайте больше о компонентах, входящих в Ваш комплект</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="breadboard.html">Breadboard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="led.html">Светодиод (LED)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="led.html#id1">Принцип работы и полярность</a></li>
@@ -189,7 +189,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="potentiometer.html">Потенциометр</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Кнопка</a></li>
+<li class="toctree-l2"><a class="reference internal" href="button.html">Кнопка</a></li>
 <li class="toctree-l2"><a class="reference internal" href="servo.html">Сервопривод</a></li>
 <li class="toctree-l2"><a class="reference internal" href="mpu6050.html">Модуль MPU6050</a></li>
 </ul>
@@ -270,39 +270,25 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Узнайте больше о компонентах, входящих в Ваш комплект</a></li>
-      <li class="breadcrumb-item active">Кнопка</li>
+      <li class="breadcrumb-item active">&lt;no title&gt;</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Навигация по соседним страницам">
-        <a href="potentiometer.html" class="btn btn-neutral float-left" title="Потенциометр" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Предыдущая</a>
-        <a href="relay.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n">Следующая <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="button.html" class="btn btn-neutral float-left" title="Кнопка" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Предыдущая</a>
+        <a href="servo.html" class="btn btn-neutral float-right" title="Сервопривод" accesskey="n">Следующая <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
   </div>
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="id1">
-<h1>Кнопка<a class="headerlink" href="#id1" title="Ссылка на этот заголовок"></a></h1>
-<a class="reference internal image-reference" href="../../_images/button.png"><img alt="../../_images/button.png" class="align-center" src="../../_images/button.png" style="width: 400px;" />
-</a>
-<p>Кнопки — это распространённые компоненты, используемые для управления электронными устройствами. Обычно они служат в качестве выключателей для замыкания или размыкания цепей. Хотя кнопки бывают разных размеров и форм, здесь используется мини-кнопка размером 6 мм, как показано на изображении ниже.</p>
-<p>Выводы 1 и 2 соединены между собой, а выводы 3 и 4 — между собой. Поэтому достаточно соединить либо вывод 1 или 2 с выводом 3 или 4.</p>
-<p>Ниже представлена внутренняя структура кнопки. Символ справа внизу обычно используется для обозначения кнопки на схемах.</p>
-<a class="reference internal image-reference" href="../../_images/button_symbol.png"><img alt="../../_images/button_symbol.png" class="align-center" src="../../_images/button_symbol.png" style="width: 400px;" />
-</a>
-<p>Так как выводы 1 и 2 соединены, и выводы 3 и 4 тоже, при нажатии кнопки все 4 вывода оказываются соединены, замыкая тем самым цепь.</p>
-<a class="reference internal image-reference" href="../../_images/button2.png"><img alt="../../_images/button2.png" class="align-center" src="../../_images/button2.png" style="width: 600px;" />
-</a>
-<p><strong>Примеры</strong></p>
-</section>
-
+  
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Нижняя область">
-        <a href="potentiometer.html" class="btn btn-neutral float-left" title="Потенциометр" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Предыдущая</a>
-        <a href="relay.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Следующая <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="button.html" class="btn btn-neutral float-left" title="Кнопка" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Предыдущая</a>
+        <a href="servo.html" class="btn btn-neutral float-right" title="Сервопривод" accesskey="n" rel="next">Следующая <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
