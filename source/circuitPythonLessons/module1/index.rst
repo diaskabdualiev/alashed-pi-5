@@ -21,5 +21,5 @@
    lesson15/mpu6050
    lesson16/pca9685
    lesson17/lcd1602
-   lesson18/mfrc522
+   lesson18/pn532
    lesson19/camera
