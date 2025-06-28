@@ -26,3 +26,11 @@
    basic/pca9685
    basic/pn532
    basic/ultrasonic
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   circuitPythonLessons/module1
+   circuitPythonLessons/module2
+
