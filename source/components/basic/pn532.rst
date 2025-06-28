@@ -43,7 +43,8 @@ PN532 содержит радиопередатчик 13.56 MHz, приёмни�
 
 * `PN532 Datasheet <https://www.nxp.com/docs/en/nxp/data-sheets/PN532.pdf>`_
 
-**Примеры**
+Примеры
+-------
 
-* :ref:`2.2.10_c` (C Project)
-* :ref:`4.1.11_py` (Python Project)
+* :doc:`Работа с RFID/NFC считывателем PN532 на Raspberry Pi </circuitPythonLessons/module1/lesson18/pn532>`
+* :doc:`Веб-интерфейс для NFC-считывателя </circuitPythonLessons/module2/lesson18/webpn532>`
