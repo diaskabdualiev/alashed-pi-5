@@ -51,6 +51,6 @@ DATA              Двухсторонний цифровой сигнал
 Примеры
 -------
 
-* :doc:`Датчик DHT11 </circuitPythonLessons/module1/lesson6>`
-* :doc:`Мини веб метостанция </circuitPythonLessons/module2/lesson6>`
+* :doc:`Датчик DHT11 </circuitPythonLessons/module1/lesson6/dht>`
+* :doc:`Мини веб метостанция </circuitPythonLessons/module2/lesson6/webdht>`
 
