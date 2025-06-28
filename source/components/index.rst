@@ -16,7 +16,7 @@
    basic/relay
    basic/servo
    basic/mpu6050
-   basic/ads115
+   basic/ads1115
    basic/buzzer
    basic/camera
    basic/dht
