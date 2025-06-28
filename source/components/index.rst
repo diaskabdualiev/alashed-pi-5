@@ -21,7 +21,6 @@
    basic/camera
    basic/dht
    basic/encoder
-   basic/keypad
    basic/lcd1602
    basic/led_matrix
    basic/pca9685
