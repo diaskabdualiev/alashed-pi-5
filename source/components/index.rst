@@ -15,3 +15,4 @@
    basic/button
    basic/relay
    basic/servo
+   basic/mpu6050
