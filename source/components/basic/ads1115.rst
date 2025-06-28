@@ -39,7 +39,10 @@ ADS1115 использует ∆-Σ преобразование: входной
 
 * `ADS1115 Datasheet <https://www.ti.com/lit/ds/symlink/ads1115.pdf>`_
 
-**Примеры**
+Примеры
+-------
 
-* :ref:`2.2.5_c` (C Project)
-* :ref:`4.1.3_py` (Python Project)
+* :doc:`Модуль потенциометра ads1115 </circuitPythonLessons/module1/lesson13/pot>`
+* :doc:`Джойстик </circuitPythonLessons/module1/lesson14/joystick>`
+* :doc:`Потенциометр и веб-интерфейс </circuitPythonLessons/module2/lesson13/webpot>`
+* :doc:`Веб-интерфейс и джойстик </circuitPythonLessons/module2/lesson14/webjoystick>`
