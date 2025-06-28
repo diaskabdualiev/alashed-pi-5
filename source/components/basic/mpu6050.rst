@@ -49,4 +49,8 @@ MPU-6050 — это 6-осевой модуль (совмещает 3-осево
 
 **Угловая скорость по оси X = (16384 / 65536 * 500)°/с = 125°/с**
 
-**Примеры**
+Примеры
+-------
+
+* :doc:`Работа с MPU6050 </circuitPythonLessons/module1/lesson15/mpu6050>`
+* :doc:`3D веб визуализация MPU6050 </circuitPythonLessons/module2/lesson15/webmpu>`
