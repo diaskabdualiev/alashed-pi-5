@@ -29,5 +29,9 @@
    :align: center
    :width: 600
 
-**Примеры**
+Примеры
+-------
+
+* :doc:`Работа с джойстиком  </circuitPythonLessons/module1/lesson14/joystick>`
+* :doc:`Веб-интерфейс и джойстик </circuitPythonLessons/module2/lesson14/webjoystick>`
 
