@@ -16,3 +16,14 @@
    basic/relay
    basic/servo
    basic/mpu6050
+   basic/ads115
+   basic/buzzer
+   basic/camera
+   basic/dht
+   basic/encoder
+   basic/keypad
+   basic/lcd1602
+   basic/led_matrix
+   basic/pca9685
+   basic/pn532
+   basic/ultrasonic
