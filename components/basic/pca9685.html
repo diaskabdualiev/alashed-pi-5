@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>&lt;no title&gt; &mdash; документация Alash Raspberry Pi 5 Kit </title>
+  <title>PCA9685 (16-канальный PWM-контроллер) &mdash; документация Alash Raspberry Pi 5 Kit </title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -272,7 +272,7 @@
           <div role="navigation" aria-label="Навигация по страницам">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">&lt;no title&gt;</li>
+      <li class="breadcrumb-item active">PCA9685 (16-канальный PWM-контроллер)</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -281,7 +281,80 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  
+  <section id="pca9685-16-pwm">
+<h1>PCA9685 (16-канальный PWM-контроллер)<a class="headerlink" href="#pca9685-16-pwm" title="Ссылка на этот заголовок"></a></h1>
+<a class="reference internal image-reference" href="../../_images/pca9685.png"><img alt="../../_images/pca9685.png" class="align-center" src="../../_images/pca9685.png" style="width: 260px;" />
+</a>
+<p><strong>Описание</strong></p>
+<p>PCA9685 — это 16-канальный ШИМ-контроллер с интерфейсом <strong>I²C</strong>,
+позволяющий управлять светодиодами, сервоприводами и другими
+устройствами, требующими широтно-импульсной модуляции.
+Встроенный 12-битный таймер и отдельный регистр периода обеспечивают
+разрешение до <strong>4096</strong> шагов на канал, при этом базовая частота ШИМ
+может задаваться в диапазоне <strong>~24 Гц – 1526 Гц</strong>.</p>
+<p>Поскольку генерация ШИМ выполняется аппаратно, микроконтроллер
+освобождается от постоянного обновления сигнала, а все 16 каналов
+работают параллельно с одинаковой или независимой фазой.</p>
+<p><strong>Выводы модуля</strong></p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>VCC</p></td>
+<td><p>Питание логики 3.0 – 5.5 V</p></td>
+</tr>
+<tr class="row-even"><td><p>GND</p></td>
+<td><p>Общий провод</p></td>
+</tr>
+<tr class="row-odd"><td><p>SCL</p></td>
+<td><p>Такт I²C (до 1 Мбит/с)</p></td>
+</tr>
+<tr class="row-even"><td><p>SDA</p></td>
+<td><p>Данные I²C</p></td>
+</tr>
+<tr class="row-odd"><td><p>OE</p></td>
+<td><p>Output Enable (активный LOW, обычно подтянут к GND)</p></td>
+</tr>
+<tr class="row-even"><td><p>V+</p></td>
+<td><p>Внешнее питание нагрузки (до 6 V для сервоприводов)</p></td>
+</tr>
+<tr class="row-odd"><td><p>PWM0 … PWM15</p></td>
+<td><p>16 выходных ШИМ-каналов</p></td>
+</tr>
+<tr class="row-even"><td><p>A0 … A5</p></td>
+<td><p>Адресные джамперы I²C</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Адрес I²C</strong></p>
+<p>Базовый адрес 0x40. С помощью перемычек <strong>A0–A5</strong> можно задать
+до 64 уникальных адресов (<strong>0x40–0x7F</strong>), что позволяет
+подключить несколько плат PCA9685 к одной шине.</p>
+<p><strong>Особенности</strong></p>
+<ul class="simple">
+<li><p>16 независимых каналов, 12-бит (0 – 4095)</p></li>
+<li><p>Регистры <strong>ON</strong> и <strong>OFF</strong> для каждого канала позволяют задавать
+сдвиг фазы и ширину импульса</p></li>
+<li><p>Общий предделитель частоты (программируется в регистре <strong>PRE_SCALE</strong>)</p></li>
+<li><p>Выходы открытый коллектор, выдерживают до 25 мА на канал</p></li>
+<li><p>Поддержка режима «автоинкремента» для быстрой записи сразу
+в несколько регистров</p></li>
+<li><p>Совместим с логическими уровнями 3.3 V и 5 V</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Примечание</p>
+<p>Для питания сервоприводов подключите <strong>V+</strong> к отдельному источнику
+5–6 V, а землю этого источника объедините с <strong>GND</strong> платы
+микроконтроллера.</p>
+</div>
+<ul class="simple">
+<li><p><a class="reference external" href="https://cdn-shop.adafruit.com/datasheets/PCA9685.pdf">PCA9685 Datasheet</a></p></li>
+</ul>
+<p><strong>Примеры</strong></p>
+<ul class="simple">
+<li><p><span class="xref std std-ref">2.2.6_c</span> — проект на C</p></li>
+<li><p><span class="xref std std-ref">4.1.7_py</span> — проект на Python</p></li>
+</ul>
+</section>
+
 
            </div>
           </div>
