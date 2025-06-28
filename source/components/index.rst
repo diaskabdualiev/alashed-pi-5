@@ -29,8 +29,9 @@
 
 .. toctree::
    :maxdepth: 1
+   :glob:
    :hidden:
 
-   circuitPythonLessons/module1/*
-   circuitPythonLessons/module2/*
+   circuitPythonLessons/module1/*/*           <-- второй *
+   circuitPythonLessons/module2/*/*
 
