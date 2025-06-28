@@ -25,5 +25,9 @@ MAX7219 — это компактный драйвер дисплея с пос�
 
 * `MAX7219 Datasheet <https://datasheets.maximintegrated.com/en/ds/MAX7219-MAX7221.pdf>`_
 
-**Примеры**
+Примеры
+-------
+
+* :doc:`LED-матрица MAX7219 </circuitPythonLessons/module1/lesson12/max>`
+* :doc:`MAX7219 и веб-интерфейс </circuitPythonLessons/module2/lesson12/webmax>`
 
