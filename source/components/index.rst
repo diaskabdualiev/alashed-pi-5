@@ -6,9 +6,9 @@
    :caption: Содержание:
 
    basic/breadboard
-   basic/led
-   basic/resistor
    basic/wires
+   basic/resistor
+   basic/led
    basic/rgb_led
    basic/keypad
    basic/potentiometer
