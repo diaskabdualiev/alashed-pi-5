@@ -57,7 +57,8 @@ A0 … A5           Адресные джамперы I²C
 
 * `PCA9685 Datasheet <https://cdn-shop.adafruit.com/datasheets/PCA9685.pdf>`_
 
-**Примеры**
+Примеры
+-------
 
-* :ref:`2.2.6_c` — проект на C  
-* :ref:`4.1.7_py` — проект на Python
+* :doc:`Модуль PCA9685 для сервоприводов </circuitPythonLessons/module1/lesson16/pca9685>`
+* :doc:`Веб управлениe сервоприводами через PCA9685 </circuitPythonLessons/module2/lesson16/webpca>`
