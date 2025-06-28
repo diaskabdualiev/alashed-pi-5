@@ -34,8 +34,9 @@ RGB-светодиод имеет четыре вывода: самый длин
    :align: center
 
 
-Примеры проектов
-----------------
+Примеры
+-------
 
-* `RGB-светодиод  </circuitPythonLessons/module1/lesson3/rgb.rst>`_
-* `RGB-веб-светодиод  </circuitPythonLessons/module2/lesson3/webrgb.rst>`_
+* :doc:`RGB-светодиод  </circuitPythonLessons/module1/lesson3/rgb.rst>`
+* :doc:`RGB-веб-светодиод </circuitPythonLessons/module2/lesson3/webrgb.rst>`
+
