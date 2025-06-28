@@ -31,6 +31,6 @@
    :maxdepth: 1
    :hidden:
 
-   circuitPythonLessons/module1
-   circuitPythonLessons/module2
+   circuitPythonLessons/module1/*
+   circuitPythonLessons/module2/*
 
