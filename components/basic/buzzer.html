@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>&lt;no title&gt; &mdash; документация Alash Raspberry Pi 5 Kit </title>
+  <title>Зуммер (Buzzer) &mdash; документация Alash Raspberry Pi 5 Kit </title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -267,7 +267,7 @@
           <div role="navigation" aria-label="Навигация по страницам">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">&lt;no title&gt;</li>
+      <li class="breadcrumb-item active">Зуммер (Buzzer)</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -276,7 +276,38 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  
+  <section id="buzzer">
+<h1>Зуммер (Buzzer)<a class="headerlink" href="#buzzer" title="Ссылка на этот заголовок"></a></h1>
+<a class="reference internal image-reference" href="components/basic/images/buzzer.png"><img alt="components/basic/images/buzzer.png" src="components/basic/images/buzzer.png" style="width: 600px;" />
+</a>
+<p>Зуммер — это электронный звукоизлучатель с интегрированной схемой,
+питаемый постоянным током. Широко применяется в компьютерах,
+принтерах, копирах, сигнализациях, электронных игрушках, автомобильной
+электронике, телефонах, таймерах и других устройствах, где требуется звук.</p>
+<p>Существуют <strong>активные</strong> и <strong>пассивные</strong> зуммеры (см. рисунок ниже).
+Если перевернуть зуммер контактами вверх, то плата с <strong>зелёным</strong> текстолитом
+‐ пассивный зуммер, а корпус с чёрной защитной плёнкой
+‐ активный.</p>
+<p><strong>Отличие активного и пассивного зуммера</strong></p>
+<ul class="simple">
+<li><p><strong>Активный</strong> зуммер содержит встроённый генератор: достаточно подать
+питание, и он сразу издаёт звук.</p></li>
+<li><p><strong>Пассивный</strong> зуммер генератора не имеет, поэтому при подаче постоянного
+напряжения он молчит; для звучания его нужно возбуждать
+прямоугольным сигналом частотой ~2–5 кГц.
+Из-за встроенных схем активный зуммер обычно дороже пассивного.</p></li>
+</ul>
+<p>Ниже приведён условный графический символ зуммера.
+Два вывода имеют полярность: контакт « + » обозначает анод,
+второй – катод.</p>
+<a class="reference internal image-reference" href="components/basic/images/buzzer_symbol.png"><img alt="components/basic/images/buzzer_symbol.png" src="components/basic/images/buzzer_symbol.png" style="width: 150px;" />
+</a>
+<p>Полярность можно определить и по длине ножек: длинная — анод,
+короткая — катод. Если перепутать выводы, зуммер не будет звучать.</p>
+<p>Дополнительная информация: <a class="reference external" href="https://ru.wikipedia.org/wiki/Зуммер">Buzzer — Википедия</a></p>
+<p><strong>Примеры</strong></p>
+</section>
+
 
            </div>
           </div>
