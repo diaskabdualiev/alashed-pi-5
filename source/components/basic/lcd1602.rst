@@ -44,5 +44,5 @@ LCD1602
 Примеры
 -------
 
-* :doc:`LCD1602 </circuitPythonLessons/module1/lesson17>`
-* :doc:`Веб-интерфейс для управления LCD1602 </circuitPythonLessons/module2/lesson17>`
+* :doc:`LCD1602 </circuitPythonLessons/module1/lesson17/lcd1602>`
+* :doc:`Веб-интерфейс для управления LCD1602 </circuitPythonLessons/module2/lesson17/weblcd>`
