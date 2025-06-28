@@ -23,7 +23,9 @@
       <script src="../../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
-    <link rel="search" title="Поиск" href="../../search.html" /> 
+    <link rel="search" title="Поиск" href="../../search.html" />
+    <link rel="next" title="Модуль светодиодной матрицы" href="led_matrix.html" />
+    <link rel="prev" title="Энкодер" href="encoder.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -159,8 +161,8 @@
 </ul>
 </li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../index.html">Узнайте больше о компонентах, входящих в Ваш комплект</a><ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Узнайте больше о компонентах, входящих в Ваш комплект</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="breadboard.html">Breadboard</a></li>
 <li class="toctree-l2"><a class="reference internal" href="led.html">Светодиод (LED)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="led.html#id1">Принцип работы и полярность</a></li>
@@ -195,6 +197,44 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="servo.html">Сервопривод</a></li>
 <li class="toctree-l2"><a class="reference internal" href="mpu6050.html">Модуль MPU6050</a></li>
+<li class="toctree-l2"><a class="reference internal" href="buzzer.html">Зуммер (Buzzer)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="camera.html">Модуль камеры</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="camera.html#id2">Сборка и подключение</a></li>
+<li class="toctree-l3"><a class="reference internal" href="camera.html#id3">Примеры</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dht.html">Датчик температуры и влажности (DHT11)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dht.html#id1">Подключение</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dht.html#id2">Обмен данными</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dht.html#id3">Характеристики</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dht.html#id5">Примеры</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="encoder.html">Энкодер</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="encoder.html#id2">Как определить направление вращения</a></li>
+<li class="toctree-l3"><a class="reference internal" href="encoder.html#id3">Примеры</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="keypad.html">Клавиатура (Keypad)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keypad.html#id1">Примеры проектов</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">LCD1602</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#i2c">Адрес I²C</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Подсветка и контраст</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Примеры</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="led_matrix.html">Модуль светодиодной матрицы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pca9685.html">PCA9685 (16-канальный PWM-контроллер)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pn532.html">PN532 (NFC/RFID Reader)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ultrasonic.html">Ультразвуковой датчик расстояния (HC-SR04)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ultrasonic.html#id1">Основы работы</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ultrasonic.html#id2">Выводы модуля</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ultrasonic.html#id3">Диапазоны и точность</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ultrasonic.html#id4">Примеры</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -272,10 +312,14 @@
           <div role="navigation" aria-label="Навигация по страницам">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Узнайте больше о компонентах, входящих в Ваш комплект</a></li>
       <li class="breadcrumb-item active">LCD1602</li>
       <li class="wy-breadcrumbs-aside">
       </li>
-  </ul>
+  </ul><div class="rst-breadcrumbs-buttons" role="navigation" aria-label="Навигация по соседним страницам">
+        <a href="encoder.html" class="btn btn-neutral float-left" title="Энкодер" accesskey="p"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Предыдущая</a>
+        <a href="led_matrix.html" class="btn btn-neutral float-right" title="Модуль светодиодной матрицы" accesskey="n">Следующая <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+  </div>
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -326,7 +370,10 @@
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Нижняя область">
+        <a href="encoder.html" class="btn btn-neutral float-left" title="Энкодер" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Предыдущая</a>
+        <a href="led_matrix.html" class="btn btn-neutral float-right" title="Модуль светодиодной матрицы" accesskey="n" rel="next">Следующая <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
