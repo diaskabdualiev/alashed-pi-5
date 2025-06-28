@@ -21,5 +21,7 @@
     :width: 600
     :align: center
 
-**Примеры**
+Примеры
+-------
 
+* :doc:`Подключение кнопки  </circuitPythonLessons/module1/lesson2/button>`
