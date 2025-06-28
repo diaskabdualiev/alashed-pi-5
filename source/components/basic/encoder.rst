@@ -46,5 +46,5 @@
 Примеры
 -------
 
-* :ref:`2.1.6_c` — проект на C  
-* :ref:`2.1.6_py` — проект на Python
+* :doc:`Работа с энкодером </circuitPythonLessons/module1/lesson11/encoder>`
+* :doc:`Энкодер с веб-интерфейсом </circuitPythonLessons/module2/lesson11/webencoder>`
