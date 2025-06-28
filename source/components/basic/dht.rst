@@ -51,5 +51,6 @@ DATA              Двухсторонний цифровой сигнал
 Примеры
 -------
 
-* :ref:`2.2.3_c` — пример на C  
-* :ref:`2.2.3_py` — пример на Python
+* :doc:`Датчик DHT11 </circuitPythonLessons/module1/lesson6>`
+* :doc:`Веб сайт для управления сервоприводом </circuitPythonLessons/module2/lesson8>`
+
