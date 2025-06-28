@@ -57,11 +57,6 @@ Interface) на плате Raspberry Pi — и камера готова к ра
 Примеры
 -------
 
-* :ref:`3.1.1_py` — проект на Python  
-* :ref:`3.1.2_py` — проект на Python  
-* :ref:`4.1.1_py` — проект на Python  
-* :ref:`4.1.4_py` — проект на Python  
-* :ref:`4.1.5_py` — проект на Python  
-* :ref:`1.10_scratch` — проект на Scratch  
-* :ref:`1.18_scratch` — проект на Scratch
+* :doc:`Работа с камерой Raspberry Pi </circuitPythonLessons/module1/lesson19/camera>`
+
 
