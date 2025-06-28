@@ -35,5 +35,10 @@
 
 Если вы хотите узнать больше, см. статью: `Потенциометр — Википедия <https://ru.wikipedia.org/wiki/Потенциометр>`_
 
-**Примеры**
+
+Примеры
+-------
+
+* :doc:`Модуль потенциометра ADS1115 </circuitPythonLessons/module1/lesson13/pot>`
+* :doc:`Потенциометр и веб-интерфейс </circuitPythonLessons/module2/lesson13/webpot>`
 
