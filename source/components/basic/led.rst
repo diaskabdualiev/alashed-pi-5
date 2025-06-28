@@ -65,15 +65,13 @@
 
 --------------------------------------------------------------------
 
-Примеры проектов
-----------------
+Примеры
+-------
 
-.. toctree::
-   :hidden:
-   :maxdepth: 1
-
-   /circuitPythonLessons/module1/lesson1/blink
-   /circuitPythonLessons/module2/lesson2/weblink
+* :doc:`Моргание светодиодом  </circuitPythonLessons/module1/lesson1/blink>`
+* :doc:`Веб светодиод </circuitPythonLessons/module2/lesson2/weblink>`
+   
+   
 
 
 
