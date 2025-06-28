@@ -35,7 +35,12 @@
 
 Дополнительная информация: `Buzzer — Википедия <https://ru.wikipedia.org/wiki/Зуммер>`_
 
-**Примеры**
+Примеры
+-------
 
+* :doc:`Работа с активным зуммером </circuitPythonLessons/module1/lesson4/active_buzzer>`
+* :doc:`Работа с Пассивный зуммер </circuitPythonLessons/module1/lesson5/passive_buzzer>`
+* :doc:`Активный зуммер в веб интерфейсе </circuitPythonLessons/module2/lesson4/webbuzzer>`
+* :doc:`Пассивный зуммер в веб интерфейсе </circuitPythonLessons/module2/lesson5/webpassivebuzzer>`
 
 
