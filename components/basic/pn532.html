@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>&lt;no title&gt; &mdash; документация Alash Raspberry Pi 5 Kit </title>
+  <title>PN532 (NFC/RFID Reader) &mdash; документация Alash Raspberry Pi 5 Kit </title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -272,7 +272,7 @@
           <div role="navigation" aria-label="Навигация по страницам">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">&lt;no title&gt;</li>
+      <li class="breadcrumb-item active">PN532 (NFC/RFID Reader)</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -281,7 +281,52 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  
+  <section id="pn532-nfc-rfid-reader">
+<h1>PN532 (NFC/RFID Reader)<a class="headerlink" href="#pn532-nfc-rfid-reader" title="Ссылка на этот заголовок"></a></h1>
+<a class="reference internal image-reference" href="components/basic/images/pn532.png"><img alt="components/basic/images/pn532.png" class="align-center" src="components/basic/images/pn532.png" style="width: 240px;" />
+</a>
+<p><strong>Описание</strong></p>
+<p>PN532 — популярный многопротокольный контроллер NFC от NXP,
+поддерживающий <strong>ISO/IEC 14443 A/B</strong>, <strong>FeliCa</strong>, а также режимы
+кард-эмуляции и peer-to-peer (<strong>NFC IP-1</strong>). Модуль может
+подключаться через <strong>I²C</strong>, <strong>SPI</strong> или <strong>UART</strong>, что делает его
+универсальным решением для проектов с Raspberry Pi, ESP32, Arduino.</p>
+<p><strong>Выводы (режим I²C)</strong></p>
+<ul class="simple">
+<li><p><strong>VCC</strong> — питание 3.3 … 5 V</p></li>
+<li><p><strong>GND</strong> — общий провод</p></li>
+<li><p><strong>SDA</strong> — данные I²C</p></li>
+<li><p><strong>SCL</strong> — такт I²C</p></li>
+<li><p><strong>RSTO</strong> — сброс (активный LOW)</p></li>
+<li><p><strong>IRQ</strong> — прерывание (LOW при событии)</p></li>
+<li><p>(Выводы SPI/UART присутствуют, если переключить модульными
+джамперами — см. silk)</p></li>
+</ul>
+<p><strong>Принцип работы</strong></p>
+<p>PN532 содержит радиопередатчик 13.56 MHz, приёмник и блок криптографии.
+Для чтения метки «MIFARE Classic» контроллер:</p>
+<ol class="arabic simple">
+<li><p>Запрашивает список карт в поле (команда <strong>InListPassiveTarget</strong>).</p></li>
+<li><p>При получении UID выполняет антиколлизию.</p></li>
+<li><p>Аутентифицирует сектор и читает/записывает блоки памяти.</p></li>
+</ol>
+<p>В режиме <strong>card emulation</strong> PN532 сам отвечает на запросы считывателя,
+эмитируя карту.</p>
+<div class="admonition note">
+<p class="admonition-title">Примечание</p>
+<p>I²C-адрес фиксирован: <strong>0x24</strong> (7-бит)
+IRQ — утягивается в LOW, когда доступны данные в FIFO.</p>
+</div>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.nxp.com/docs/en/nxp/data-sheets/PN532.pdf">PN532 Datasheet</a></p></li>
+</ul>
+<p><strong>Примеры</strong></p>
+<ul class="simple">
+<li><p><span class="xref std std-ref">2.2.10_c</span> (C Project)</p></li>
+<li><p><span class="xref std std-ref">4.1.11_py</span> (Python Project)</p></li>
+</ul>
+</section>
+
 
            </div>
           </div>
