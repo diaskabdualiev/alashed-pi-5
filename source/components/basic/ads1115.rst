@@ -1,7 +1,7 @@
 ADS1115 (16-bit I²C ADC)
 ===========================
 
-.. image:: img/ads1115.png
+.. image:: images/ads1115.png
    :width: 240
    :align: center
 
