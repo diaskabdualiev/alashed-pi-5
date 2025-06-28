@@ -3,7 +3,7 @@
 
 **Описание**
 
-.. image:: images/camera_module_pic.png
+.. image:: images/camera.png
    :width: 200
    :align: center
 
