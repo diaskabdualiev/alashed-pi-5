@@ -395,193 +395,143 @@ sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w
 <h2>Код программы<a class="headerlink" href="#id6" title="Ссылка на этот заголовок"></a></h2>
 <p>Файл: <cite>lessons/lesson17/camera_circuit.py</cite></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">picamera2</span><span class="w"> </span><span class="kn">import</span> <span class="n">Picamera2</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
 <span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">picamera2</span><span class="w"> </span><span class="kn">import</span> <span class="n">Picamera2</span>
 
-<span class="c1"># Создаем директорию для сохранения изображений, если она не существует</span>
-<span class="n">SAVE_DIR</span> <span class="o">=</span> <span class="s2">&quot;camera_captures&quot;</span>
-<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">SAVE_DIR</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">SAVE_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;camera_captures&quot;</span><span class="p">)</span>
+<span class="n">SAVE_DIR</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="c1"># Инициализация камеры</span>
 <span class="n">picam2</span> <span class="o">=</span> <span class="n">Picamera2</span><span class="p">()</span>
 
-<span class="c1"># Настройка конфигурации для фото (разрешение может быть изменено)</span>
-<span class="n">photo_config</span> <span class="o">=</span> <span class="n">picam2</span><span class="o">.</span><span class="n">create_still_configuration</span><span class="p">(</span>
-    <span class="n">main</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1920</span><span class="p">,</span> <span class="mi">1080</span><span class="p">),</span> <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;RGB&quot;</span><span class="p">},</span>
-    <span class="n">lores</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">),</span> <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;YUV420&quot;</span><span class="p">}</span>
+<span class="n">PHOTO_CFG</span> <span class="o">=</span> <span class="n">picam2</span><span class="o">.</span><span class="n">create_still_configuration</span><span class="p">(</span>
+    <span class="n">main</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1920</span><span class="p">,</span> <span class="mi">1080</span><span class="p">),</span> <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;RGB888&quot;</span><span class="p">},</span>
+    <span class="n">lores</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">),</span> <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;YUV420&quot;</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="n">PREVIEW_CFG</span> <span class="o">=</span> <span class="n">picam2</span><span class="o">.</span><span class="n">create_preview_configuration</span><span class="p">(</span>
+    <span class="n">main</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">),</span> <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;RGB888&quot;</span><span class="p">},</span>
 <span class="p">)</span>
 
-<span class="c1"># Настройка конфигурации для видео (меньшее разрешение для реального времени)</span>
-<span class="n">video_config</span> <span class="o">=</span> <span class="n">picam2</span><span class="o">.</span><span class="n">create_preview_configuration</span><span class="p">(</span>
-    <span class="n">main</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">640</span><span class="p">,</span> <span class="mi">480</span><span class="p">),</span> <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;RGB&quot;</span><span class="p">}</span>
-<span class="p">)</span>
+<span class="c1"># ─────────── ПАРАМЕТРЫ ДЕТЕКЦИИ ───────────</span>
+<span class="n">AREA_THRESHOLD</span>        <span class="o">=</span> <span class="mi">7_000</span>    <span class="c1"># минимальная площадь одного контура (px)</span>
+<span class="n">DIFF_PIXELS_THRESHOLD</span> <span class="o">=</span> <span class="mi">15_000</span>   <span class="c1"># минимум активных пикселей после threshold</span>
+<span class="n">CONSEC_MOTION_FRAMES</span>  <span class="o">=</span> <span class="mi">3</span>        <span class="c1"># движение должно быть n кадров подряд</span>
+<span class="n">COOLDOWN_FRAMES</span>       <span class="o">=</span> <span class="mi">20</span>       <span class="c1"># пауза (кадров) после съёмки</span>
+<span class="n">IDLE_TIMEOUT</span>          <span class="o">=</span> <span class="mi">300</span>      <span class="c1"># отсутствие движения (сек) → выход</span>
 
-<span class="c1"># Функция для захвата фото с текущей датой/временем в имени файла</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">capture_photo</span><span class="p">():</span>
-    <span class="c1"># Настраиваем камеру для фото</span>
-    <span class="n">picam2</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">photo_config</span><span class="p">)</span>
-    <span class="n">picam2</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
-    <span class="c1"># Даем камере время на адаптацию</span>
-    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_ts</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">-%H%M%S&quot;</span><span class="p">)</span>
 
-    <span class="c1"># Создаем имя файла с текущей датой и временем</span>
-    <span class="n">timestamp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">-%H%M%S&quot;</span><span class="p">)</span>
-    <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">SAVE_DIR</span><span class="si">}</span><span class="s2">/photo_</span><span class="si">{</span><span class="n">timestamp</span><span class="si">}</span><span class="s2">.jpg&quot;</span>
 
-    <span class="c1"># Захватываем изображение</span>
-    <span class="n">picam2</span><span class="o">.</span><span class="n">capture_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="c1"># ─────────── ФОТО ──────────</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Фото сохранено как </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="c1"># Останавливаем камеру</span>
-    <span class="n">picam2</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">filename</span>
-
-<span class="c1"># Функция для захвата фото с эффектами</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">capture_photo_with_effects</span><span class="p">():</span>
-    <span class="c1"># Настраиваем камеру для фото</span>
-    <span class="n">picam2</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">photo_config</span><span class="p">)</span>
-    <span class="n">picam2</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-
-    <span class="c1"># Даем камере время на адаптацию</span>
-    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-
-    <span class="c1"># Создаем имя файла с текущей датой и временем</span>
-    <span class="n">timestamp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">-%H%M%S&quot;</span><span class="p">)</span>
-
-    <span class="c1"># Захватываем изображение в массив</span>
-    <span class="n">img</span> <span class="o">=</span> <span class="n">picam2</span><span class="o">.</span><span class="n">capture_array</span><span class="p">()</span>
-
-    <span class="c1"># Применяем эффекты (конвертируем в оттенки серого)</span>
-    <span class="n">gray_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_RGB2GRAY</span><span class="p">)</span>
-
-    <span class="c1"># Применяем детектор краев Canny</span>
-    <span class="n">edges</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Canny</span><span class="p">(</span><span class="n">gray_img</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
-
-    <span class="c1"># Сохраняем результаты</span>
-    <span class="n">gray_filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">SAVE_DIR</span><span class="si">}</span><span class="s2">/gray_</span><span class="si">{</span><span class="n">timestamp</span><span class="si">}</span><span class="s2">.jpg&quot;</span>
-    <span class="n">edges_filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">SAVE_DIR</span><span class="si">}</span><span class="s2">/edges_</span><span class="si">{</span><span class="n">timestamp</span><span class="si">}</span><span class="s2">.jpg&quot;</span>
-
-    <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="n">gray_filename</span><span class="p">,</span> <span class="n">gray_img</span><span class="p">)</span>
-    <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="n">edges_filename</span><span class="p">,</span> <span class="n">edges</span><span class="p">)</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Чёрно-белое фото сохранено как </span><span class="si">{</span><span class="n">gray_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Фото с выделенными краями сохранено как </span><span class="si">{</span><span class="n">edges_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="c1"># Останавливаем камеру</span>
-    <span class="n">picam2</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">gray_filename</span><span class="p">,</span> <span class="n">edges_filename</span>
-
-<span class="c1"># Функция для запуска простого видеонаблюдения с обнаружением движения</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">motion_detection</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
-    <span class="c1"># Настраиваем камеру для видео</span>
-    <span class="n">picam2</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">video_config</span><span class="p">)</span>
-    <span class="n">picam2</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-
-    <span class="c1"># Даем камере время на адаптацию</span>
-    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-
-    <span class="c1"># Захватываем первый кадр как фон</span>
-    <span class="n">background</span> <span class="o">=</span> <span class="n">picam2</span><span class="o">.</span><span class="n">capture_array</span><span class="p">()</span>
-    <span class="n">background_gray</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">background</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_RGB2GRAY</span><span class="p">)</span>
-    <span class="n">background_gray</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">GaussianBlur</span><span class="p">(</span><span class="n">background_gray</span><span class="p">,</span> <span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Начало обнаружения движения. Нажмите Ctrl+C для остановки.&quot;</span><span class="p">)</span>
-
-    <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-    <span class="n">motion_detected</span> <span class="o">=</span> <span class="kc">False</span>
-
+<span class="k">def</span><span class="w"> </span><span class="nf">capture_photo</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="k">while</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span> <span class="o">&lt;</span> <span class="n">duration</span><span class="p">:</span>
-            <span class="c1"># Захватываем текущий кадр</span>
-            <span class="n">current_frame</span> <span class="o">=</span> <span class="n">picam2</span><span class="o">.</span><span class="n">capture_array</span><span class="p">()</span>
-
-            <span class="c1"># Преобразуем в оттенки серого</span>
-            <span class="n">gray</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">current_frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_RGB2GRAY</span><span class="p">)</span>
-            <span class="n">gray</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">GaussianBlur</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span> <span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
-
-            <span class="c1"># Вычисляем разницу между текущим кадром и фоном</span>
-            <span class="n">frame_delta</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">absdiff</span><span class="p">(</span><span class="n">background_gray</span><span class="p">,</span> <span class="n">gray</span><span class="p">)</span>
-            <span class="n">thresh</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">frame_delta</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
-
-            <span class="c1"># Расширяем область для лучшего обнаружения</span>
-            <span class="n">thresh</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">dilate</span><span class="p">(</span><span class="n">thresh</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-
-            <span class="c1"># Находим контуры на бинарном изображении</span>
-            <span class="n">contours</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">findContours</span><span class="p">(</span><span class="n">thresh</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">cv2</span><span class="o">.</span><span class="n">RETR_EXTERNAL</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CHAIN_APPROX_SIMPLE</span><span class="p">)</span>
-
-            <span class="c1"># Проверяем, есть ли обнаруженные контуры достаточного размера</span>
-            <span class="k">for</span> <span class="n">contour</span> <span class="ow">in</span> <span class="n">contours</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">contourArea</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">500</span><span class="p">:</span>  <span class="c1"># Отфильтрованные маленькие изменения</span>
-                    <span class="k">continue</span>
-
-                <span class="c1"># Достаточно большое изменение - движение обнаружено</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">motion_detected</span><span class="p">:</span>
-                    <span class="n">motion_detected</span> <span class="o">=</span> <span class="kc">True</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Обнаружено движение!&quot;</span><span class="p">)</span>
-
-                    <span class="c1"># Сохраняем кадр с движением</span>
-                    <span class="n">timestamp</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">-%H%M%S&quot;</span><span class="p">)</span>
-                    <span class="n">motion_filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">SAVE_DIR</span><span class="si">}</span><span class="s2">/motion_</span><span class="si">{</span><span class="n">timestamp</span><span class="si">}</span><span class="s2">.jpg&quot;</span>
-
-                    <span class="c1"># Рисуем прямоугольник вокруг области движения</span>
-                    <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">boundingRect</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span>
-                    <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">current_frame</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">w</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">h</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
-
-                    <span class="c1"># Добавляем текст</span>
-                    <span class="n">cv2</span><span class="o">.</span><span class="n">putText</span><span class="p">(</span><span class="n">current_frame</span><span class="p">,</span> <span class="s2">&quot;Движение обнаружено&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
-                               <span class="n">cv2</span><span class="o">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
-
-                    <span class="c1"># Сохраняем изображение</span>
-                    <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="n">motion_filename</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">current_frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_RGB2BGR</span><span class="p">))</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Кадр с движением сохранен как </span><span class="si">{</span><span class="n">motion_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-            <span class="c1"># Небольшая задержка</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
-
-            <span class="c1"># Обновляем фон (медленная адаптация)</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">motion_detected</span><span class="p">:</span>
-                <span class="n">cv2</span><span class="o">.</span><span class="n">accumulateWeighted</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span> <span class="n">background_gray</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># Сбрасываем флаг обнаружения через некоторое время</span>
-                <span class="n">motion_detected</span> <span class="o">=</span> <span class="kc">False</span>
-
-    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Обнаружение движения остановлено.&quot;</span><span class="p">)</span>
-
+        <span class="n">picam2</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">PHOTO_CFG</span><span class="p">)</span>
+        <span class="n">picam2</span><span class="o">.</span><span class="n">start</span><span class="p">();</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">fp</span> <span class="o">=</span> <span class="n">SAVE_DIR</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;photo_</span><span class="si">{</span><span class="n">_ts</span><span class="p">()</span><span class="si">}</span><span class="s2">.jpg&quot;</span>
+        <span class="n">picam2</span><span class="o">.</span><span class="n">capture_file</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">fp</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Фото:&quot;</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fp</span>
     <span class="k">finally</span><span class="p">:</span>
-        <span class="c1"># Останавливаем камеру</span>
         <span class="n">picam2</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
 
-<span class="c1"># Основной код</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Программа для работы с камерой Raspberry Pi&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1. Захват фотографии&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2. Захват фотографии с эффектами&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;3. Обнаружение движения (30 секунд)&quot;</span><span class="p">)</span>
 
-    <span class="n">choice</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Выберите опцию (1-3): &quot;</span><span class="p">)</span>
+<span class="c1"># ─────────── ЭФФЕКТЫ ──────────</span>
 
-    <span class="k">if</span> <span class="n">choice</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">:</span>
-        <span class="n">photo_path</span> <span class="o">=</span> <span class="n">capture_photo</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Фотография сохранена: </span><span class="si">{</span><span class="n">photo_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">capture_photo_with_effects</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">picam2</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">PHOTO_CFG</span><span class="p">)</span>
+        <span class="n">picam2</span><span class="o">.</span><span class="n">start</span><span class="p">();</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">picam2</span><span class="o">.</span><span class="n">capture_array</span><span class="p">()</span>
+        <span class="n">gray</span><span class="p">,</span> <span class="n">edges</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_RGB2GRAY</span><span class="p">),</span> <span class="kc">None</span>
+        <span class="n">edges</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">Canny</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+        <span class="n">gfp</span> <span class="o">=</span> <span class="n">SAVE_DIR</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;gray_</span><span class="si">{</span><span class="n">_ts</span><span class="p">()</span><span class="si">}</span><span class="s2">.jpg&quot;</span>
+        <span class="n">efp</span> <span class="o">=</span> <span class="n">SAVE_DIR</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;edges_</span><span class="si">{</span><span class="n">_ts</span><span class="p">()</span><span class="si">}</span><span class="s2">.jpg&quot;</span>
+        <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">gfp</span><span class="p">),</span> <span class="n">gray</span><span class="p">);</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">efp</span><span class="p">),</span> <span class="n">edges</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Gray:&quot;</span><span class="p">,</span> <span class="n">gfp</span><span class="p">,</span> <span class="s2">&quot;Edges:&quot;</span><span class="p">,</span> <span class="n">efp</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">picam2</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
 
-    <span class="k">elif</span> <span class="n">choice</span> <span class="o">==</span> <span class="s2">&quot;2&quot;</span><span class="p">:</span>
-        <span class="n">gray_path</span><span class="p">,</span> <span class="n">edges_path</span> <span class="o">=</span> <span class="n">capture_photo_with_effects</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Фотографии с эффектами сохранены: </span><span class="si">{</span><span class="n">gray_path</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">edges_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="k">elif</span> <span class="n">choice</span> <span class="o">==</span> <span class="s2">&quot;3&quot;</span><span class="p">:</span>
-        <span class="n">motion_detection</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>  <span class="c1"># 30 секунд обнаружения движения</span>
+<span class="c1"># ─────────── ДЕТЕКТОР ДВИЖЕНИЯ ──────────</span>
 
+<span class="k">def</span><span class="w"> </span><span class="nf">motion_detection</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">picam2</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">PREVIEW_CFG</span><span class="p">)</span>
+        <span class="n">picam2</span><span class="o">.</span><span class="n">start</span><span class="p">();</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="c1"># базовый фон</span>
+        <span class="n">bg</span> <span class="o">=</span> <span class="n">picam2</span><span class="o">.</span><span class="n">capture_array</span><span class="p">()</span>
+        <span class="n">bg</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">GaussianBlur</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">bg</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_RGB2GRAY</span><span class="p">),</span> <span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+
+        <span class="n">cooldown</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">motion_seq</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">last_motion_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Детекция движения запущена… (Ctrl+C для выхода)&quot;</span><span class="p">)</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">picam2</span><span class="o">.</span><span class="n">capture_array</span><span class="p">()</span>
+            <span class="n">gray</span>  <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">GaussianBlur</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_RGB2GRAY</span><span class="p">),</span> <span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+
+            <span class="n">diff</span>   <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">absdiff</span><span class="p">(</span><span class="n">bg</span><span class="p">,</span> <span class="n">gray</span><span class="p">)</span>
+            <span class="n">thresh</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">convertScaleAbs</span><span class="p">(</span><span class="n">diff</span><span class="p">),</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">thresh</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">morphologyEx</span><span class="p">(</span><span class="n">thresh</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">MORPH_OPEN</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># очистка шумов</span>
+
+            <span class="n">motion_pixels</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">countNonZero</span><span class="p">(</span><span class="n">thresh</span><span class="p">)</span>
+            <span class="n">contours</span><span class="p">,</span> <span class="n">_</span>   <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">findContours</span><span class="p">(</span><span class="n">thresh</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">RETR_EXTERNAL</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">CHAIN_APPROX_SIMPLE</span><span class="p">)</span>
+            <span class="n">large_contour</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">contourArea</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">AREA_THRESHOLD</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contours</span><span class="p">)</span>
+
+            <span class="n">motion_detected</span> <span class="o">=</span> <span class="n">motion_pixels</span> <span class="o">&gt;=</span> <span class="n">DIFF_PIXELS_THRESHOLD</span> <span class="ow">and</span> <span class="n">large_contour</span>
+
+            <span class="c1"># считаем последовательность кадров с движением</span>
+            <span class="k">if</span> <span class="n">motion_detected</span><span class="p">:</span>
+                <span class="n">motion_seq</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">motion_seq</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="k">if</span> <span class="n">motion_seq</span> <span class="o">&gt;=</span> <span class="n">CONSEC_MOTION_FRAMES</span> <span class="ow">and</span> <span class="n">cooldown</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">fp</span> <span class="o">=</span> <span class="n">SAVE_DIR</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;motion_</span><span class="si">{</span><span class="n">_ts</span><span class="p">()</span><span class="si">}</span><span class="s2">.jpg&quot;</span>
+                <span class="n">picam2</span><span class="o">.</span><span class="n">switch_mode_and_capture_file</span><span class="p">(</span><span class="n">PHOTO_CFG</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">fp</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Движение! Кадр:&quot;</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span>
+                <span class="n">picam2</span><span class="o">.</span><span class="n">start</span><span class="p">();</span> <span class="n">cooldown</span> <span class="o">=</span> <span class="n">COOLDOWN_FRAMES</span><span class="p">;</span> <span class="n">motion_seq</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">last_motion_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">cooldown</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">cooldown</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cv2</span><span class="o">.</span><span class="n">accumulateWeighted</span><span class="p">(</span><span class="n">gray</span><span class="p">,</span> <span class="n">bg</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span>
+
+            <span class="c1"># завершение при долгом отсутствии движения</span>
+            <span class="k">if</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">last_motion_time</span> <span class="o">&gt;</span> <span class="n">IDLE_TIMEOUT</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Сцена статична &gt; 5 мин — выходим.&quot;</span><span class="p">)</span>
+                <span class="k">break</span>
+
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Прервано пользователем.&quot;</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">picam2</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+
+
+<span class="c1"># ─────────── CLI ──────────</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Raspberry Pi Camera Utility&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1 — фото | 2 — эффекты | 3 — motion-detector&quot;</span><span class="p">)</span>
+    <span class="n">cmd</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Выбор: &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">:</span>
+        <span class="n">capture_photo</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s2">&quot;2&quot;</span><span class="p">:</span>
+        <span class="n">capture_photo_with_effects</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s2">&quot;3&quot;</span><span class="p">:</span>
+        <span class="n">motion_detection</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Неверный выбор. Пожалуйста, выберите 1, 2 или 3.&quot;</span><span class="p">)</span>
-
-<span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Программа завершена.&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Неизвестная команда.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
