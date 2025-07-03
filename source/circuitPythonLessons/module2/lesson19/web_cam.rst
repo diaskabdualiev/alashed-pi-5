@@ -31,7 +31,7 @@ Raspberry Pi Camera выдаёт RGB-кадры, однако для брауз�
 
 Схема подключения
 ------------------------------------
-.. figure:: images/pi_live_cam_setup.jpg
+.. figure:: camera.png
    :width: 80%
    :align: center
 
@@ -219,7 +219,7 @@ Raspberry Pi Camera выдаёт RGB-кадры, однако для брауз�
 
 Ожидаемый результат
 --------------------------------------
-.. figure:: images/pi_live_cam_interface.png
+.. figure:: camera_result.png
    :width: 80%
    :align: center
 
