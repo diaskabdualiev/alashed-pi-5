@@ -1,0 +1,629 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ru" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flask-видеострим с Raspberry Pi Camera &mdash; документация Alash Raspberry Pi 5 Kit </title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=d39ee99e" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=555aecba"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/translations.js?v=5b699b7f"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Алфавитный указатель" href="../../../genindex.html" />
+    <link rel="search" title="Поиск" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Alash Raspberry Pi 5 Kit
+              <img src="../../../_static/logo.png" class="logo" alt="Логотип"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Поиск в документации" aria-label="Поиск в документации" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Меню навигации">
+              <p class="caption" role="heading"><span class="caption-text">Содержание:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../about/about.html">Что такое Raspberry Pi?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../about/about.html#why-was-raspberry-pi-created">Зачем был создан Raspberry Pi?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../specifications/specifications.html">Технические харектеристика</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../specifications/specifications.html#raspberry-pi-5">Краткое введение в Raspberry Pi 5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../specifications/specifications.html#id2">Характеристики Raspberry Pi 5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../specifications/specifications.html#id3">Что нового в Raspberry Pi 5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../specifications/specifications.html#id4">Обзор процессора</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../specifications/specifications.html#id5">Сравнительная таблица</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../specifications/specifications.html#benchmarks">Производительность в тестах (Benchmarks)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../specifications/specifications.html#id6">Идеальные сценарии применения</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../specifications/specifications.html#id7">Заключение</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../parts/index.html">Комплектация набора</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../parts/index.html#id2">Сводный список компонентов</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../parts/photos.html">Фотографий компонентов</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../start/index.html">Первый запуск</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../start/firstactions/firstactions.html">Подготовка Raspberry Pi 5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../start/firstactions/firstactions.html#id1">Вытаскиваем кулер</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../start/firstactions/firstactions.html#id2">Переворачиваем</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../start/firstactions/firstactions.html#id3">Убираем плёнку с термопрокладки</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../start/firstactions/firstactions.html#raspberry">Ставим на Raspberry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../start/firstactions/firstactions.html#id4">Зажимаем до характерного щелчка в указанных местах</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../start/firstactions/firstactions.html#id5">С обратной стороны убеждаемся, что всё защёлкнуто</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../start/firstactions/firstactions.html#id6">Вставляем штекер кулера</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../start/firstactions/firstactions.html#id7">Штекер должен быть защёлкнут до конца</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../start/firstactions/firstactions.html#id8">Берем основу</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../start/firstactions/firstactions.html#id9">Снимаем скотч и вставляем в пазы</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../start/firstactions/firstactions.html#id10">Вставляем Raspberry на своё место</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../start/firstactions/firstactions.html#m2-5">Прикручиваем винтами M2.5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../start/firstactions/firstactions.html#id11">В итоге должно получиться как на фото</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../start/firstactions/firstactions.html#hdmi-microhdmi-raspberry">Вставляем HDMI-MicroHDMI кабель в Raspberry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../start/firstactions/firstactions.html#id12">Вставляем кабель питания в разъём</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../start/firstactions/firstactions.html#id13">Подключаем клавиатуру с тачпадом</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../start/firstactions/firstactions.html#usb">Вставляем USB свисток</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../start/firstactions/firstactions.html#id14">Дальнейшая настройка</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../start/firstboot/firstboot.html">Первое включение Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../start/firstboot/firstboot.html#id1">Почему важно подключить монитор</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../start/firstboot/firstboot.html#wi-fi">Подключаемся к Wi-Fi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../start/firstboot/firstboot.html#id2">Зачем это нужно</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../start/firstcode/index.html">Запуск первого кода на Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../start/firstcode/hdmi.html">Способ работы через монитор HDMI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../start/firstcode/vnc.html">VNC-подключение</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../start/firstcode/ssh.html">SSH-подключение VS Code для удаленной разработки на Raspberry Pi</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Уроки на основе CircuitPython</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../module1/index.html">Модуль первый</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../module1/lesson1/blink.html">Урок 1: Моргание светодиодом ✨</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module1/lesson2/button.html">Урок 2: Подключение кнопки ✨</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module1/lesson3/rgb.html">Урок 3: RGB светодиод 🌈</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module1/lesson4/active_buzzer.html">Урок 4: Работа с активным зуммером 🔊</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module1/lesson5/passive_buzzer.html">Урок 5: Работа с пассивным зуммером 🎵</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module1/lesson6/dht.html">Урок 6: Работа с датчиком температуры и влажности DHT11</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module1/lesson7/hsr04.html">Урок 7: Ультразвуковой датчик HC-SR04</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module1/lesson8/servo.html">Урок 8: Управление сервоприводом SG90 🔄</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module1/lesson9/relay.html">Урок 9: Управление реле 🔌</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module1/lesson10/klav.html">Урок 10: Матричная клавиатура ⌨️</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module1/lesson11/encoder.html">Урок 11: Работа с энкодером 🔄</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module1/lesson12/max.html">Урок 12: LED-матрица MAX7219 🔲</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module1/lesson13/pot.html">Урок 13: Модуль потенциометра ADS1115 🎚️</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module1/lesson14/joystick.html">Урок 14: Работа с джойстиком 🕹️</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module1/lesson15/mpu6050.html">Урок 15: Работа с MPU6050 🧭</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module1/lesson16/pca9685.html">Урок 16: Модуль PCA9685 для сервоприводов  🤖</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module1/lesson17/lcd1602.html">Урок 17: LCD-дисплей 1602  🖥️</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module1/lesson18/pn532.html">Урок: Работа с RFID/NFC считывателем PN532 на Raspberry Pi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../module1/lesson19/camera.html">Урок 19: Работа с камерой Raspberry Pi 📷</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html">Модуль второй</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lesson1/flask.html">Основы Flask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lesson2/weblink.html">Веб светодиод</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lesson3/webrgb.html">RGB веб светодиод</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lesson4/webbuzzer.html">Активный зуммер в веб интерфейсе</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lesson5/webpassivebuzzer.html">Пассивный зуммер в веб интерфейсе</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lesson6/webdht.html">Мини веб метостанция</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lesson7/hcsr04web.html">Веб ультразвуковая страница</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lesson8/webservo.html">Веб сайт для управления сервоприводом</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lesson9/webrelay.html">Веб реле</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lesson10/webkeypad.html">Веб клавиатура</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lesson11/webencoder.html">Энкодер с веб-интерфейсом</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lesson12/webmax.html">MAX7219 и веб-интерфейс</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lesson13/webpot.html">Потенциометр и веб-интерфейс</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lesson14/webjoystick.html">Веб-интерфейс и джойстик</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lesson15/webmpu.html">3D веб визуализация MPU6050</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lesson16/webpca.html">Веб управлениt сервоприводами через PCA9685</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lesson17/weblcd.html">Веб-интерфейс для управления LCD</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../components/index.html">Узнайте больше о компонентах, входящих в Ваш комплект</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../components/basic/breadboard.html">Breadboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../components/basic/wires.html">Провода-перемычки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../components/basic/resistor.html">Резистор</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/resistor.html#id2">Обозначения на схемах</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/resistor.html#id3">Единицы измерения сопротивления</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/resistor.html#id4">Как узнать номинал резистора</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/resistor.html#id5">Пример чтения 5-полосного резистора</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/resistor.html#id6">Распространённые номиналы и их полосы</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/resistor.html#id7">Полезные ссылки</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../components/basic/led.html">Светодиод (LED)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/led.html#id1">Принцип работы и полярность</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/led.html#id2">Нужен ли токоограничивающий резистор?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/led.html#id3">Дополнительные материалы</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../components/basic/rgb_led.html">RGB-светодиод</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/rgb_led.html#id1">Примеры</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../components/basic/keypad.html">Клавиатура (Keypad)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/keypad.html#id1">Примеры проектов</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../components/basic/potentiometer.html">Потенциометр</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/potentiometer.html#id3">Примеры</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../components/basic/button.html">Кнопка</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/button.html#id2">Примеры</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../components/basic/relay.html">Реле</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/relay.html#id2">Устройство реле</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/relay.html#id3">Принцип работы</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/relay.html#id4">Примеры</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../components/basic/servo.html">Сервопривод</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/servo.html#id2">Примеры</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../components/basic/mpu6050.html">Модуль MPU6050</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/mpu6050.html#id1">Примеры</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../components/basic/ads1115.html">ADS1115 (16-bit I²C ADC)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/ads1115.html#id1">Примеры</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../components/basic/buzzer.html">Зуммер (Buzzer)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/buzzer.html#id2">Примеры</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../components/basic/camera.html">Модуль камеры</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/camera.html#id2">Сборка и подключение</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/camera.html#id3">Примеры</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../components/basic/dht.html">Датчик температуры и влажности (DHT11)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/dht.html#id1">Подключение</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/dht.html#id2">Обмен данными</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/dht.html#id3">Характеристики</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/dht.html#id5">Примеры</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../components/basic/encoder.html">Энкодер</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/encoder.html#id2">Как определить направление вращения</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/encoder.html#id3">Примеры</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../components/basic/lcd1602.html">LCD1602</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/lcd1602.html#i2c">Адрес I²C</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/lcd1602.html#id1">Подсветка и контраст</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/lcd1602.html#id2">Примеры</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../components/basic/led_matrix.html">Модуль светодиодной матрицы</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/led_matrix.html#id2">Примеры</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../components/basic/pca9685.html">PCA9685 (16-канальный PWM-контроллер)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/pca9685.html#id1">Примеры</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../components/basic/pn532.html">PN532 (NFC/RFID Reader)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/pn532.html#id1">Примеры</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../components/basic/ultrasonic.html">Ультразвуковой датчик расстояния (HC-SR04)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/ultrasonic.html#id1">Основы работы</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/ultrasonic.html#id2">Выводы модуля</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/ultrasonic.html#id3">Диапазоны и точность</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../components/basic/ultrasonic.html#id4">Примеры</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../appendix/index.html">Дополнения</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../appendix/i2c/i2c.html">Настройка I2C</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/i2c/i2c.html#id1">Подготовка системы</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/i2c/i2c.html#i2c-raspi-config">Включение I2C через raspi-config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/i2c/i2c.html#id2">Проверка работы I2C</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/i2c/i2c.html#id3">Заключение</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../appendix/spi/spi.html">Настройка SPI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/spi/spi.html#id1">Подготовка системы</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/spi/spi.html#spi-raspi-config">Включение SPI через raspi-config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/spi/spi.html#id2">Проверка работы SPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/spi/spi.html#id3">Заключение</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../appendix/ping/ping.html">Проверка подключения к локальной сети</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../appendix/vnc/vnc.html">Настройка VNC (Удаленный рабочий стол)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/vnc/vnc.html#id1">Шаг 1: Установка VNC-сервера</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/vnc/vnc.html#id2">Шаг 2: Подключение к VNC</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../appendix/ssh/ssh.html">Настройка SSH (PuTTY)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/ssh/ssh.html#ssh">Шаг 1: Включение SSH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/ssh/ssh.html#raspberry-pi-ssh">Шаг 2: Подключение к Raspberry Pi через SSH</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../appendix/ssh/cmd.html">Установка встроенного SSH-клиента в Windows</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/ssh/cmd.html#ssh">Что такое SSH и почему важен встроенный клиент</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/ssh/cmd.html#id1">Проверка наличия SSH-клиента</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/ssh/cmd.html#id2">Включение SSH-клиента в Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/ssh/cmd.html#id3">Проверка работоспособности</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/ssh/cmd.html#raspberry-pi">Подключение к Raspberry Pi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/ssh/cmd.html#ssh-raspberry-pi">Основные команды SSH для работы с Raspberry Pi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/ssh/cmd.html#id4">Возможные проблемы и их решения</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/ssh/cmd.html#id5">Заключение</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../appendix/vscode/vscode.html">Установка Visual Studio Code на Windows</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/vscode/vscode.html#visual-studio-code">Что такое Visual Studio Code?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/vscode/vscode.html#vs-code-windows">Установка VS Code на Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/vscode/vscode.html#vs-code">Первый запуск VS Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/vscode/vscode.html#id1">Установка необходимых расширений</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/vscode/vscode.html#id2">Заключение</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../appendix/getip/getip.html">Как узнать IP адрес Raspberry Pi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/getip/getip.html#ip">Способ 1. Определение IP адреса через командную строку</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/getip/getip.html#id1">Способ 2. Определение IP адреса через графический интерфейс</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../appendix/getip/getip.html#id2">Заключение</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../thankyou/thankyou.html">Обратная связь</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Меню навигации для мобильных устройств" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Alash Raspberry Pi 5 Kit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Навигация по страницам">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Flask-видеострим с Raspberry Pi Camera</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="flask-raspberry-pi-camera">
+<h1>Flask-видеострим с Raspberry Pi Camera<a class="headerlink" href="#flask-raspberry-pi-camera" title="Ссылка на этот заголовок"></a></h1>
+<section id="id1">
+<h2>Теоретическая часть<a class="headerlink" href="#id1" title="Ссылка на этот заголовок"></a></h2>
+<p>Raspberry Pi Camera выдаёт RGB-кадры, однако для браузера удобнее поток
+<strong>MJPEG</strong> — последовательность JPEG-кадров, упакованная в
+<code class="docutils literal notranslate"><span class="pre">multipart/x-mixed-replace</span></code>.
+В этом уроке мы:</p>
+<ul class="simple">
+<li><p>получаем кадр через <strong>Picamera2</strong> в <em>RGB888</em>;</p></li>
+<li><p>по требованию поворачиваем его (0 / 90 / 180 / 270 °);</p></li>
+<li><p>сжимаем в <strong>JPEG</strong> (≈90 кБ при 1280 × 720);</p></li>
+<li><p>публикуем поток сервером <strong>Flask</strong>;</p></li>
+<li><p>создаём веб-страницу с просмотром, кнопками поворота и снимком.</p></li>
+</ul>
+<section id="id2">
+<h3>Мы будем использовать<a class="headerlink" href="#id2" title="Ссылка на этот заголовок"></a></h3>
+<ul class="simple">
+<li><p><strong>Picamera2</strong> — Python-обёртка над libcamera;</p></li>
+<li><p><strong>OpenCV</strong> — поворот и кодирование JPEG;</p></li>
+<li><p><strong>Flask</strong> — лёгкий веб-фреймворк.</p></li>
+</ul>
+</section>
+</section>
+<section id="id3">
+<h2>Необходимые компоненты<a class="headerlink" href="#id3" title="Ссылка на этот заголовок"></a></h2>
+<ul class="simple">
+<li><p>Raspberry Pi 4/5 (или другая с CSI);</p></li>
+<li><p>Камера Raspberry Pi v1.3/v2/HQ/Pi 5;</p></li>
+<li><p>Шлейф CSI;</p></li>
+<li><p>microSD c Raspberry Pi OS 64-bit;</p></li>
+<li><p>Любой браузер для просмотра.</p></li>
+</ul>
+</section>
+<section id="id4">
+<h2>Схема подключения<a class="headerlink" href="#id4" title="Ссылка на этот заголовок"></a></h2>
+<figure class="align-center" id="id14">
+<a class="reference internal image-reference" href="circuitPythonLessons/module2/lesson19/images/pi_live_cam_setup.jpg"><img alt="circuitPythonLessons/module2/lesson19/images/pi_live_cam_setup.jpg" src="circuitPythonLessons/module2/lesson19/images/pi_live_cam_setup.jpg" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Рис. 1:</strong> Подключение камеры к Raspberry Pi</span><a class="headerlink" href="#id14" title="Ссылка на это изображение"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id5">
+<h2>Установка необходимых библиотек<a class="headerlink" href="#id5" title="Ссылка на этот заголовок"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>python3-picamera2<span class="w"> </span>python3-opencv<span class="w"> </span>python3-flask
+</pre></div>
+</div>
+</section>
+<section id="id6">
+<h2>Структура проекта<a class="headerlink" href="#id6" title="Ссылка на этот заголовок"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lessons/
+└──<span class="w"> </span>pi_live_cam/
+<span class="w">    </span>├──<span class="w"> </span>app.py<span class="w">           </span><span class="c1"># Flask-сервер</span>
+<span class="w">    </span>└──<span class="w"> </span>templates/
+<span class="w">        </span>└──<span class="w"> </span>index.html<span class="w">   </span><span class="c1"># Веб-клиент</span>
+</pre></div>
+</div>
+</section>
+<section id="id7">
+<h2>Код программы<a class="headerlink" href="#id7" title="Ссылка на этот заголовок"></a></h2>
+<p><strong>Файл ``app.py``</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flask</span><span class="w"> </span><span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">Response</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">render_template</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">picamera2</span><span class="w"> </span><span class="kn">import</span> <span class="n">Picamera2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span><span class="o">,</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="n">cam</span> <span class="o">=</span> <span class="n">Picamera2</span><span class="p">()</span>
+
+<span class="c1"># ── конфигурация камеры ─────────────────────────────────────</span>
+<span class="n">cam</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">cam</span><span class="o">.</span><span class="n">create_preview_configuration</span><span class="p">(</span>
+    <span class="n">main</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1280</span><span class="p">,</span> <span class="mi">720</span><span class="p">),</span> <span class="s2">&quot;format&quot;</span><span class="p">:</span> <span class="s2">&quot;RGB888&quot;</span><span class="p">}))</span>
+<span class="n">cam</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>                       <span class="c1"># стабилизация автоэкспозиции</span>
+
+<span class="n">ROT</span> <span class="o">=</span> <span class="mi">0</span>                             <span class="c1"># текущий угол</span>
+<span class="n">Q</span>   <span class="o">=</span> <span class="mi">90</span>                            <span class="c1"># JPEG-качество</span>
+
+<span class="n">rot_map</span> <span class="o">=</span> <span class="p">{</span><span class="mi">90</span><span class="p">:</span>  <span class="n">cv2</span><span class="o">.</span><span class="n">ROTATE_90_CLOCKWISE</span><span class="p">,</span>
+           <span class="mi">180</span><span class="p">:</span> <span class="n">cv2</span><span class="o">.</span><span class="n">ROTATE_180</span><span class="p">,</span>
+           <span class="mi">270</span><span class="p">:</span> <span class="n">cv2</span><span class="o">.</span><span class="n">ROTATE_90_COUNTERCLOCKWISE</span><span class="p">}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">mjpeg_stream</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Генератор MJPEG-потока.&quot;&quot;&quot;</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">cam</span><span class="o">.</span><span class="n">capture_array</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">ROT</span> <span class="o">%</span> <span class="mi">360</span><span class="p">:</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">rot_map</span><span class="p">[</span><span class="n">ROT</span> <span class="o">%</span> <span class="mi">360</span><span class="p">])</span>
+        <span class="n">ok</span><span class="p">,</span> <span class="n">buf</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imencode</span><span class="p">(</span><span class="s2">&quot;.jpg&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="p">,</span>
+                               <span class="p">[</span><span class="n">cv2</span><span class="o">.</span><span class="n">IMWRITE_JPEG_QUALITY</span><span class="p">,</span> <span class="n">Q</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">ok</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="p">(</span><span class="sa">b</span><span class="s2">&quot;--frame</span><span class="se">\r\n</span><span class="s2">&quot;</span>
+                   <span class="sa">b</span><span class="s2">&quot;Content-Type: image/jpeg</span><span class="se">\r\n\r\n</span><span class="s2">&quot;</span> <span class="o">+</span>
+                   <span class="n">buf</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span> <span class="o">+</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">index</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;index.html&quot;</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/video_feed&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">video_feed</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">mjpeg_stream</span><span class="p">(),</span>
+                    <span class="n">mimetype</span><span class="o">=</span><span class="s2">&quot;multipart/x-mixed-replace; boundary=frame&quot;</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/rotate&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">rotate</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">ROT</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">ROT</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;deg&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">%</span> <span class="mi">360</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="n">ROT</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="mi">204</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/capture&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">capture</span><span class="p">():</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">cam</span><span class="o">.</span><span class="n">capture_array</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">ROT</span> <span class="o">%</span> <span class="mi">360</span><span class="p">:</span>
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">rot_map</span><span class="p">[</span><span class="n">ROT</span> <span class="o">%</span> <span class="mi">360</span><span class="p">])</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">buf</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imencode</span><span class="p">(</span><span class="s2">&quot;.jpg&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="p">,</span>
+                          <span class="p">[</span><span class="n">cv2</span><span class="o">.</span><span class="n">IMWRITE_JPEG_QUALITY</span><span class="p">,</span> <span class="mi">95</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">buf</span><span class="o">.</span><span class="n">tobytes</span><span class="p">(),</span>
+                    <span class="n">mimetype</span><span class="o">=</span><span class="s2">&quot;image/jpeg&quot;</span><span class="p">,</span>
+                    <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Content-Disposition&quot;</span><span class="p">:</span>
+                             <span class="s2">&quot;attachment; filename=snapshot.jpg&quot;</span><span class="p">})</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">threaded</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Файл ``templates/index.html``</strong></p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!doctype html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;ru&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Pi Live Cam<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">:</span><span class="nd">root</span><span class="p">{</span><span class="nv">--bg</span><span class="p">:</span><span class="mh">#0e1117</span><span class="p">;</span><span class="nv">--fg</span><span class="p">:</span><span class="mh">#e6edf3</span><span class="p">;</span><span class="nv">--accent</span><span class="p">:</span><span class="mh">#238636</span><span class="p">;</span>
+<span class="w">              </span><span class="nv">--accent-hover</span><span class="p">:</span><span class="mh">#2ea043</span><span class="p">;</span><span class="nv">--card</span><span class="p">:</span><span class="mh">#161b22</span><span class="p">;</span><span class="k">font-size</span><span class="p">:</span><span class="mi">16</span><span class="kt">px</span><span class="p">;}</span>
+<span class="w">        </span><span class="nt">body</span><span class="p">{</span><span class="k">margin</span><span class="p">:</span><span class="mi">0</span><span class="p">;</span><span class="k">font-family</span><span class="p">:</span><span class="n">system-ui</span><span class="p">,</span><span class="kc">sans-serif</span><span class="p">;</span><span class="k">background</span><span class="p">:</span><span class="nf">var</span><span class="p">(</span><span class="nv">--bg</span><span class="p">);</span>
+<span class="w">             </span><span class="k">color</span><span class="p">:</span><span class="nf">var</span><span class="p">(</span><span class="nv">--fg</span><span class="p">);</span><span class="k">display</span><span class="p">:</span><span class="kc">flex</span><span class="p">;</span><span class="k">flex-direction</span><span class="p">:</span><span class="kc">column</span><span class="p">;</span>
+<span class="w">             </span><span class="k">align-items</span><span class="p">:</span><span class="kc">center</span><span class="p">;</span><span class="k">min-height</span><span class="p">:</span><span class="mi">100</span><span class="kt">vh</span><span class="p">;}</span>
+<span class="w">        </span><span class="nt">h1</span><span class="p">{</span><span class="k">margin</span><span class="p">:</span><span class="mi">1</span><span class="kt">rem</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="k">font-size</span><span class="p">:</span><span class="mf">1.5</span><span class="kt">rem</span><span class="p">;}</span>
+<span class="w">        </span><span class="p">#</span><span class="nn">stream</span><span class="p">{</span><span class="k">max-width</span><span class="p">:</span><span class="mi">90</span><span class="kt">%</span><span class="p">;</span><span class="k">border</span><span class="p">:</span><span class="mi">4</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--card</span><span class="p">);</span>
+<span class="w">                </span><span class="k">border-radius</span><span class="p">:</span><span class="mi">12</span><span class="kt">px</span><span class="p">;</span><span class="k">box-shadow</span><span class="p">:</span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">10</span><span class="kt">px</span><span class="w"> </span><span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">.6</span><span class="p">);}</span>
+<span class="w">        </span><span class="p">.</span><span class="nc">controls</span><span class="p">{</span><span class="k">margin</span><span class="p">:</span><span class="mf">1.5</span><span class="kt">rem</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="k">display</span><span class="p">:</span><span class="kc">flex</span><span class="p">;</span><span class="k">gap</span><span class="p">:</span><span class="mf">.5</span><span class="kt">rem</span><span class="p">;</span><span class="k">flex-wrap</span><span class="p">:</span><span class="kc">wrap</span><span class="p">;</span>
+<span class="w">                  </span><span class="k">justify-content</span><span class="p">:</span><span class="kc">center</span><span class="p">;}</span>
+<span class="w">        </span><span class="nt">button</span><span class="p">{</span><span class="k">background</span><span class="p">:</span><span class="nf">var</span><span class="p">(</span><span class="nv">--accent</span><span class="p">);</span><span class="k">color</span><span class="p">:</span><span class="mh">#fff</span><span class="p">;</span><span class="k">border</span><span class="p">:</span><span class="kc">none</span><span class="p">;</span>
+<span class="w">               </span><span class="k">border-radius</span><span class="p">:</span><span class="mi">8</span><span class="kt">px</span><span class="p">;</span><span class="k">padding</span><span class="p">:</span><span class="mf">.6</span><span class="kt">rem</span><span class="w"> </span><span class="mf">1.2</span><span class="kt">rem</span><span class="p">;</span><span class="k">cursor</span><span class="p">:</span><span class="kc">pointer</span><span class="p">;</span>
+<span class="w">               </span><span class="k">font-size</span><span class="p">:</span><span class="mi">1</span><span class="kt">rem</span><span class="p">;</span><span class="k">transition</span><span class="p">:</span><span class="k">background</span><span class="w"> </span><span class="mf">.2</span><span class="kt">s</span><span class="p">;}</span>
+<span class="w">        </span><span class="nt">button</span><span class="p">:</span><span class="nd">hover</span><span class="p">{</span><span class="k">background</span><span class="p">:</span><span class="nf">var</span><span class="p">(</span><span class="nv">--accent-hover</span><span class="p">);}</span>
+<span class="w">        </span><span class="nt">input</span><span class="p">{</span><span class="k">width</span><span class="p">:</span><span class="mi">5</span><span class="kt">rem</span><span class="p">;</span><span class="k">padding</span><span class="p">:</span><span class="mf">.4</span><span class="kt">rem</span><span class="p">;</span><span class="k">border-radius</span><span class="p">:</span><span class="mi">6</span><span class="kt">px</span><span class="p">;</span><span class="k">border</span><span class="p">:</span><span class="kc">none</span><span class="p">;}</span>
+<span class="w">        </span><span class="nt">footer</span><span class="p">{</span><span class="k">margin-top</span><span class="p">:</span><span class="kc">auto</span><span class="p">;</span><span class="k">padding</span><span class="p">:</span><span class="mi">1</span><span class="kt">rem</span><span class="p">;</span><span class="k">font-size</span><span class="p">:</span><span class="mf">.8</span><span class="kt">rem</span><span class="p">;</span><span class="k">opacity</span><span class="p">:</span><span class="mf">.6</span><span class="p">;}</span>
+<span class="w">    </span><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>📡 Live-трансляция с Raspberry Pi Camera<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">img</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;stream&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;/video_feed&quot;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&quot;live stream&quot;</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;controls&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&quot;rotate(-90)&quot;</span><span class="p">&gt;</span>⟲ −90°<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&quot;rotate(90)&quot;</span><span class="p">&gt;</span>⟳ +90°<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;deg&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;number&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;0&quot;</span> <span class="na">step</span><span class="o">=</span><span class="s">&quot;1&quot;</span><span class="p">&gt;</span>°
+        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&quot;rotateCustom()&quot;</span><span class="p">&gt;</span>↻ Повернуть<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">onclick</span><span class="o">=</span><span class="s">&quot;capture()&quot;</span><span class="p">&gt;</span>📸 Снимок<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">footer</span><span class="p">&gt;</span>RGB888 → MJPEG | Flask <span class="err">&amp;</span> Picamera2<span class="p">&lt;/</span><span class="nt">footer</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="kd">function</span><span class="w"> </span><span class="nx">rotate</span><span class="p">(</span><span class="nx">angle</span><span class="p">){</span>
+<span class="w">            </span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/rotate&#39;</span><span class="p">,{</span><span class="nx">method</span><span class="o">:</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span>
+<span class="w">              </span><span class="nx">headers</span><span class="o">:</span><span class="p">{</span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span><span class="s1">&#39;application/x-www-form-urlencoded&#39;</span><span class="p">},</span>
+<span class="w">              </span><span class="nx">body</span><span class="o">:</span><span class="s1">&#39;deg=&#39;</span><span class="o">+</span><span class="nx">angle</span><span class="p">});</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="kd">function</span><span class="w"> </span><span class="nx">rotateCustom</span><span class="p">(){</span>
+<span class="w">            </span><span class="kd">const</span><span class="w"> </span><span class="nx">v</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;deg&#39;</span><span class="p">).</span><span class="nx">value</span><span class="o">||</span><span class="mf">0</span><span class="p">;</span>
+<span class="w">            </span><span class="nx">rotate</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">v</span><span class="p">,</span><span class="mf">10</span><span class="p">));</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="kd">function</span><span class="w"> </span><span class="nx">capture</span><span class="p">(){</span>
+<span class="w">            </span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/capture&#39;</span><span class="p">)</span>
+<span class="w">              </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">r</span><span class="p">=&gt;</span><span class="nx">r</span><span class="p">.</span><span class="nx">blob</span><span class="p">())</span>
+<span class="w">              </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">b</span><span class="p">=&gt;{</span>
+<span class="w">                  </span><span class="kd">const</span><span class="w"> </span><span class="nx">url</span><span class="o">=</span><span class="nx">URL</span><span class="p">.</span><span class="nx">createObjectURL</span><span class="p">(</span><span class="nx">b</span><span class="p">);</span>
+<span class="w">                  </span><span class="kd">const</span><span class="w"> </span><span class="nx">l</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">);</span>
+<span class="w">                  </span><span class="nx">l</span><span class="p">.</span><span class="nx">href</span><span class="o">=</span><span class="nx">url</span><span class="p">;</span>
+<span class="w">                  </span><span class="nx">l</span><span class="p">.</span><span class="nx">download</span><span class="o">=</span><span class="s1">&#39;snapshot_&#39;</span><span class="o">+</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span><span class="o">+</span><span class="s1">&#39;.jpg&#39;</span><span class="p">;</span>
+<span class="w">                  </span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">l</span><span class="p">);</span>
+<span class="w">                  </span><span class="nx">l</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
+<span class="w">                  </span><span class="nx">l</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
+<span class="w">                  </span><span class="nx">URL</span><span class="p">.</span><span class="nx">revokeObjectURL</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
+<span class="w">              </span><span class="p">});</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="id8">
+<h2>Разбор кода<a class="headerlink" href="#id8" title="Ссылка на этот заголовок"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Picamera2</span></code> получает кадры;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mjpeg_stream</span></code> формирует правильные границы <code class="docutils literal notranslate"><span class="pre">--frame</span></code>;</p></li>
+<li><p>энд-поинт <code class="docutils literal notranslate"><span class="pre">/rotate</span></code> меняет угол, <code class="docutils literal notranslate"><span class="pre">/capture</span></code> сохраняет JPEG;</p></li>
+<li><p>HTML-клиент отображает поток и посылает команды Fetch-запросами.</p></li>
+</ul>
+</section>
+<section id="id9">
+<h2>Запуск программы<a class="headerlink" href="#id9" title="Ссылка на этот заголовок"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>lessons/pi_live_cam/app.py
+</pre></div>
+</div>
+<p>После запуска зайдите в браузере на
+<code class="docutils literal notranslate"><span class="pre">http://&lt;IP_Raspberry_Pi&gt;:5000</span></code></p>
+</section>
+<section id="id10">
+<h2>Ожидаемый результат<a class="headerlink" href="#id10" title="Ссылка на этот заголовок"></a></h2>
+<figure class="align-center" id="id15">
+<a class="reference internal image-reference" href="circuitPythonLessons/module2/lesson19/images/pi_live_cam_interface.png"><img alt="circuitPythonLessons/module2/lesson19/images/pi_live_cam_interface.png" src="circuitPythonLessons/module2/lesson19/images/pi_live_cam_interface.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-text"><strong>Рис. 2:</strong> Интерфейс трансляции и управления камерой</span><a class="headerlink" href="#id15" title="Ссылка на это изображение"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id11">
+<h2>Практические применения<a class="headerlink" href="#id11" title="Ссылка на этот заголовок"></a></h2>
+<ul class="simple">
+<li><p>Домашнее видеонаблюдение;</p></li>
+<li><p>Лабораторные стенды;</p></li>
+<li><p>Тайм-лапс;</p></li>
+<li><p>Интеграция в умный дом;</p></li>
+<li><p>Робототехника.</p></li>
+</ul>
+</section>
+<section id="id12">
+<h2>Дополнительные задания<a class="headerlink" href="#id12" title="Ссылка на этот заголовок"></a></h2>
+<ol class="arabic simple">
+<li><p>Защитите поток авторизацией.</p></li>
+<li><p>Записывайте видео параллельно.</p></li>
+<li><p>Перейдите на WebSocket-управление.</p></li>
+<li><p>Дайте выбор разрешения и качества.</p></li>
+<li><p>Добавьте детекцию движения.</p></li>
+</ol>
+</section>
+<section id="id13">
+<h2>Завершение работы<a class="headerlink" href="#id13" title="Ссылка на этот заголовок"></a></h2>
+<p>Нажмите <strong>Ctrl + C</strong> в терминале — камера освободится.</p>
+<p>Поздравляем — у вас полноценная веб-камера на Raspberry Pi! 🎉</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Авторские права 2025, Dias Kabdualiyev. </p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
