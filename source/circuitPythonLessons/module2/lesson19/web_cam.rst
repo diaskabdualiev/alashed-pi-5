@@ -219,7 +219,7 @@ Raspberry Pi Camera выдаёт RGB-кадры, однако для брауз�
 
 Ожидаемый результат
 --------------------------------------
-.. figure:: camera_result.png
+.. figure:: image.png
    :width: 80%
    :align: center
 
