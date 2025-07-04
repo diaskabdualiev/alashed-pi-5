@@ -351,9 +351,9 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>Энкодер с веб-интерфейсом<a class="headerlink" href="#id1" title="Ссылка на этот заголовок"></a></h1>
+<h1><a class="toc-backref" href="#id72" role="doc-backlink">Энкодер с веб-интерфейсом</a><a class="headerlink" href="#id1" title="Ссылка на этот заголовок"></a></h1>
 <section id="id2">
-<h2>Теоретическая часть<a class="headerlink" href="#id2" title="Ссылка на этот заголовок"></a></h2>
+<h2><a class="toc-backref" href="#id73" role="doc-backlink">Теоретическая часть</a><a class="headerlink" href="#id2" title="Ссылка на этот заголовок"></a></h2>
 <p>Роторный энкодер — это устройство ввода, которое преобразует угловое положение вала в цифровой код. В отличие от потенциометра, энкодер может вращаться бесконечно и позволяет определять не только значение, но и направление вращения. Большинство роторных энкодеров также оснащены кнопкой, срабатывающей при нажатии на вал.</p>
 <p>В этом уроке мы создадим систему мониторинга роторного энкодера через веб-интерфейс, используя:
 - CircuitPython для прямой работы с GPIO и считывания данных с энкодера
@@ -363,7 +363,7 @@
 <p>Такая система может использоваться в различных проектах умного дома, аудиосистемах, пользовательских интерфейсах и других устройствах, где требуется точное управление параметрами.</p>
 </section>
 <section id="id3">
-<h2>Необходимые компоненты<a class="headerlink" href="#id3" title="Ссылка на этот заголовок"></a></h2>
+<h2><a class="toc-backref" href="#id74" role="doc-backlink">Необходимые компоненты</a><a class="headerlink" href="#id3" title="Ссылка на этот заголовок"></a></h2>
 <ul class="simple">
 <li><p>Raspberry Pi</p></li>
 <li><p>Роторный энкодер с кнопкой</p></li>
@@ -372,12 +372,12 @@
 </ul>
 </section>
 <section id="id4">
-<h2>Схема подключения<a class="headerlink" href="#id4" title="Ссылка на этот заголовок"></a></h2>
-<figure class="align-center" id="id14">
+<h2><a class="toc-backref" href="#id75" role="doc-backlink">Схема подключения</a><a class="headerlink" href="#id4" title="Ссылка на этот заголовок"></a></h2>
+<figure class="align-center" id="id70">
 <a class="reference internal image-reference" href="../../../_images/rotary_encoder.jpg"><img alt="../../../_images/rotary_encoder.jpg" src="../../../_images/rotary_encoder.jpg" style="width: 80%;" />
 </a>
 <figcaption>
-<p><span class="caption-text"><strong>Рис. 1:</strong> Схема подключения роторного энкодера</span><a class="headerlink" href="#id14" title="Ссылка на это изображение"></a></p>
+<p><span class="caption-text"><strong>Рис. 1:</strong> Схема подключения роторного энкодера</span><a class="headerlink" href="#id70" title="Ссылка на это изображение"></a></p>
 </figcaption>
 </figure>
 <p>Подключите роторный энкодер к Raspberry Pi следующим образом:
@@ -388,14 +388,14 @@
 - VCC (+) -&gt; 3.3V</p>
 </section>
 <section id="id5">
-<h2>Установка необходимых библиотек<a class="headerlink" href="#id5" title="Ссылка на этот заголовок"></a></h2>
+<h2><a class="toc-backref" href="#id76" role="doc-backlink">Установка необходимых библиотек</a><a class="headerlink" href="#id5" title="Ссылка на этот заголовок"></a></h2>
 <p>Перед запуском кода установите Flask и adafruit-blinka (базовая библиотека CircuitPython):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>flask<span class="w"> </span>adafruit-blinka
 </pre></div>
 </div>
 </section>
 <section id="id6">
-<h2>Структура проекта<a class="headerlink" href="#id6" title="Ссылка на этот заголовок"></a></h2>
+<h2><a class="toc-backref" href="#id77" role="doc-backlink">Структура проекта</a><a class="headerlink" href="#id6" title="Ссылка на этот заголовок"></a></h2>
 <p>Создайте следующую структуру файлов:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lessons/
 └──<span class="w"> </span>encoder_web/
@@ -406,118 +406,93 @@
 </div>
 </section>
 <section id="id7">
-<h2>Код программы<a class="headerlink" href="#id7" title="Ссылка на этот заголовок"></a></h2>
+<h2><a class="toc-backref" href="#id78" role="doc-backlink">Код программы</a><a class="headerlink" href="#id7" title="Ссылка на этот заголовок"></a></h2>
 <p><strong>Файл app.py</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">flask</span><span class="w"> </span><span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">jsonify</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">board</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">digitalio</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">threading</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">flask</span><span class="w"> </span><span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">,</span> <span class="n">render_template</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">digitalio</span><span class="o">,</span><span class="w"> </span><span class="nn">board</span><span class="o">,</span><span class="w"> </span><span class="nn">threading</span><span class="o">,</span><span class="w"> </span><span class="nn">time</span>
 
+<span class="c1"># ──────────── GPIO ────────────</span>
+<span class="n">PIN_A</span> <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">DigitalInOut</span><span class="p">(</span><span class="n">board</span><span class="o">.</span><span class="n">D17</span><span class="p">)</span>
+<span class="n">PIN_B</span> <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">DigitalInOut</span><span class="p">(</span><span class="n">board</span><span class="o">.</span><span class="n">D18</span><span class="p">)</span>
+<span class="n">BTN</span>   <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">DigitalInOut</span><span class="p">(</span><span class="n">board</span><span class="o">.</span><span class="n">D27</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="p">(</span><span class="n">PIN_A</span><span class="p">,</span> <span class="n">PIN_B</span><span class="p">,</span> <span class="n">BTN</span><span class="p">):</span>
+    <span class="n">pin</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">Direction</span><span class="o">.</span><span class="n">INPUT</span>
+    <span class="n">pin</span><span class="o">.</span><span class="n">pull</span>      <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">Pull</span><span class="o">.</span><span class="n">UP</span>      <span class="c1"># энкодер «замыкает на GND»</span>
+
+<span class="c1"># ──────────── глобальное состояние ────────────</span>
+<span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">direction</span> <span class="o">=</span> <span class="s2">&quot;—&quot;</span>
+<span class="n">button_pressed</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">events</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+
+<span class="c1"># ──────────── квадратурная таблица (Gray) ────────────</span>
+<span class="c1"># transition = (prev&lt;&lt;2)|curr  → ±1 / 0 / error</span>
+<span class="n">_STEP_TAB</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mb">0b0001</span><span class="p">:</span> <span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mb">0b0010</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mb">0b0100</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mb">0b0111</span><span class="p">:</span> <span class="o">+</span><span class="mi">1</span><span class="p">,</span>
+    <span class="mb">0b1000</span><span class="p">:</span> <span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mb">0b1011</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mb">0b1101</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mb">0b1110</span><span class="p">:</span> <span class="o">+</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1"># ──────────── поток опроса ────────────</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">encoder_worker</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">counter</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">button_pressed</span><span class="p">,</span> <span class="n">events</span>
+    <span class="n">last_state</span> <span class="o">=</span> <span class="p">(</span><span class="n">PIN_A</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="n">PIN_B</span><span class="o">.</span><span class="n">value</span>
+    <span class="n">last_btn</span>   <span class="o">=</span> <span class="n">BTN</span><span class="o">.</span><span class="n">value</span>
+    <span class="n">btn_time</span>   <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">monotonic</span><span class="p">()</span>
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">now_state</span> <span class="o">=</span> <span class="p">(</span><span class="n">PIN_A</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">|</span> <span class="n">PIN_B</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">transition</span> <span class="o">=</span> <span class="p">(</span><span class="n">last_state</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="n">now_state</span>
+        <span class="n">step</span> <span class="o">=</span> <span class="n">_STEP_TAB</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">transition</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">step</span><span class="p">:</span>
+            <span class="n">counter</span> <span class="o">+=</span> <span class="n">step</span>
+            <span class="n">direction</span> <span class="o">=</span> <span class="s2">&quot;↻&quot;</span> <span class="k">if</span> <span class="n">step</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;↺&quot;</span>
+            <span class="k">with</span> <span class="n">_lock</span><span class="p">:</span>
+                <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">direction</span><span class="si">}</span><span class="s2">  →  </span><span class="si">{</span><span class="n">counter</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">events</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="o">-</span><span class="mi">12</span><span class="p">:]</span>
+        <span class="n">last_state</span> <span class="o">=</span> <span class="n">now_state</span>
+
+        <span class="c1"># — антидребезг кнопки (20 мс) —</span>
+        <span class="n">curr_btn</span> <span class="o">=</span> <span class="n">BTN</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">if</span> <span class="n">curr_btn</span> <span class="o">!=</span> <span class="n">last_btn</span><span class="p">:</span>
+            <span class="n">btn_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">monotonic</span><span class="p">()</span>
+            <span class="n">last_btn</span> <span class="o">=</span> <span class="n">curr_btn</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">curr_btn</span> <span class="ow">and</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">monotonic</span><span class="p">()</span> <span class="o">-</span> <span class="n">btn_time</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.02</span><span class="p">:</span>
+            <span class="c1"># нажатие подтверждено</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">button_pressed</span><span class="p">:</span>
+                <span class="n">button_pressed</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">with</span> <span class="n">_lock</span><span class="p">:</span>
+                    <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Кнопка: сброс счётчика (</span><span class="si">{</span><span class="n">counter</span><span class="si">}</span><span class="s2">→0)&quot;</span><span class="p">)</span>
+                    <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="n">events</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="o">-</span><span class="mi">12</span><span class="p">:]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">button_pressed</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.001</span><span class="p">)</span>   <span class="c1"># 1 кГц опроса</span>
+
+<span class="c1"># ──────────── Flask ────────────</span>
 <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-<span class="c1"># Инициализация выводов энкодера</span>
-<span class="c1"># Выходы A и B энкодера подключены к GPIO17 и GPIO18 соответственно</span>
-<span class="n">pin_a</span> <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">DigitalInOut</span><span class="p">(</span><span class="n">board</span><span class="o">.</span><span class="n">D17</span><span class="p">)</span>
-<span class="n">pin_b</span> <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">DigitalInOut</span><span class="p">(</span><span class="n">board</span><span class="o">.</span><span class="n">D18</span><span class="p">)</span>
-<span class="n">pin_a</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">Direction</span><span class="o">.</span><span class="n">INPUT</span>
-<span class="n">pin_b</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">Direction</span><span class="o">.</span><span class="n">INPUT</span>
-<span class="n">pin_a</span><span class="o">.</span><span class="n">pull</span> <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">Pull</span><span class="o">.</span><span class="n">UP</span>  <span class="c1"># Подтяжка к питанию</span>
-<span class="n">pin_b</span><span class="o">.</span><span class="n">pull</span> <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">Pull</span><span class="o">.</span><span class="n">UP</span>  <span class="c1"># Подтяжка к питанию</span>
-
-<span class="c1"># Инициализация кнопки энкодера</span>
-<span class="n">button</span> <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">DigitalInOut</span><span class="p">(</span><span class="n">board</span><span class="o">.</span><span class="n">D27</span><span class="p">)</span>  <span class="c1"># Кнопка на GPIO27</span>
-<span class="n">button</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">Direction</span><span class="o">.</span><span class="n">INPUT</span>
-<span class="n">button</span><span class="o">.</span><span class="n">pull</span> <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">Pull</span><span class="o">.</span><span class="n">UP</span>  <span class="c1"># Подтяжка к VCC (кнопка замыкает на GND)</span>
-
-<span class="c1"># Глобальные переменные для хранения состояния</span>
-<span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">button_state</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="n">last_button_state</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="n">last_a_state</span> <span class="o">=</span> <span class="n">pin_a</span><span class="o">.</span><span class="n">value</span>
-<span class="n">last_direction</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-<span class="n">events</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># для хранения истории событий</span>
-
-<span class="c1"># Блокировка для многопоточного доступа</span>
-<span class="n">lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
-
-<span class="c1"># Функция для опроса энкодера в отдельном потоке</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">encoder_polling</span><span class="p">():</span>
-    <span class="k">global</span> <span class="n">counter</span><span class="p">,</span> <span class="n">button_state</span><span class="p">,</span> <span class="n">last_button_state</span><span class="p">,</span> <span class="n">last_a_state</span><span class="p">,</span> <span class="n">last_direction</span><span class="p">,</span> <span class="n">events</span>
-
-    <span class="k">try</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Роторный энкодер: поворачивайте ручку или нажмите на нее&quot;</span><span class="p">)</span>
-
-        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="k">with</span> <span class="n">lock</span><span class="p">:</span>
-                <span class="c1"># Считываем текущее состояние выводов энкодера</span>
-                <span class="n">a_state</span> <span class="o">=</span> <span class="n">pin_a</span><span class="o">.</span><span class="n">value</span>
-                <span class="n">b_state</span> <span class="o">=</span> <span class="n">pin_b</span><span class="o">.</span><span class="n">value</span>
-
-                <span class="c1"># Если состояние вывода A изменилось, значит произошло вращение</span>
-                <span class="k">if</span> <span class="n">a_state</span> <span class="o">!=</span> <span class="n">last_a_state</span><span class="p">:</span>
-                    <span class="c1"># Определяем направление вращения сравнивая состояния выводов A и B</span>
-                    <span class="k">if</span> <span class="n">b_state</span> <span class="o">!=</span> <span class="n">a_state</span><span class="p">:</span>
-                        <span class="n">direction</span> <span class="o">=</span> <span class="s2">&quot;по часовой стрелке&quot;</span>
-                        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="n">direction</span> <span class="o">=</span> <span class="s2">&quot;против часовой стрелки&quot;</span>
-                        <span class="n">counter</span> <span class="o">-=</span> <span class="mi">1</span>
-
-                    <span class="c1"># Сохраняем направление и добавляем событие</span>
-                    <span class="n">last_direction</span> <span class="o">=</span> <span class="n">direction</span>
-                    <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Вращение </span><span class="si">{</span><span class="n">direction</span><span class="si">}</span><span class="s2">, Счетчик: </span><span class="si">{</span><span class="n">counter</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-                    <span class="c1"># Ограничиваем историю событий до 10</span>
-                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
-                        <span class="n">events</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:]</span>
-
-                <span class="c1"># Обновляем последнее состояние вывода A</span>
-                <span class="n">last_a_state</span> <span class="o">=</span> <span class="n">a_state</span>
-
-                <span class="c1"># Обработка нажатия кнопки</span>
-                <span class="n">button_state</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">button</span><span class="o">.</span><span class="n">value</span>  <span class="c1"># Инвертируем значение</span>
-
-                <span class="c1"># Проверяем изменение состояния кнопки (обнаружение фронта)</span>
-                <span class="k">if</span> <span class="n">button_state</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">last_button_state</span><span class="p">:</span>
-                    <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Кнопка нажата! Сброс счетчика с </span><span class="si">{</span><span class="n">counter</span><span class="si">}</span><span class="s2"> на 0&quot;</span><span class="p">)</span>
-                    <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-
-                <span class="c1"># Обновляем последнее состояние кнопки</span>
-                <span class="n">last_button_state</span> <span class="o">=</span> <span class="n">button_state</span>
-
-            <span class="c1"># Небольшая задержка для стабилизации</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
-
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ошибка в потоке опроса энкодера: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-<span class="c1"># Маршрут для главной страницы</span>
-<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">index</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;index.html&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;index.html&quot;</span><span class="p">)</span>      <span class="c1"># ваш шаблон</span>
 
-<span class="c1"># API для получения текущего состояния энкодера</span>
-<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/api/encoder-state&#39;</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">encoder_state</span><span class="p">():</span>
-    <span class="k">with</span> <span class="n">lock</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span>
-            <span class="s1">&#39;counter&#39;</span><span class="p">:</span> <span class="n">counter</span><span class="p">,</span>
-            <span class="s1">&#39;button_state&#39;</span><span class="p">:</span> <span class="n">button_state</span><span class="p">,</span>
-            <span class="s1">&#39;last_direction&#39;</span><span class="p">:</span> <span class="n">last_direction</span><span class="p">,</span>
-            <span class="s1">&#39;events&#39;</span><span class="p">:</span> <span class="n">events</span>
-        <span class="p">})</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/api/state&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">state</span><span class="p">():</span>
+    <span class="k">with</span> <span class="n">_lock</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span>
+            <span class="n">counter</span><span class="o">=</span><span class="n">counter</span><span class="p">,</span>
+            <span class="n">direction</span><span class="o">=</span><span class="n">direction</span><span class="p">,</span>
+            <span class="n">button</span><span class="o">=</span><span class="n">button_pressed</span><span class="p">,</span>
+            <span class="n">events</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">events</span><span class="p">),</span>
+        <span class="p">)</span>
 
-<span class="c1"># Запуск потока опроса энкодера</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">start_encoder_thread</span><span class="p">():</span>
-    <span class="n">encoder_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">encoder_polling</span><span class="p">,</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">encoder_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="c1"># Запускаем поток для опроса энкодера</span>
-    <span class="n">start_encoder_thread</span><span class="p">()</span>
-
-    <span class="c1"># Запускаем веб-сервер Flask</span>
-    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">threaded</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># ──────────── запуск ────────────</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">encoder_worker</span><span class="p">,</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">threaded</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>Файл templates/index.html</strong></p>
@@ -526,248 +501,185 @@
 <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1.0&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Роторный энкодер<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Монитор энкодера<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
-<span class="w">        </span><span class="nt">body</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">font-family</span><span class="p">:</span><span class="w"> </span><span class="n">Arial</span><span class="p">,</span><span class="w"> </span><span class="kc">sans-serif</span><span class="p">;</span>
-<span class="w">            </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">            </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
-<span class="w">            </span><span class="k">max-width</span><span class="p">:</span><span class="w"> </span><span class="mi">600</span><span class="kt">px</span><span class="p">;</span>
-<span class="w">            </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
-<span class="w">            </span><span class="k">text-align</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span>
+<span class="w">        </span><span class="p">:</span><span class="nd">root</span><span class="p">{</span>
+<span class="w">            </span><span class="nv">--bg</span><span class="p">:</span><span class="mh">#0e1117</span><span class="p">;</span><span class="nv">--fg</span><span class="p">:</span><span class="mh">#e6edf3</span><span class="p">;</span><span class="nv">--accent</span><span class="p">:</span><span class="mh">#2f81f7</span><span class="p">;</span><span class="nv">--danger</span><span class="p">:</span><span class="mh">#dc3545</span><span class="p">;</span>
+<span class="w">            </span><span class="k">font-family</span><span class="p">:</span><span class="n">system-ui</span><span class="p">,</span><span class="n">Arial</span><span class="p">,</span><span class="kc">sans-serif</span><span class="p">;</span>
 <span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="nt">h1</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">margin-bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="p">.</span><span class="nc">counter-display</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">72</span><span class="kt">px</span><span class="p">;</span>
-<span class="w">            </span><span class="k">font-weight</span><span class="p">:</span><span class="w"> </span><span class="kc">bold</span><span class="p">;</span>
-<span class="w">            </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="kt">px</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">            </span><span class="k">font-family</span><span class="p">:</span><span class="w"> </span><span class="kc">monospace</span><span class="p">;</span>
-<span class="w">            </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="mh">#2c3e50</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="p">.</span><span class="nc">button-state</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
-<span class="w">            </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="kt">px</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">            </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="kt">%</span><span class="p">;</span>
-<span class="w">            </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">80</span><span class="kt">px</span><span class="p">;</span>
-<span class="w">            </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">80</span><span class="kt">px</span><span class="p">;</span>
-<span class="w">            </span><span class="k">line-height</span><span class="p">:</span><span class="w"> </span><span class="mi">80</span><span class="kt">px</span><span class="p">;</span>
-<span class="w">            </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">inline-block</span><span class="p">;</span>
-<span class="w">            </span><span class="k">font-weight</span><span class="p">:</span><span class="w"> </span><span class="kc">bold</span><span class="p">;</span>
-<span class="w">            </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">white</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="p">.</span><span class="nc">button-pressed</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#e74c3c</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="p">.</span><span class="nc">button-released</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#3498db</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="p">.</span><span class="nc">direction</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span><span class="kt">px</span><span class="p">;</span>
-<span class="w">            </span><span class="k">margin</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="kt">px</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="w">            </span><span class="k">font-style</span><span class="p">:</span><span class="w"> </span><span class="kc">italic</span><span class="p">;</span>
-<span class="w">            </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="mh">#7f8c8d</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="p">.</span><span class="nc">events-container</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">margin-top</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="kt">px</span><span class="p">;</span>
-<span class="w">            </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="mh">#ddd</span><span class="p">;</span>
-<span class="w">            </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
-<span class="w">            </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
-<span class="w">            </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#f9f9f9</span><span class="p">;</span>
-<span class="w">            </span><span class="k">text-align</span><span class="p">:</span><span class="w"> </span><span class="kc">left</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="p">.</span><span class="nc">events-list</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="kt">px</span><span class="p">;</span>
-<span class="w">            </span><span class="k">overflow-y</span><span class="p">:</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
-<span class="w">            </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="mh">#eee</span><span class="p">;</span>
-<span class="w">            </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
-<span class="w">            </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="kc">white</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">        </span><span class="p">.</span><span class="nc">event-item</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
-<span class="w">            </span><span class="k">border-bottom</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="mh">#eee</span><span class="p">;</span>
-<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="nt">body</span><span class="p">{</span><span class="k">margin</span><span class="p">:</span><span class="mi">0</span><span class="p">;</span><span class="k">background</span><span class="p">:</span><span class="nf">var</span><span class="p">(</span><span class="nv">--bg</span><span class="p">);</span><span class="k">color</span><span class="p">:</span><span class="nf">var</span><span class="p">(</span><span class="nv">--fg</span><span class="p">);</span><span class="k">display</span><span class="p">:</span><span class="kc">flex</span><span class="p">;</span><span class="k">flex-direction</span><span class="p">:</span><span class="kc">column</span><span class="p">;</span><span class="k">align-items</span><span class="p">:</span><span class="kc">center</span><span class="p">;</span><span class="k">padding</span><span class="p">:</span><span class="mi">2</span><span class="kt">rem</span><span class="w"> </span><span class="mi">1</span><span class="kt">rem</span><span class="p">;</span><span class="k">min-height</span><span class="p">:</span><span class="mi">100</span><span class="kt">vh</span><span class="p">;}</span>
+<span class="w">        </span><span class="nt">h1</span><span class="p">{</span><span class="k">margin</span><span class="p">:</span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mf">1.5</span><span class="kt">rem</span><span class="p">;</span><span class="k">font-size</span><span class="p">:</span><span class="mf">1.6</span><span class="kt">rem</span><span class="p">;</span><span class="k">text-align</span><span class="p">:</span><span class="kc">center</span><span class="p">;}</span>
+<span class="w">        </span><span class="p">.</span><span class="nc">counter</span><span class="p">{</span><span class="k">font</span><span class="p">:</span><span class="mi">700</span><span class="w"> </span><span class="mi">4</span><span class="kt">rem</span><span class="w"> </span><span class="s2">&quot;Courier New&quot;</span><span class="p">,</span><span class="kc">monospace</span><span class="p">;</span><span class="k">margin</span><span class="p">:</span><span class="mi">1</span><span class="kt">rem</span><span class="w"> </span><span class="mi">0</span><span class="p">;}</span>
+<span class="w">        </span><span class="p">.</span><span class="nc">dir</span><span class="p">{</span><span class="k">font-size</span><span class="p">:</span><span class="mi">2</span><span class="kt">rem</span><span class="p">;</span><span class="k">height</span><span class="p">:</span><span class="mi">2</span><span class="kt">rem</span><span class="p">;</span><span class="k">margin</span><span class="p">:</span><span class="mf">0.5</span><span class="kt">rem</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="k">opacity</span><span class="p">:</span><span class="mf">0.8</span><span class="p">;}</span>
+<span class="w">        </span><span class="p">.</span><span class="nc">btn-state</span><span class="p">{</span><span class="k">width</span><span class="p">:</span><span class="mi">90</span><span class="kt">px</span><span class="p">;</span><span class="k">height</span><span class="p">:</span><span class="mi">90</span><span class="kt">px</span><span class="p">;</span><span class="k">border-radius</span><span class="p">:</span><span class="mi">50</span><span class="kt">%</span><span class="p">;</span><span class="k">display</span><span class="p">:</span><span class="kc">flex</span><span class="p">;</span><span class="k">align-items</span><span class="p">:</span><span class="kc">center</span><span class="p">;</span><span class="k">justify-content</span><span class="p">:</span><span class="kc">center</span><span class="p">;</span><span class="k">font-weight</span><span class="p">:</span><span class="mi">700</span><span class="p">;</span><span class="k">margin</span><span class="p">:</span><span class="mi">1</span><span class="kt">rem</span><span class="w"> </span><span class="mi">0</span><span class="p">;}</span>
+<span class="w">        </span><span class="p">.</span><span class="nc">pressed</span><span class="p">{</span><span class="k">background</span><span class="p">:</span><span class="nf">var</span><span class="p">(</span><span class="nv">--danger</span><span class="p">);}</span><span class="w"> </span><span class="p">.</span><span class="nc">released</span><span class="p">{</span><span class="k">background</span><span class="p">:</span><span class="nf">var</span><span class="p">(</span><span class="nv">--accent</span><span class="p">);}</span>
+<span class="w">        </span><span class="p">.</span><span class="nc">events</span><span class="p">{</span><span class="k">width</span><span class="p">:</span><span class="mi">100</span><span class="kt">%</span><span class="p">;</span><span class="k">max-width</span><span class="p">:</span><span class="mi">480</span><span class="kt">px</span><span class="p">;</span><span class="k">background</span><span class="p">:</span><span class="mh">#161b22</span><span class="p">;</span><span class="k">border</span><span class="p">:</span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="mh">#30363d</span><span class="p">;</span><span class="k">border-radius</span><span class="p">:</span><span class="mi">8</span><span class="kt">px</span><span class="p">;</span><span class="k">padding</span><span class="p">:</span><span class="mi">1</span><span class="kt">rem</span><span class="p">;</span><span class="k">margin-top</span><span class="p">:</span><span class="mi">2</span><span class="kt">rem</span><span class="p">;}</span>
+<span class="w">        </span><span class="p">.</span><span class="nc">events</span><span class="w"> </span><span class="nt">h3</span><span class="p">{</span><span class="k">margin</span><span class="p">:</span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mf">.5</span><span class="kt">rem</span><span class="p">;</span><span class="k">font-size</span><span class="p">:</span><span class="mi">1</span><span class="kt">rem</span><span class="p">;}</span>
+<span class="w">        </span><span class="p">.</span><span class="nc">list</span><span class="p">{</span><span class="k">max-height</span><span class="p">:</span><span class="mi">200</span><span class="kt">px</span><span class="p">;</span><span class="k">overflow-y</span><span class="p">:</span><span class="kc">auto</span><span class="p">;</span><span class="k">font-size</span><span class="p">:</span><span class="mf">0.9</span><span class="kt">rem</span><span class="p">;</span><span class="k">line-height</span><span class="p">:</span><span class="mf">1.4</span><span class="p">}</span>
+<span class="w">        </span><span class="p">.</span><span class="nc">event</span><span class="p">{</span><span class="k">border-bottom</span><span class="p">:</span><span class="mi">1</span><span class="kt">px</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="mh">#30363d</span><span class="p">;</span><span class="k">padding</span><span class="p">:</span><span class="mi">2</span><span class="kt">px</span><span class="w"> </span><span class="mi">0</span><span class="p">;}</span>
 <span class="w">    </span><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Мониторинг роторного энкодера<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>🎛️ Роторный энкодер Live<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;counter&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;counter&quot;</span><span class="p">&gt;</span>0<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;dir&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;direction&quot;</span><span class="p">&gt;</span>—<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn-state released&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;btn&quot;</span><span class="p">&gt;</span>Кнопка<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;counter-display&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;counter&quot;</span><span class="p">&gt;</span>0<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;direction&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;direction&quot;</span><span class="p">&gt;</span>Ожидание вращения...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;button-state button-released&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;button-state&quot;</span><span class="p">&gt;</span>Кнопка<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;events-container&quot;</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>История событий:<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;events-list&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;events-list&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;events&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>История (12 посл. событий)<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;list&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;events&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
     <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
-    <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="w">        </span><span class="c1">// Функция для обновления данных с сервера</span>
-<span class="w">        </span><span class="kd">function</span><span class="w"> </span><span class="nx">updateEncoderData</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/api/encoder-state&#39;</span><span class="p">)</span>
-<span class="w">                </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
-<span class="w">                </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">data</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                    </span><span class="c1">// Обновляем счетчик</span>
-<span class="w">                    </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;counter&#39;</span><span class="p">).</span><span class="nx">textContent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">data</span><span class="p">.</span><span class="nx">counter</span><span class="p">;</span>
-
-<span class="w">                    </span><span class="c1">// Обновляем информацию о направлении</span>
-<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">last_direction</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                        </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;direction&#39;</span><span class="p">).</span><span class="nx">textContent</span><span class="w"> </span><span class="o">=</span>
-<span class="w">                            </span><span class="s1">&#39;Последнее направление: &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">data</span><span class="p">.</span><span class="nx">last_direction</span><span class="p">;</span>
-<span class="w">                    </span><span class="p">}</span>
-
-<span class="w">                    </span><span class="c1">// Обновляем состояние кнопки</span>
-<span class="w">                    </span><span class="kd">const</span><span class="w"> </span><span class="nx">buttonElement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;button-state&#39;</span><span class="p">);</span>
-<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">button_state</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                        </span><span class="nx">buttonElement</span><span class="p">.</span><span class="nx">textContent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;НАЖАТА&#39;</span><span class="p">;</span>
-<span class="w">                        </span><span class="nx">buttonElement</span><span class="p">.</span><span class="nx">className</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;button-state button-pressed&#39;</span><span class="p">;</span>
-<span class="w">                    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                        </span><span class="nx">buttonElement</span><span class="p">.</span><span class="nx">textContent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Не нажата&#39;</span><span class="p">;</span>
-<span class="w">                        </span><span class="nx">buttonElement</span><span class="p">.</span><span class="nx">className</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;button-state button-released&#39;</span><span class="p">;</span>
-<span class="w">                    </span><span class="p">}</span>
-
-<span class="w">                    </span><span class="c1">// Обновляем список событий</span>
-<span class="w">                    </span><span class="kd">const</span><span class="w"> </span><span class="nx">eventsListElement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;events-list&#39;</span><span class="p">);</span>
-<span class="w">                    </span><span class="nx">eventsListElement</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span>
-
-<span class="w">                    </span><span class="c1">// Добавляем элементы событий в обратном порядке (новые сверху)</span>
-<span class="w">                    </span><span class="nx">data</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">slice</span><span class="p">().</span><span class="nx">reverse</span><span class="p">().</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">event</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                        </span><span class="kd">const</span><span class="w"> </span><span class="nx">eventItem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
-<span class="w">                        </span><span class="nx">eventItem</span><span class="p">.</span><span class="nx">className</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;event-item&#39;</span><span class="p">;</span>
-<span class="w">                        </span><span class="nx">eventItem</span><span class="p">.</span><span class="nx">textContent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">event</span><span class="p">;</span>
-<span class="w">                        </span><span class="nx">eventsListElement</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">eventItem</span><span class="p">);</span>
-<span class="w">                    </span><span class="p">});</span>
-<span class="w">                </span><span class="p">})</span>
-<span class="w">                </span><span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                    </span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Ошибка получения данных:&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">error</span><span class="p">);</span>
-<span class="w">                </span><span class="p">});</span>
-<span class="w">        </span><span class="p">}</span>
-
-<span class="w">        </span><span class="c1">// Обновляем данные сразу при загрузке страницы</span>
-<span class="w">        </span><span class="nx">updateEncoderData</span><span class="p">();</span>
-
-<span class="w">        </span><span class="c1">// Затем обновляем каждые 100 мс для быстрого отклика</span>
-<span class="w">        </span><span class="nx">setInterval</span><span class="p">(</span><span class="nx">updateEncoderData</span><span class="p">,</span><span class="w"> </span><span class="mf">100</span><span class="p">);</span>
-<span class="w">    </span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">update</span><span class="p">(){</span>
+<span class="w">  </span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/api/state&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">r</span><span class="p">=&gt;</span><span class="nx">r</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
+<span class="w">    </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">d</span><span class="p">=&gt;{</span>
+<span class="w">        </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;counter&#39;</span><span class="p">).</span><span class="nx">textContent</span><span class="o">=</span><span class="nx">d</span><span class="p">.</span><span class="nx">counter</span><span class="p">;</span>
+<span class="w">        </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;direction&#39;</span><span class="p">).</span><span class="nx">textContent</span><span class="o">=</span><span class="nx">d</span><span class="p">.</span><span class="nx">direction</span><span class="o">||</span><span class="s1">&#39;—&#39;</span><span class="p">;</span>
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">btn</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;btn&#39;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">button</span><span class="p">){</span><span class="nx">btn</span><span class="p">.</span><span class="nx">className</span><span class="o">=</span><span class="s1">&#39;btn-state pressed&#39;</span><span class="p">;</span><span class="nx">btn</span><span class="p">.</span><span class="nx">textContent</span><span class="o">=</span><span class="s1">&#39;НАЖАТА&#39;</span><span class="p">}</span>
+<span class="w">        </span><span class="k">else</span><span class="p">{</span><span class="nx">btn</span><span class="p">.</span><span class="nx">className</span><span class="o">=</span><span class="s1">&#39;btn-state released&#39;</span><span class="p">;</span><span class="nx">btn</span><span class="p">.</span><span class="nx">textContent</span><span class="o">=</span><span class="s1">&#39;Не нажата&#39;</span><span class="p">}</span>
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">wrap</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;events&#39;</span><span class="p">);</span>
+<span class="w">        </span><span class="nx">wrap</span><span class="p">.</span><span class="nx">innerHTML</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="w">        </span><span class="nx">d</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">slice</span><span class="p">().</span><span class="nx">reverse</span><span class="p">().</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">e</span><span class="p">=&gt;{</span>
+<span class="w">          </span><span class="kd">const</span><span class="w"> </span><span class="nx">div</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span><span class="nx">div</span><span class="p">.</span><span class="nx">className</span><span class="o">=</span><span class="s1">&#39;event&#39;</span><span class="p">;</span><span class="nx">div</span><span class="p">.</span><span class="nx">textContent</span><span class="o">=</span><span class="nx">e</span><span class="p">;</span><span class="nx">wrap</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">div</span><span class="p">);</span>
+<span class="w">        </span><span class="p">});</span>
+<span class="w">    </span><span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="p">=&gt;</span><span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">));</span>
+<span class="p">}</span>
+<span class="nx">update</span><span class="p">();</span><span class="nx">setInterval</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="mf">150</span><span class="p">);</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </pre></div>
 </div>
-</section>
-<section id="id8">
-<h2>Разбор кода<a class="headerlink" href="#id8" title="Ссылка на этот заголовок"></a></h2>
-<p><strong>Разбор app.py:</strong></p>
-<ol class="arabic simple">
-<li><p><strong>Настройка и инициализация GPIO:</strong></p></li>
-</ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="n">pin_a</span> <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">DigitalInOut</span><span class="p">(</span><span class="n">board</span><span class="o">.</span><span class="n">D17</span><span class="p">)</span>
- <span class="n">pin_b</span> <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">DigitalInOut</span><span class="p">(</span><span class="n">board</span><span class="o">.</span><span class="n">D18</span><span class="p">)</span>
- <span class="n">pin_a</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">Direction</span><span class="o">.</span><span class="n">INPUT</span>
- <span class="n">pin_b</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">Direction</span><span class="o">.</span><span class="n">INPUT</span>
- <span class="n">pin_a</span><span class="o">.</span><span class="n">pull</span> <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">Pull</span><span class="o">.</span><span class="n">UP</span>
- <span class="n">pin_b</span><span class="o">.</span><span class="n">pull</span> <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">Pull</span><span class="o">.</span><span class="n">UP</span>
-
- <span class="n">button</span> <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">DigitalInOut</span><span class="p">(</span><span class="n">board</span><span class="o">.</span><span class="n">D27</span><span class="p">)</span>
- <span class="n">button</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">Direction</span><span class="o">.</span><span class="n">INPUT</span>
- <span class="n">button</span><span class="o">.</span><span class="n">pull</span> <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">Pull</span><span class="o">.</span><span class="n">UP</span>
-
-
-<span class="o">-</span> <span class="n">Настраиваем</span> <span class="n">пины</span> <span class="n">GPIO</span> <span class="n">для</span> <span class="n">контактов</span> <span class="n">энкодера</span> <span class="p">(</span><span class="n">A</span> <span class="n">и</span> <span class="n">B</span><span class="p">)</span> <span class="n">и</span> <span class="n">кнопки</span>
-<span class="o">-</span> <span class="n">Устанавливаем</span> <span class="n">их</span> <span class="n">как</span> <span class="n">входы</span> <span class="n">с</span> <span class="n">подтяжкой</span> <span class="n">к</span> <span class="n">высокому</span> <span class="n">уровню</span> <span class="p">(</span><span class="n">Pull</span><span class="o">-</span><span class="n">Up</span><span class="p">)</span>
-<span class="o">-</span> <span class="n">Это</span> <span class="n">обеспечивает</span> <span class="n">стабильное</span> <span class="n">состояние</span> <span class="n">HIGH</span><span class="p">,</span> <span class="n">когда</span> <span class="n">контакты</span> <span class="n">не</span> <span class="n">активны</span>
-</pre></div>
-</div>
-<ol class="arabic" start="2">
-<li><p><strong>Алгоритм определения направления вращения:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">a_state</span> <span class="o">!=</span> <span class="n">last_a_state</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">b_state</span> <span class="o">!=</span> <span class="n">a_state</span><span class="p">:</span>
-        <span class="n">direction</span> <span class="o">=</span> <span class="s2">&quot;по часовой стрелке&quot;</span>
-        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">direction</span> <span class="o">=</span> <span class="s2">&quot;против часовой стрелки&quot;</span>
-        <span class="n">counter</span> <span class="o">-=</span> <span class="mi">1</span>
-</pre></div>
-</div>
+<p># Разбор кода»</p>
+<nav class="contents" id="id8">
+<p class="topic-title">Содержание</p>
 <ul class="simple">
-<li><p>Энкодеры обычно генерируют два сигнала (A и B), смещенные по фазе на 90 градусов</p></li>
-<li><p>Когда сигнал A меняется, мы проверяем состояние сигнала B</p></li>
-<li><p>Если A и B находятся в противоположных состояниях, вращение происходит по часовой стрелке</p></li>
-<li><p>Если A и B находятся в одинаковом состоянии, вращение происходит против часовой стрелки</p></li>
+<li><p><a class="reference internal" href="#id1" id="id72">Энкодер с веб-интерфейсом</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id73">Теоретическая часть</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id74">Необходимые компоненты</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id75">Схема подключения</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id76">Установка необходимых библиотек</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id77">Структура проекта</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id78">Код программы</a></p></li>
+<li><p><a class="reference internal" href="#id65" id="id79">Запуск программы</a></p></li>
+<li><p><a class="reference internal" href="#id66" id="id80">Ожидаемый результат</a></p></li>
+<li><p><a class="reference internal" href="#id67" id="id81">Практические применения</a></p></li>
+<li><p><a class="reference internal" href="#id68" id="id82">Дополнительные задания</a></p></li>
+<li><p><a class="reference internal" href="#id69" id="id83">Завершение работы</a></p></li>
 </ul>
 </li>
-<li><p><strong>Обработка нажатия кнопки:</strong></p>
-<blockquote>
-<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">button_state</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">button</span><span class="o">.</span><span class="n">value</span>
-<span class="k">if</span> <span class="n">button_state</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">last_button_state</span><span class="p">:</span>
-    <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Кнопка нажата! Сброс счетчика с </span><span class="si">{</span><span class="n">counter</span><span class="si">}</span><span class="s2"> на 0&quot;</span><span class="p">)</span>
+</ul>
+</nav>
+<p>:local:</p>
+<p>## Введение</p>
+<p>Этот проект демонстрирует, как считать сигналы квадратурного энкодера и
+кнопку на Raspberry Pi 5 с помощью <em>Adafruit Blinka</em>, обрабатывать их в
+потоке Python и выводить данные в реальном времени через веб-интерфейс
+(F lask + Fetch API).</p>
+<p>## Разбор <em>web_encoder.py</em></p>
+<ol class="arabic">
+<li><p>Настройка GPIO</p>
+<p><a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">PIN_A</span> <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">DigitalInOut</span><span class="p">(</span><span class="n">board</span><span class="o">.</span><span class="n">D17</span><span class="p">)</span>
+<span class="n">PIN_B</span> <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">DigitalInOut</span><span class="p">(</span><span class="n">board</span><span class="o">.</span><span class="n">D18</span><span class="p">)</span>
+<span class="n">BTN</span>   <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">DigitalInOut</span><span class="p">(</span><span class="n">board</span><span class="o">.</span><span class="n">D27</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">pin</span> <span class="ow">in</span> <span class="p">(</span><span class="n">PIN_A</span><span class="p">,</span> <span class="n">PIN_B</span><span class="p">,</span> <span class="n">BTN</span><span class="p">):</span>
+    <span class="n">pin</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">Direction</span><span class="o">.</span><span class="n">INPUT</span>
+    <span class="n">pin</span><span class="o">.</span><span class="n">pull</span>      <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">Pull</span><span class="o">.</span><span class="n">UP</span>
+</pre></div>
+</div>
+<p><em>A</em> и <em>B</em>‑каналы энкодера и кнопка подключены как входы с подтяжкой
+к VCC. В «покое» — логическая 1; при замыкании на GND — логический 0.</p>
+<p><a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a></p>
+</li>
+<li><p>Квадратурный декодер ×4</p>
+<p><a href="#id17"><span class="problematic" id="id18">``</span></a><a href="#id19"><span class="problematic" id="id20">`</span></a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">_STEP_TAB</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mb">0b0001</span><span class="p">:</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mb">0b0010</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mb">0b0100</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mb">0b0111</span><span class="p">:</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span>
+    <span class="mb">0b1000</span><span class="p">:</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mb">0b1011</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mb">0b1101</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mb">0b1110</span><span class="p">:</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">transition</span> <span class="o">=</span> <span class="p">(</span><span class="n">prev_state</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="n">curr_state</span>
+<span class="n">step</span>       <span class="o">=</span> <span class="n">_STEP_TAB</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">transition</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Таблица переходов выдаёт <code class="docutils literal notranslate"><span class="pre">+1</span></code> или <code class="docutils literal notranslate"><span class="pre">-1</span></code> на каждый фронт, тем
+самым получаем максимальную «разрешающую способность» энкодера.</p>
+<p><a href="#id21"><span class="problematic" id="id22">``</span></a><a href="#id23"><span class="problematic" id="id24">`</span></a></p>
+</li>
+<li><p>Антидребезг кнопки</p>
+<p><a href="#id25"><span class="problematic" id="id26">``</span></a><a href="#id27"><span class="problematic" id="id28">`</span></a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">BTN</span><span class="o">.</span><span class="n">value</span> <span class="ow">and</span> <span class="p">(</span><span class="n">now</span> <span class="o">-</span> <span class="n">t_press</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.02</span><span class="p">:</span>
     <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
 </pre></div>
 </div>
-</div></blockquote>
-<ul class="simple">
-<li><p>Инвертируем значение <cite>button.value</cite>, так как при нажатии оно становится LOW из-за подтяжки</p></li>
-<li><p>Используем детектор фронта (сравнение с предыдущим состоянием), чтобы реагировать только на момент нажатия</p></li>
-<li><p>При нажатии сбрасываем счетчик и записываем событие в историю</p></li>
-</ul>
+<p>Кнопка считается нажатой, если уровень LOW удерживается не менее
+20 мс.</p>
+<p><a href="#id29"><span class="problematic" id="id30">``</span></a><a href="#id31"><span class="problematic" id="id32">`</span></a></p>
 </li>
-<li><p><strong>Многопоточность и безопасность:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">encoder_polling</span><span class="p">():</span>
-    <span class="c1"># ...</span>
-    <span class="k">with</span> <span class="n">lock</span><span class="p">:</span>
-        <span class="c1"># Безопасный доступ к общим данным</span>
-
-<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/api/encoder-state&#39;</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">encoder_state</span><span class="p">():</span>
-    <span class="k">with</span> <span class="n">lock</span><span class="p">:</span>
-        <span class="c1"># Безопасный доступ к общим данным</span>
+<li><p>Поток и блокировка</p>
+<p><a href="#id33"><span class="problematic" id="id34">``</span></a><a href="#id35"><span class="problematic" id="id36">`</span></a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+<span class="k">with</span> <span class="n">_lock</span><span class="p">:</span>
+    <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>Используем <cite>threading.Lock()</cite> для создания блокировки</p></li>
-<li><p>Оборачиваем весь код, работающий с общими данными, в блок <cite>with lock:</cite> для избежания гонок данных</p></li>
-<li><p>Это гарантирует, что данные не изменятся в середине чтения веб-API</p></li>
-</ul>
+<p>Все операции с <code class="docutils literal notranslate"><span class="pre">counter</span></code> и <code class="docutils literal notranslate"><span class="pre">events</span></code> защищены <code class="docutils literal notranslate"><span class="pre">Lock</span></code>‑ом, чтобы
+избежать гонок между фоновым потоком и Flask‑маршрутами.</p>
+<p><a href="#id37"><span class="problematic" id="id38">``</span></a><a href="#id39"><span class="problematic" id="id40">`</span></a></p>
+</li>
+<li><p>REST‑маршрут</p>
+<p><a href="#id41"><span class="problematic" id="id42">``</span></a><a href="#id43"><span class="problematic" id="id44">`</span></a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/api/state&#39;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">state</span><span class="p">():</span>
+    <span class="k">with</span> <span class="n">_lock</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Возвращает JSON c текущим счётчиком, направлением, состоянием
+кнопки и последними 12 событиями.
+<a href="#id45"><span class="problematic" id="id46">``</span></a><a href="#id47"><span class="problematic" id="id48">`</span></a></p>
 </li>
 </ol>
-<p><strong>Разбор index.html:</strong></p>
+<p>## Разбор <em>index.html</em></p>
 <ol class="arabic">
-<li><p><strong>Стили и визуальное представление:</strong></p>
+<li><p>Стилизация</p>
+<p><a href="#id49"><span class="problematic" id="id50">``</span></a><a href="#id51"><span class="problematic" id="id52">`</span></a></p>
 <ul class="simple">
-<li><p>Создаем большой дисплей для счетчика</p></li>
-<li><p>Отображаем направление вращения и состояние кнопки</p></li>
-<li><p>Показываем историю событий в прокручиваемом списке</p></li>
-<li><p>Используем разные цвета для состояний кнопки (нажата/отпущена)</p></li>
+<li><p>Тёмная тема с переменными <code class="docutils literal notranslate"><span class="pre">--bg</span></code>/<code class="docutils literal notranslate"><span class="pre">--fg</span></code>.</p></li>
+<li><p>Крупный моноширинный счётчик <code class="docutils literal notranslate"><span class="pre">.counter</span></code>.</p></li>
+<li><p>Кнопка‑индикатор <code class="docutils literal notranslate"><span class="pre">.btn-state</span></code> (синий — отпущена, красный — нажата).</p></li>
+<li><p>Прокручиваемый список событий <code class="docutils literal notranslate"><span class="pre">.list</span></code>.</p></li>
 </ul>
+<p><a href="#id53"><span class="problematic" id="id54">``</span></a><a href="#id55"><span class="problematic" id="id56">`</span></a></p>
 </li>
-<li><p><strong>JavaScript для обновления данных:</strong></p>
-<blockquote>
-<div><div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">updateEncoderData</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/api/encoder-state&#39;</span><span class="p">)</span>
-<span class="w">        </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">())</span>
-<span class="w">        </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">data</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="c1">// Обновление элементов интерфейса</span>
-<span class="w">        </span><span class="p">});</span>
+<li><p>JavaScript</p>
+<p><a href="#id57"><span class="problematic" id="id58">``</span></a><a href="#id59"><span class="problematic" id="id60">`</span></a></p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">update</span><span class="p">(){</span>
+<span class="w">  </span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/api/state&#39;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">r</span><span class="p">=&gt;</span><span class="nx">r</span><span class="p">.</span><span class="nx">json</span><span class="p">()).</span><span class="nx">then</span><span class="p">(</span><span class="nx">d</span><span class="p">=&gt;{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">});</span>
 <span class="p">}</span>
-
-<span class="nx">setInterval</span><span class="p">(</span><span class="nx">updateEncoderData</span><span class="p">,</span><span class="w"> </span><span class="mf">100</span><span class="p">);</span>
+<span class="nx">setInterval</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="w"> </span><span class="mf">150</span><span class="p">);</span>
 </pre></div>
 </div>
-</div></blockquote>
 <ul class="simple">
-<li><p>Используем Fetch API для получения данных с сервера</p></li>
-<li><p>Обновляем элементы DOM на основе полученных данных</p></li>
-<li><p>Устанавливаем интервал обновления 100 мс для обеспечения плавного отклика интерфейса</p></li>
+<li><p>Раз в 150 мс запрашивает JSON и обновляет DOM.</p></li>
+<li><p>История событий хранится и выводится в обратном порядке — свежие
+события отображаются сверху.</p></li>
 </ul>
+<p><a href="#id61"><span class="problematic" id="id62">``</span></a><a href="#id63"><span class="problematic" id="id64">`</span></a></p>
 </li>
 </ol>
+<p><em>Вывод</em>: новый алгоритм (таблица переходов + дебаунс) обеспечивает
+надёжное считывание даже при быстром вращении, а фронтенд отражает данные
+почти в реальном времени без лишней нагрузки на сеть и CPU.</p>
 </section>
-<section id="id9">
-<h2>Запуск программы<a class="headerlink" href="#id9" title="Ссылка на этот заголовок"></a></h2>
+<section id="id65">
+<h2><a class="toc-backref" href="#id79" role="doc-backlink">Запуск программы</a><a class="headerlink" href="#id65" title="Ссылка на этот заголовок"></a></h2>
 <ol class="arabic">
 <li><p>Сохраните файлы в соответствующих директориях</p></li>
 <li><p>Запустите Flask-приложение:</p>
@@ -782,8 +694,8 @@
 - например: <a class="reference external" href="http://192.168.1.100:5000">http://192.168.1.100:5000</a></p></li>
 </ol>
 </section>
-<section id="id10">
-<h2>Ожидаемый результат<a class="headerlink" href="#id10" title="Ссылка на этот заголовок"></a></h2>
+<section id="id66">
+<h2><a class="toc-backref" href="#id80" role="doc-backlink">Ожидаемый результат</a><a class="headerlink" href="#id66" title="Ссылка на этот заголовок"></a></h2>
 <p>После запуска приложения вы увидите веб-страницу с информацией о состоянии роторного энкодера:</p>
 <ol class="arabic simple">
 <li><p>Большой счетчик в центре страницы, отображающий текущее значение</p></li>
@@ -791,11 +703,11 @@
 <li><p>Круглый индикатор состояния кнопки, меняющий цвет при нажатии</p></li>
 <li><p>Список последних событий (вращения и нажатия кнопки)</p></li>
 </ol>
-<figure class="align-center" id="id15">
+<figure class="align-center" id="id71">
 <a class="reference internal image-reference" href="../../../_images/encoder_web_interface.png"><img alt="../../../_images/encoder_web_interface.png" src="../../../_images/encoder_web_interface.png" style="width: 80%;" />
 </a>
 <figcaption>
-<p><span class="caption-text"><strong>Рис. 2:</strong> Пример веб-интерфейса для роторного энкодера</span><a class="headerlink" href="#id15" title="Ссылка на это изображение"></a></p>
+<p><span class="caption-text"><strong>Рис. 2:</strong> Пример веб-интерфейса для роторного энкодера</span><a class="headerlink" href="#id71" title="Ссылка на это изображение"></a></p>
 </figcaption>
 </figure>
 <p>Теперь вы можете:
@@ -804,8 +716,8 @@
 - Видеть все события в журнале
 - Контролировать энкодер с любого устройства в сети</p>
 </section>
-<section id="id11">
-<h2>Практические применения<a class="headerlink" href="#id11" title="Ссылка на этот заголовок"></a></h2>
+<section id="id67">
+<h2><a class="toc-backref" href="#id81" role="doc-backlink">Практические применения</a><a class="headerlink" href="#id67" title="Ссылка на этот заголовок"></a></h2>
 <p>Роторные энкодеры с веб-интерфейсом могут использоваться во множестве проектов:</p>
 <ol class="arabic simple">
 <li><p><strong>Системы управления умным домом</strong>:
@@ -825,8 +737,8 @@
 - Выбор треков или настройка параметров воспроизведения</p></li>
 </ol>
 </section>
-<section id="id12">
-<h2>Дополнительные задания<a class="headerlink" href="#id12" title="Ссылка на этот заголовок"></a></h2>
+<section id="id68">
+<h2><a class="toc-backref" href="#id82" role="doc-backlink">Дополнительные задания</a><a class="headerlink" href="#id68" title="Ссылка на этот заголовок"></a></h2>
 <ol class="arabic simple">
 <li><p><strong>Добавление визуализации направления</strong>: Добавьте стрелки или анимацию для наглядного отображения направления вращения.</p></li>
 <li><p><strong>Управление устройствами</strong>: Подключите реле или другие устройства, которыми можно управлять через счетчик энкодера.</p></li>
@@ -835,8 +747,8 @@
 <li><p><strong>Длительное нажатие</strong>: Добавьте детектирование длительного нажатия кнопки для выполнения альтернативных действий.</p></li>
 </ol>
 </section>
-<section id="id13">
-<h2>Завершение работы<a class="headerlink" href="#id13" title="Ссылка на этот заголовок"></a></h2>
+<section id="id69">
+<h2><a class="toc-backref" href="#id83" role="doc-backlink">Завершение работы</a><a class="headerlink" href="#id69" title="Ссылка на этот заголовок"></a></h2>
 <p>Для остановки программы нажмите <strong>Ctrl + C</strong> в терминале. Обратите внимание, что поток опроса энкодера автоматически завершится благодаря использованию daemon-потока.</p>
 <p>Поздравляем! 🎉 Вы успешно создали систему мониторинга роторного энкодера через веб-интерфейс. Этот проект демонстрирует, как можно объединить физические устройства ввода с современными веб-технологиями для создания интуитивных и удобных интерфейсов управления.</p>
 </section>
