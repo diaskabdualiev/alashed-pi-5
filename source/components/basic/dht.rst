@@ -34,7 +34,7 @@ DATA              Двухсторонний цифровой сигнал
    * 8 бит — дробная часть температуры  
    * 8 бит — контрольная сумма (checksum)
 
-.. image:: images/Dht11.png
+.. image:: images/Dht11_result.png
    :align: center
 
 Характеристики
