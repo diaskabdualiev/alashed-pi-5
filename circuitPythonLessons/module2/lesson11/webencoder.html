@@ -351,9 +351,9 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1><a class="toc-backref" href="#id72" role="doc-backlink">Энкодер с веб-интерфейсом</a><a class="headerlink" href="#id1" title="Ссылка на этот заголовок"></a></h1>
+<h1>Энкодер с веб-интерфейсом<a class="headerlink" href="#id1" title="Ссылка на этот заголовок"></a></h1>
 <section id="id2">
-<h2><a class="toc-backref" href="#id73" role="doc-backlink">Теоретическая часть</a><a class="headerlink" href="#id2" title="Ссылка на этот заголовок"></a></h2>
+<h2>Теоретическая часть<a class="headerlink" href="#id2" title="Ссылка на этот заголовок"></a></h2>
 <p>Роторный энкодер — это устройство ввода, которое преобразует угловое положение вала в цифровой код. В отличие от потенциометра, энкодер может вращаться бесконечно и позволяет определять не только значение, но и направление вращения. Большинство роторных энкодеров также оснащены кнопкой, срабатывающей при нажатии на вал.</p>
 <p>В этом уроке мы создадим систему мониторинга роторного энкодера через веб-интерфейс, используя:
 - CircuitPython для прямой работы с GPIO и считывания данных с энкодера
@@ -363,7 +363,7 @@
 <p>Такая система может использоваться в различных проектах умного дома, аудиосистемах, пользовательских интерфейсах и других устройствах, где требуется точное управление параметрами.</p>
 </section>
 <section id="id3">
-<h2><a class="toc-backref" href="#id74" role="doc-backlink">Необходимые компоненты</a><a class="headerlink" href="#id3" title="Ссылка на этот заголовок"></a></h2>
+<h2>Необходимые компоненты<a class="headerlink" href="#id3" title="Ссылка на этот заголовок"></a></h2>
 <ul class="simple">
 <li><p>Raspberry Pi</p></li>
 <li><p>Роторный энкодер с кнопкой</p></li>
@@ -372,12 +372,12 @@
 </ul>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id75" role="doc-backlink">Схема подключения</a><a class="headerlink" href="#id4" title="Ссылка на этот заголовок"></a></h2>
-<figure class="align-center" id="id70">
+<h2>Схема подключения<a class="headerlink" href="#id4" title="Ссылка на этот заголовок"></a></h2>
+<figure class="align-center" id="id13">
 <a class="reference internal image-reference" href="../../../_images/rotary_encoder.jpg"><img alt="../../../_images/rotary_encoder.jpg" src="../../../_images/rotary_encoder.jpg" style="width: 80%;" />
 </a>
 <figcaption>
-<p><span class="caption-text"><strong>Рис. 1:</strong> Схема подключения роторного энкодера</span><a class="headerlink" href="#id70" title="Ссылка на это изображение"></a></p>
+<p><span class="caption-text"><strong>Рис. 1:</strong> Схема подключения роторного энкодера</span><a class="headerlink" href="#id13" title="Ссылка на это изображение"></a></p>
 </figcaption>
 </figure>
 <p>Подключите роторный энкодер к Raspberry Pi следующим образом:
@@ -388,14 +388,14 @@
 - VCC (+) -&gt; 3.3V</p>
 </section>
 <section id="id5">
-<h2><a class="toc-backref" href="#id76" role="doc-backlink">Установка необходимых библиотек</a><a class="headerlink" href="#id5" title="Ссылка на этот заголовок"></a></h2>
+<h2>Установка необходимых библиотек<a class="headerlink" href="#id5" title="Ссылка на этот заголовок"></a></h2>
 <p>Перед запуском кода установите Flask и adafruit-blinka (базовая библиотека CircuitPython):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>flask<span class="w"> </span>adafruit-blinka
 </pre></div>
 </div>
 </section>
 <section id="id6">
-<h2><a class="toc-backref" href="#id77" role="doc-backlink">Структура проекта</a><a class="headerlink" href="#id6" title="Ссылка на этот заголовок"></a></h2>
+<h2>Структура проекта<a class="headerlink" href="#id6" title="Ссылка на этот заголовок"></a></h2>
 <p>Создайте следующую структуру файлов:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lessons/
 └──<span class="w"> </span>encoder_web/
@@ -406,7 +406,7 @@
 </div>
 </section>
 <section id="id7">
-<h2><a class="toc-backref" href="#id78" role="doc-backlink">Код программы</a><a class="headerlink" href="#id7" title="Ссылка на этот заголовок"></a></h2>
+<h2>Код программы<a class="headerlink" href="#id7" title="Ссылка на этот заголовок"></a></h2>
 <p><strong>Файл app.py</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">flask</span><span class="w"> </span><span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">jsonify</span><span class="p">,</span> <span class="n">render_template</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">digitalio</span><span class="o">,</span><span class="w"> </span><span class="nn">board</span><span class="o">,</span><span class="w"> </span><span class="nn">threading</span><span class="o">,</span><span class="w"> </span><span class="nn">time</span>
@@ -554,36 +554,9 @@
 </pre></div>
 </div>
 <p># Разбор кода»</p>
-<nav class="contents" id="id8">
-<p class="topic-title">Содержание</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="#id1" id="id72">Энкодер с веб-интерфейсом</a></p>
-<ul>
-<li><p><a class="reference internal" href="#id2" id="id73">Теоретическая часть</a></p></li>
-<li><p><a class="reference internal" href="#id3" id="id74">Необходимые компоненты</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id75">Схема подключения</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id76">Установка необходимых библиотек</a></p></li>
-<li><p><a class="reference internal" href="#id6" id="id77">Структура проекта</a></p></li>
-<li><p><a class="reference internal" href="#id7" id="id78">Код программы</a></p></li>
-<li><p><a class="reference internal" href="#id65" id="id79">Запуск программы</a></p></li>
-<li><p><a class="reference internal" href="#id66" id="id80">Ожидаемый результат</a></p></li>
-<li><p><a class="reference internal" href="#id67" id="id81">Практические применения</a></p></li>
-<li><p><a class="reference internal" href="#id68" id="id82">Дополнительные задания</a></p></li>
-<li><p><a class="reference internal" href="#id69" id="id83">Завершение работы</a></p></li>
-</ul>
-</li>
-</ul>
-</nav>
-<p>:local:</p>
-<p>## Введение</p>
-<p>Этот проект демонстрирует, как считать сигналы квадратурного энкодера и
-кнопку на Raspberry Pi 5 с помощью <em>Adafruit Blinka</em>, обрабатывать их в
-потоке Python и выводить данные в реальном времени через веб-интерфейс
-(F lask + Fetch API).</p>
 <p>## Разбор <em>web_encoder.py</em></p>
 <ol class="arabic">
 <li><p>Настройка GPIO</p>
-<p><a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">PIN_A</span> <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">DigitalInOut</span><span class="p">(</span><span class="n">board</span><span class="o">.</span><span class="n">D17</span><span class="p">)</span>
 <span class="n">PIN_B</span> <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">DigitalInOut</span><span class="p">(</span><span class="n">board</span><span class="o">.</span><span class="n">D18</span><span class="p">)</span>
 <span class="n">BTN</span>   <span class="o">=</span> <span class="n">digitalio</span><span class="o">.</span><span class="n">DigitalInOut</span><span class="p">(</span><span class="n">board</span><span class="o">.</span><span class="n">D27</span><span class="p">)</span>
@@ -595,10 +568,8 @@
 </div>
 <p><em>A</em> и <em>B</em>‑каналы энкодера и кнопка подключены как входы с подтяжкой
 к VCC. В «покое» — логическая 1; при замыкании на GND — логический 0.</p>
-<p><a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a></p>
 </li>
 <li><p>Квадратурный декодер ×4</p>
-<p><a href="#id17"><span class="problematic" id="id18">``</span></a><a href="#id19"><span class="problematic" id="id20">`</span></a></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">_STEP_TAB</span> <span class="o">=</span> <span class="p">{</span>
     <span class="mb">0b0001</span><span class="p">:</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mb">0b0010</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mb">0b0100</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mb">0b0111</span><span class="p">:</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span>
     <span class="mb">0b1000</span><span class="p">:</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mb">0b1011</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mb">0b1101</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mb">0b1110</span><span class="p">:</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span>
@@ -610,20 +581,16 @@
 </div>
 <p>Таблица переходов выдаёт <code class="docutils literal notranslate"><span class="pre">+1</span></code> или <code class="docutils literal notranslate"><span class="pre">-1</span></code> на каждый фронт, тем
 самым получаем максимальную «разрешающую способность» энкодера.</p>
-<p><a href="#id21"><span class="problematic" id="id22">``</span></a><a href="#id23"><span class="problematic" id="id24">`</span></a></p>
 </li>
 <li><p>Антидребезг кнопки</p>
-<p><a href="#id25"><span class="problematic" id="id26">``</span></a><a href="#id27"><span class="problematic" id="id28">`</span></a></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">BTN</span><span class="o">.</span><span class="n">value</span> <span class="ow">and</span> <span class="p">(</span><span class="n">now</span> <span class="o">-</span> <span class="n">t_press</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.02</span><span class="p">:</span>
     <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
 </pre></div>
 </div>
 <p>Кнопка считается нажатой, если уровень LOW удерживается не менее
 20 мс.</p>
-<p><a href="#id29"><span class="problematic" id="id30">``</span></a><a href="#id31"><span class="problematic" id="id32">`</span></a></p>
 </li>
 <li><p>Поток и блокировка</p>
-<p><a href="#id33"><span class="problematic" id="id34">``</span></a><a href="#id35"><span class="problematic" id="id36">`</span></a></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
 <span class="k">with</span> <span class="n">_lock</span><span class="p">:</span>
     <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
@@ -631,10 +598,8 @@
 </div>
 <p>Все операции с <code class="docutils literal notranslate"><span class="pre">counter</span></code> и <code class="docutils literal notranslate"><span class="pre">events</span></code> защищены <code class="docutils literal notranslate"><span class="pre">Lock</span></code>‑ом, чтобы
 избежать гонок между фоновым потоком и Flask‑маршрутами.</p>
-<p><a href="#id37"><span class="problematic" id="id38">``</span></a><a href="#id39"><span class="problematic" id="id40">`</span></a></p>
 </li>
 <li><p>REST‑маршрут</p>
-<p><a href="#id41"><span class="problematic" id="id42">``</span></a><a href="#id43"><span class="problematic" id="id44">`</span></a></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/api/state&#39;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">state</span><span class="p">():</span>
     <span class="k">with</span> <span class="n">_lock</span><span class="p">:</span>
@@ -642,24 +607,20 @@
 </pre></div>
 </div>
 <p>Возвращает JSON c текущим счётчиком, направлением, состоянием
-кнопки и последними 12 событиями.
-<a href="#id45"><span class="problematic" id="id46">``</span></a><a href="#id47"><span class="problematic" id="id48">`</span></a></p>
+кнопки и последними 12 событиями.</p>
 </li>
 </ol>
 <p>## Разбор <em>index.html</em></p>
 <ol class="arabic">
 <li><p>Стилизация</p>
-<p><a href="#id49"><span class="problematic" id="id50">``</span></a><a href="#id51"><span class="problematic" id="id52">`</span></a></p>
 <ul class="simple">
 <li><p>Тёмная тема с переменными <code class="docutils literal notranslate"><span class="pre">--bg</span></code>/<code class="docutils literal notranslate"><span class="pre">--fg</span></code>.</p></li>
 <li><p>Крупный моноширинный счётчик <code class="docutils literal notranslate"><span class="pre">.counter</span></code>.</p></li>
 <li><p>Кнопка‑индикатор <code class="docutils literal notranslate"><span class="pre">.btn-state</span></code> (синий — отпущена, красный — нажата).</p></li>
 <li><p>Прокручиваемый список событий <code class="docutils literal notranslate"><span class="pre">.list</span></code>.</p></li>
 </ul>
-<p><a href="#id53"><span class="problematic" id="id54">``</span></a><a href="#id55"><span class="problematic" id="id56">`</span></a></p>
 </li>
 <li><p>JavaScript</p>
-<p><a href="#id57"><span class="problematic" id="id58">``</span></a><a href="#id59"><span class="problematic" id="id60">`</span></a></p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">function</span><span class="w"> </span><span class="nx">update</span><span class="p">(){</span>
 <span class="w">  </span><span class="nx">fetch</span><span class="p">(</span><span class="s1">&#39;/api/state&#39;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">r</span><span class="p">=&gt;</span><span class="nx">r</span><span class="p">.</span><span class="nx">json</span><span class="p">()).</span><span class="nx">then</span><span class="p">(</span><span class="nx">d</span><span class="p">=&gt;{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">});</span>
 <span class="p">}</span>
@@ -671,15 +632,14 @@
 <li><p>История событий хранится и выводится в обратном порядке — свежие
 события отображаются сверху.</p></li>
 </ul>
-<p><a href="#id61"><span class="problematic" id="id62">``</span></a><a href="#id63"><span class="problematic" id="id64">`</span></a></p>
 </li>
 </ol>
 <p><em>Вывод</em>: новый алгоритм (таблица переходов + дебаунс) обеспечивает
 надёжное считывание даже при быстром вращении, а фронтенд отражает данные
 почти в реальном времени без лишней нагрузки на сеть и CPU.</p>
 </section>
-<section id="id65">
-<h2><a class="toc-backref" href="#id79" role="doc-backlink">Запуск программы</a><a class="headerlink" href="#id65" title="Ссылка на этот заголовок"></a></h2>
+<section id="id8">
+<h2>Запуск программы<a class="headerlink" href="#id8" title="Ссылка на этот заголовок"></a></h2>
 <ol class="arabic">
 <li><p>Сохраните файлы в соответствующих директориях</p></li>
 <li><p>Запустите Flask-приложение:</p>
@@ -694,8 +654,8 @@
 - например: <a class="reference external" href="http://192.168.1.100:5000">http://192.168.1.100:5000</a></p></li>
 </ol>
 </section>
-<section id="id66">
-<h2><a class="toc-backref" href="#id80" role="doc-backlink">Ожидаемый результат</a><a class="headerlink" href="#id66" title="Ссылка на этот заголовок"></a></h2>
+<section id="id9">
+<h2>Ожидаемый результат<a class="headerlink" href="#id9" title="Ссылка на этот заголовок"></a></h2>
 <p>После запуска приложения вы увидите веб-страницу с информацией о состоянии роторного энкодера:</p>
 <ol class="arabic simple">
 <li><p>Большой счетчик в центре страницы, отображающий текущее значение</p></li>
@@ -703,11 +663,11 @@
 <li><p>Круглый индикатор состояния кнопки, меняющий цвет при нажатии</p></li>
 <li><p>Список последних событий (вращения и нажатия кнопки)</p></li>
 </ol>
-<figure class="align-center" id="id71">
-<a class="reference internal image-reference" href="../../../_images/encoder_web_interface.png"><img alt="../../../_images/encoder_web_interface.png" src="../../../_images/encoder_web_interface.png" style="width: 80%;" />
+<figure class="align-center" id="id14">
+<a class="reference internal image-reference" href="../../../_images/image4.png"><img alt="../../../_images/image4.png" src="../../../_images/image4.png" style="width: 80%;" />
 </a>
 <figcaption>
-<p><span class="caption-text"><strong>Рис. 2:</strong> Пример веб-интерфейса для роторного энкодера</span><a class="headerlink" href="#id71" title="Ссылка на это изображение"></a></p>
+<p><span class="caption-text"><strong>Рис. 2:</strong> Пример веб-интерфейса для роторного энкодера</span><a class="headerlink" href="#id14" title="Ссылка на это изображение"></a></p>
 </figcaption>
 </figure>
 <p>Теперь вы можете:
@@ -716,8 +676,8 @@
 - Видеть все события в журнале
 - Контролировать энкодер с любого устройства в сети</p>
 </section>
-<section id="id67">
-<h2><a class="toc-backref" href="#id81" role="doc-backlink">Практические применения</a><a class="headerlink" href="#id67" title="Ссылка на этот заголовок"></a></h2>
+<section id="id10">
+<h2>Практические применения<a class="headerlink" href="#id10" title="Ссылка на этот заголовок"></a></h2>
 <p>Роторные энкодеры с веб-интерфейсом могут использоваться во множестве проектов:</p>
 <ol class="arabic simple">
 <li><p><strong>Системы управления умным домом</strong>:
@@ -737,8 +697,8 @@
 - Выбор треков или настройка параметров воспроизведения</p></li>
 </ol>
 </section>
-<section id="id68">
-<h2><a class="toc-backref" href="#id82" role="doc-backlink">Дополнительные задания</a><a class="headerlink" href="#id68" title="Ссылка на этот заголовок"></a></h2>
+<section id="id11">
+<h2>Дополнительные задания<a class="headerlink" href="#id11" title="Ссылка на этот заголовок"></a></h2>
 <ol class="arabic simple">
 <li><p><strong>Добавление визуализации направления</strong>: Добавьте стрелки или анимацию для наглядного отображения направления вращения.</p></li>
 <li><p><strong>Управление устройствами</strong>: Подключите реле или другие устройства, которыми можно управлять через счетчик энкодера.</p></li>
@@ -747,8 +707,8 @@
 <li><p><strong>Длительное нажатие</strong>: Добавьте детектирование длительного нажатия кнопки для выполнения альтернативных действий.</p></li>
 </ol>
 </section>
-<section id="id69">
-<h2><a class="toc-backref" href="#id83" role="doc-backlink">Завершение работы</a><a class="headerlink" href="#id69" title="Ссылка на этот заголовок"></a></h2>
+<section id="id12">
+<h2>Завершение работы<a class="headerlink" href="#id12" title="Ссылка на этот заголовок"></a></h2>
 <p>Для остановки программы нажмите <strong>Ctrl + C</strong> в терминале. Обратите внимание, что поток опроса энкодера автоматически завершится благодаря использованию daemon-потока.</p>
 <p>Поздравляем! 🎉 Вы успешно создали систему мониторинга роторного энкодера через веб-интерфейс. Этот проект демонстрирует, как можно объединить физические устройства ввода с современными веб-технологиями для создания интуитивных и удобных интерфейсов управления.</p>
 </section>
