@@ -62,358 +62,277 @@
 
 .. code-block:: python
 
-   from flask import Flask, render_template, jsonify
-   import time
-   import board
-   import digitalio
-   import threading
-
-   app = Flask(__name__)
-
-   # Инициализация выводов энкодера
-   # Выходы A и B энкодера подключены к GPIO17 и GPIO18 соответственно
-   pin_a = digitalio.DigitalInOut(board.D17)
-   pin_b = digitalio.DigitalInOut(board.D18)
-   pin_a.direction = digitalio.Direction.INPUT
-   pin_b.direction = digitalio.Direction.INPUT
-   pin_a.pull = digitalio.Pull.UP  # Подтяжка к питанию
-   pin_b.pull = digitalio.Pull.UP  # Подтяжка к питанию
-
-   # Инициализация кнопки энкодера
-   button = digitalio.DigitalInOut(board.D27)  # Кнопка на GPIO27
-   button.direction = digitalio.Direction.INPUT
-   button.pull = digitalio.Pull.UP  # Подтяжка к VCC (кнопка замыкает на GND)
-
-   # Глобальные переменные для хранения состояния
+   from flask import Flask, jsonify, render_template
+   import digitalio, board, threading, time
+   
+   # ──────────── GPIO ────────────
+   PIN_A = digitalio.DigitalInOut(board.D17)
+   PIN_B = digitalio.DigitalInOut(board.D18)
+   BTN   = digitalio.DigitalInOut(board.D27)
+   
+   for pin in (PIN_A, PIN_B, BTN):
+       pin.direction = digitalio.Direction.INPUT
+       pin.pull      = digitalio.Pull.UP      # энкодер «замыкает на GND»
+   
+   # ──────────── глобальное состояние ────────────
    counter = 0
-   button_state = False
-   last_button_state = False
-   last_a_state = pin_a.value
-   last_direction = ""
-   events = []  # для хранения истории событий
-
-   # Блокировка для многопоточного доступа
-   lock = threading.Lock()
-
-   # Функция для опроса энкодера в отдельном потоке
-   def encoder_polling():
-       global counter, button_state, last_button_state, last_a_state, last_direction, events
-       
-       try:
-           print("Роторный энкодер: поворачивайте ручку или нажмите на нее")
-           
-           while True:
-               with lock:
-                   # Считываем текущее состояние выводов энкодера
-                   a_state = pin_a.value
-                   b_state = pin_b.value
-                   
-                   # Если состояние вывода A изменилось, значит произошло вращение
-                   if a_state != last_a_state:
-                       # Определяем направление вращения сравнивая состояния выводов A и B
-                       if b_state != a_state:
-                           direction = "по часовой стрелке"
-                           counter += 1
-                       else:
-                           direction = "против часовой стрелки"
-                           counter -= 1
-                       
-                       # Сохраняем направление и добавляем событие
-                       last_direction = direction
-                       events.append(f"Вращение {direction}, Счетчик: {counter}")
-                       # Ограничиваем историю событий до 10
-                       if len(events) > 10:
-                           events = events[-10:]
-                   
-                   # Обновляем последнее состояние вывода A
-                   last_a_state = a_state
-                   
-                   # Обработка нажатия кнопки
-                   button_state = not button.value  # Инвертируем значение
-                   
-                   # Проверяем изменение состояния кнопки (обнаружение фронта)
-                   if button_state and not last_button_state:
-                       events.append(f"Кнопка нажата! Сброс счетчика с {counter} на 0")
+   direction = "—"
+   button_pressed = False
+   events = []
+   
+   _lock = threading.Lock()
+   
+   # ──────────── квадратурная таблица (Gray) ────────────
+   # transition = (prev<<2)|curr  → ±1 / 0 / error
+   _STEP_TAB = {
+       0b0001: +1, 0b0010: -1, 0b0100: -1, 0b0111: +1,
+       0b1000: +1, 0b1011: -1, 0b1101: -1, 0b1110: +1,
+   }
+   
+   # ──────────── поток опроса ────────────
+   def encoder_worker():
+       global counter, direction, button_pressed, events
+       last_state = (PIN_A.value << 1) | PIN_B.value
+       last_btn   = BTN.value
+       btn_time   = time.monotonic()
+   
+       while True:
+           now_state = (PIN_A.value << 1) | PIN_B.value
+           transition = (last_state << 2) | now_state
+           step = _STEP_TAB.get(transition, 0)
+           if step:
+               counter += step
+               direction = "↻" if step > 0 else "↺"
+               with _lock:
+                   events.append(f"{direction}  →  {counter}")
+                   events[:] = events[-12:]
+           last_state = now_state
+   
+           # — антидребезг кнопки (20 мс) —
+           curr_btn = BTN.value
+           if curr_btn != last_btn:
+               btn_time = time.monotonic()
+               last_btn = curr_btn
+           elif not curr_btn and (time.monotonic() - btn_time) > 0.02:
+               # нажатие подтверждено
+               if not button_pressed:
+                   button_pressed = True
+                   with _lock:
+                       events.append(f"Кнопка: сброс счётчика ({counter}→0)")
                        counter = 0
-                   
-                   # Обновляем последнее состояние кнопки
-                   last_button_state = button_state
-               
-               # Небольшая задержка для стабилизации
-               time.sleep(0.01)
-               
-       except Exception as e:
-           print(f"Ошибка в потоке опроса энкодера: {e}")
-
-   # Маршрут для главной страницы
-   @app.route('/')
+                       events[:] = events[-12:]
+           else:
+               button_pressed = False
+   
+           time.sleep(0.001)   # 1 кГц опроса
+   
+   # ──────────── Flask ────────────
+   app = Flask(__name__)
+   
+   @app.route("/")
    def index():
-       return render_template('index.html')
+       return render_template("index.html")      # ваш шаблон
+   
+   @app.route("/api/state")
+   def state():
+       with _lock:
+           return jsonify(
+               counter=counter,
+               direction=direction,
+               button=button_pressed,
+               events=list(events),
+           )
+   
+   # ──────────── запуск ────────────
+   if __name__ == "__main__":
+       threading.Thread(target=encoder_worker, daemon=True).start()
+       app.run(host="0.0.0.0", port=5000, threaded=True)
 
-   # API для получения текущего состояния энкодера
-   @app.route('/api/encoder-state')
-   def encoder_state():
-       with lock:
-           return jsonify({
-               'counter': counter,
-               'button_state': button_state,
-               'last_direction': last_direction,
-               'events': events
-           })
-
-   # Запуск потока опроса энкодера
-   def start_encoder_thread():
-       encoder_thread = threading.Thread(target=encoder_polling, daemon=True)
-       encoder_thread.start()
-
-   if __name__ == '__main__':
-       # Запускаем поток для опроса энкодера
-       start_encoder_thread()
-       
-       # Запускаем веб-сервер Flask
-       app.run(host='0.0.0.0', port=5000, debug=False, threaded=True)
 
 **Файл templates/index.html**
 
 .. code-block:: html
 
-   <!DOCTYPE html>
-   <html lang="ru">
-   <head>
-       <meta charset="UTF-8">
-       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-       <title>Роторный энкодер</title>
-       <style>
-           body {
-               font-family: Arial, sans-serif;
-               margin: 0;
-               padding: 20px;
-               max-width: 600px;
-               margin: 0 auto;
-               text-align: center;
-           }
-           h1 {
-               margin-bottom: 20px;
-           }
-           .counter-display {
-               font-size: 72px;
-               font-weight: bold;
-               margin: 30px 0;
-               font-family: monospace;
-               color: #2c3e50;
-           }
-           .button-state {
-               padding: 10px;
-               margin: 20px 0;
-               border-radius: 50%;
-               width: 80px;
-               height: 80px;
-               line-height: 80px;
-               display: inline-block;
-               font-weight: bold;
-               color: white;
-           }
-           .button-pressed {
-               background-color: #e74c3c;
-           }
-           .button-released {
-               background-color: #3498db;
-           }
-           .direction {
-               font-size: 24px;
-               margin: 20px 0;
-               font-style: italic;
-               color: #7f8c8d;
-           }
-           .events-container {
-               margin-top: 30px;
-               border: 1px solid #ddd;
-               border-radius: 5px;
-               padding: 10px;
-               background-color: #f9f9f9;
-               text-align: left;
-           }
-           .events-list {
-               height: 200px;
-               overflow-y: auto;
-               border: 1px solid #eee;
-               padding: 10px;
-               background-color: white;
-           }
-           .event-item {
-               padding: 5px;
-               border-bottom: 1px solid #eee;
-           }
-       </style>
-   </head>
-   <body>
-       <h1>Мониторинг роторного энкодера</h1>
-       
-       <div class="counter-display" id="counter">0</div>
-       
-       <div class="direction" id="direction">Ожидание вращения...</div>
-       
-       <div class="button-state button-released" id="button-state">Кнопка</div>
-       
-       <div class="events-container">
-           <h3>История событий:</h3>
-           <div class="events-list" id="events-list"></div>
-       </div>
+      <!DOCTYPE html>
+      <html lang="ru">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Монитор энкодера</title>
+          <style>
+              :root{
+                  --bg:#0e1117;--fg:#e6edf3;--accent:#2f81f7;--danger:#dc3545;
+                  font-family:system-ui,Arial,sans-serif;
+              }
+              body{margin:0;background:var(--bg);color:var(--fg);display:flex;flex-direction:column;align-items:center;padding:2rem 1rem;min-height:100vh;}
+              h1{margin:0 0 1.5rem;font-size:1.6rem;text-align:center;}
+              .counter{font:700 4rem "Courier New",monospace;margin:1rem 0;}
+              .dir{font-size:2rem;height:2rem;margin:0.5rem 0;opacity:0.8;}
+              .btn-state{width:90px;height:90px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;margin:1rem 0;}
+              .pressed{background:var(--danger);} .released{background:var(--accent);}    
+              .events{width:100%;max-width:480px;background:#161b22;border:1px solid #30363d;border-radius:8px;padding:1rem;margin-top:2rem;}
+              .events h3{margin:0 0 .5rem;font-size:1rem;}
+              .list{max-height:200px;overflow-y:auto;font-size:0.9rem;line-height:1.4}
+              .event{border-bottom:1px solid #30363d;padding:2px 0;}
+          </style>
+      </head>
+      <body>
+          <h1>🎛️ Роторный энкодер Live</h1>
+          <div class="counter" id="counter">0</div>
+          <div class="dir" id="direction">—</div>
+          <div class="btn-state released" id="btn">Кнопка</div>
+      
+          <div class="events">
+              <h3>История (12 посл. событий)</h3>
+              <div class="list" id="events"></div>
+          </div>
+      
+      <script>
+      function update(){
+        fetch('/api/state')
+          .then(r=>r.json())
+          .then(d=>{
+              document.getElementById('counter').textContent=d.counter;
+              document.getElementById('direction').textContent=d.direction||'—';
+              const btn=document.getElementById('btn');
+              if(d.button){btn.className='btn-state pressed';btn.textContent='НАЖАТА'}
+              else{btn.className='btn-state released';btn.textContent='Не нажата'}
+              const wrap=document.getElementById('events');
+              wrap.innerHTML='';
+              d.events.slice().reverse().forEach(e=>{
+                const div=document.createElement('div');div.className='event';div.textContent=e;wrap.appendChild(div);
+              });
+          }).catch(err=>console.error(err));
+      }
+      update();setInterval(update,150);
+      </script>
+      </body>
+      </html>
 
-       <script>
-           // Функция для обновления данных с сервера
-           function updateEncoderData() {
-               fetch('/api/encoder-state')
-                   .then(response => response.json())
-                   .then(data => {
-                       // Обновляем счетчик
-                       document.getElementById('counter').textContent = data.counter;
-                       
-                       // Обновляем информацию о направлении
-                       if (data.last_direction) {
-                           document.getElementById('direction').textContent = 
-                               'Последнее направление: ' + data.last_direction;
-                       }
-                       
-                       // Обновляем состояние кнопки
-                       const buttonElement = document.getElementById('button-state');
-                       if (data.button_state) {
-                           buttonElement.textContent = 'НАЖАТА';
-                           buttonElement.className = 'button-state button-pressed';
-                       } else {
-                           buttonElement.textContent = 'Не нажата';
-                           buttonElement.className = 'button-state button-released';
-                       }
-                       
-                       // Обновляем список событий
-                       const eventsListElement = document.getElementById('events-list');
-                       eventsListElement.innerHTML = '';
-                       
-                       // Добавляем элементы событий в обратном порядке (новые сверху)
-                       data.events.slice().reverse().forEach(event => {
-                           const eventItem = document.createElement('div');
-                           eventItem.className = 'event-item';
-                           eventItem.textContent = event;
-                           eventsListElement.appendChild(eventItem);
-                       });
-                   })
-                   .catch(error => {
-                       console.error('Ошибка получения данных:', error);
-                   });
-           }
-           
-           // Обновляем данные сразу при загрузке страницы
-           updateEncoderData();
-           
-           // Затем обновляем каждые 100 мс для быстрого отклика
-           setInterval(updateEncoderData, 100);
-       </script>
-   </body>
-   </html>
 
-Разбор кода
----------------------------
+# Разбор кода»
 
-**Разбор app.py:**
+.. contents:: Содержание
+\:local:
 
-1. **Настройка и инициализация GPIO:**
-   
-.. code-block:: python
-    
-    pin_a = digitalio.DigitalInOut(board.D17)
-    pin_b = digitalio.DigitalInOut(board.D18)
-    pin_a.direction = digitalio.Direction.INPUT
-    pin_b.direction = digitalio.Direction.INPUT
-    pin_a.pull = digitalio.Pull.UP
-    pin_b.pull = digitalio.Pull.UP
-    
-    button = digitalio.DigitalInOut(board.D27)
-    button.direction = digitalio.Direction.INPUT
-    button.pull = digitalio.Pull.UP
+## Введение
 
-   
-   - Настраиваем пины GPIO для контактов энкодера (A и B) и кнопки
-   - Устанавливаем их как входы с подтяжкой к высокому уровню (Pull-Up)
-   - Это обеспечивает стабильное состояние HIGH, когда контакты не активны
+Этот проект демонстрирует, как считать сигналы квадратурного энкодера и
+кнопку на Raspberry Pi 5 с помощью *Adafruit Blinka*, обрабатывать их в
+потоке Python и выводить данные в реальном времени через веб-интерфейс
+(F lask + Fetch API).
 
-2. **Алгоритм определения направления вращения:**
-   
+## Разбор *web\_encoder.py*
+
+1. Настройка GPIO
+
+   ```
+
    .. code-block:: python
 
-    if a_state != last_a_state:
-        if b_state != a_state:
-            direction = "по часовой стрелке"
-            counter += 1
-        else:
-            direction = "против часовой стрелки"
-            counter -= 1
-   
-   - Энкодеры обычно генерируют два сигнала (A и B), смещенные по фазе на 90 градусов
-   - Когда сигнал A меняется, мы проверяем состояние сигнала B
-   - Если A и B находятся в противоположных состояниях, вращение происходит по часовой стрелке
-   - Если A и B находятся в одинаковом состоянии, вращение происходит против часовой стрелки
+      PIN_A = digitalio.DigitalInOut(board.D17)
+      PIN_B = digitalio.DigitalInOut(board.D18)
+      BTN   = digitalio.DigitalInOut(board.D27)
 
-3. **Обработка нажатия кнопки:**
-   
-    .. code-block:: python
+      for pin in (PIN_A, PIN_B, BTN):
+          pin.direction = digitalio.Direction.INPUT
+          pin.pull      = digitalio.Pull.UP
 
-        button_state = not button.value
-        if button_state and not last_button_state:
-            events.append(f"Кнопка нажата! Сброс счетчика с {counter} на 0")
-            counter = 0
+   *A* и *B*‑каналы энкодера и кнопка подключены как входы с подтяжкой
+   к VCC. В «покое» — логическая 1; при замыкании на GND — логический 0.
 
-   
-   - Инвертируем значение `button.value`, так как при нажатии оно становится LOW из-за подтяжки
-   - Используем детектор фронта (сравнение с предыдущим состоянием), чтобы реагировать только на момент нажатия
-   - При нажатии сбрасываем счетчик и записываем событие в историю
+   ```
+2. Квадратурный декодер ×4
 
-4. **Многопоточность и безопасность:**
-   
+   ```
+
    .. code-block:: python
 
-        lock = threading.Lock()
-        
-        def encoder_polling():
-            # ...
-            with lock:
-                # Безопасный доступ к общим данным
-        
-        @app.route('/api/encoder-state')
-        def encoder_state():
-            with lock:
-                # Безопасный доступ к общим данным
+      _STEP_TAB = {
+          0b0001:+1, 0b0010:-1, 0b0100:-1, 0b0111:+1,
+          0b1000:+1, 0b1011:-1, 0b1101:-1, 0b1110:+1,
+      }
 
-   
-   - Используем `threading.Lock()` для создания блокировки
-   - Оборачиваем весь код, работающий с общими данными, в блок `with lock:` для избежания гонок данных
-   - Это гарантирует, что данные не изменятся в середине чтения веб-API
+      transition = (prev_state << 2) | curr_state
+      step       = _STEP_TAB.get(transition, 0)
 
-**Разбор index.html:**
+   Таблица переходов выдаёт ``+1`` или ``-1`` на каждый фронт, тем
+   самым получаем максимальную «разрешающую способность» энкодера.
 
-1. **Стили и визуальное представление:**
-   
-   - Создаем большой дисплей для счетчика
-   - Отображаем направление вращения и состояние кнопки
-   - Показываем историю событий в прокручиваемом списке
-   - Используем разные цвета для состояний кнопки (нажата/отпущена)
+   ```
+3. Антидребезг кнопки
 
-2. **JavaScript для обновления данных:**
-   
-    .. code-block:: javascript
+   ```
 
-        function updateEncoderData() {
-            fetch('/api/encoder-state')
-                .then(response => response.json())
-                .then(data => {
-                    // Обновление элементов интерфейса
-                });
-        }
-        
-        setInterval(updateEncoderData, 100);
-   
-   - Используем Fetch API для получения данных с сервера
-   - Обновляем элементы DOM на основе полученных данных
-   - Устанавливаем интервал обновления 100 мс для обеспечения плавного отклика интерфейса
+   .. code-block:: python
+
+      if not BTN.value and (now - t_press) > 0.02:
+          counter = 0
+
+   Кнопка считается нажатой, если уровень LOW удерживается не менее
+   20 мс.
+
+   ```
+4. Поток и блокировка
+
+   ```
+
+   .. code-block:: python
+
+      _lock = threading.Lock()
+      with _lock:
+          events.append(...)
+
+   Все операции с ``counter`` и ``events`` защищены ``Lock``‑ом, чтобы
+   избежать гонок между фоновым потоком и Flask‑маршрутами.
+
+   ```
+5. REST‑маршрут
+
+   ```
+
+   .. code-block:: python
+
+      @app.route('/api/state')
+      def state():
+          with _lock:
+              return jsonify(...)
+
+   Возвращает JSON c текущим счётчиком, направлением, состоянием
+   кнопки и последними 12 событиями.
+   ```
+
+## Разбор *index.html*
+
+1. Стилизация
+
+   ```
+
+   * Тёмная тема с переменными ``--bg``/``--fg``.
+   * Крупный моноширинный счётчик ``.counter``.
+   * Кнопка‑индикатор ``.btn-state`` (синий — отпущена, красный — нажата).
+   * Прокручиваемый список событий ``.list``.
+
+   ```
+2. JavaScript
+
+   ```
+
+   .. code-block:: javascript
+
+      function update(){
+        fetch('/api/state').then(r=>r.json()).then(d=>{ ... });
+      }
+      setInterval(update, 150);
+
+   * Раз в 150 мс запрашивает JSON и обновляет DOM.
+   * История событий хранится и выводится в обратном порядке — свежие
+     события отображаются сверху.
+   ```
+
+*Вывод*: новый алгоритм (таблица переходов + дебаунс) обеспечивает
+надёжное считывание даже при быстром вращении, а фронтенд отражает данные
+почти в реальном времени без лишней нагрузки на сеть и CPU.
 
 Запуск программы
 -------------------------------
